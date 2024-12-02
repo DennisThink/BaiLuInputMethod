@@ -18,6 +18,7 @@
 
 CCandidateWindow::CCandidateWindow(_In_ CANDWNDCALLBACK pfnCallback, _In_ void *pv, _In_ CCandidateRange *pIndexRange, _In_ BOOL isStoreAppMode)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::CCandidateWindow"));
     _currentSelection = 0;
 
     _SetTextColor(CANDWND_ITEM_COLOR, GetSysColor(COLOR_WINDOW));    // text color is black
@@ -50,6 +51,7 @@ CCandidateWindow::CCandidateWindow(_In_ CANDWNDCALLBACK pfnCallback, _In_ void *
 
 CCandidateWindow::~CCandidateWindow()
 {
+    Global::LogInfo(TEXT("CCandidateWindow::~CCandidateWindow"));
     _ClearList();
     _DeleteShadowWnd();
     _DeleteVScrollBarWnd();
@@ -64,6 +66,7 @@ CCandidateWindow::~CCandidateWindow()
 
 BOOL CCandidateWindow::_Create(ATOM atom, _In_ UINT wndWidth, _In_opt_ HWND parentWndHandle)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::~_Create"));
     BOOL ret = FALSE;
     _wndWidth = wndWidth;
 
@@ -93,6 +96,7 @@ Exit:
 
 BOOL CCandidateWindow::_CreateMainWindow(ATOM atom, _In_opt_ HWND parentWndHandle)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::~_CreateMainWindow"));
     _SetUIWnd(this);
 
     if (!CBaseWindow::_Create(atom,
@@ -108,6 +112,7 @@ BOOL CCandidateWindow::_CreateMainWindow(ATOM atom, _In_opt_ HWND parentWndHandl
 
 BOOL CCandidateWindow::_CreateBackGroundShadowWindow()
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_CreateBackGroundShadowWindow"));
     _pShadowWnd = new (std::nothrow) CShadowWindow(this);
     if (_pShadowWnd == nullptr)
     {
@@ -127,6 +132,7 @@ BOOL CCandidateWindow::_CreateBackGroundShadowWindow()
 
 BOOL CCandidateWindow::_CreateVScrollWindow()
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_CreateVScrollWindow"));
     BOOL ret = FALSE;
 
     SHELL_MODE shellMode = _isStoreAppMode ? STOREAPP : DESKTOP;
@@ -157,6 +163,7 @@ Exit:
 
 void CCandidateWindow::_ResizeWindow()
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_ResizeWindow"));
     SIZE size = {0, 0};
 
     _cxTitle = max(_cxTitle, size.cx + 2 * GetSystemMetrics(SM_CXFRAME));
@@ -183,6 +190,7 @@ void CCandidateWindow::_ResizeWindow()
 
 void CCandidateWindow::_Move(int x, int y)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_Move"));
     CBaseWindow::_Move(x, y);
 }
 
@@ -194,6 +202,7 @@ void CCandidateWindow::_Move(int x, int y)
 
 void CCandidateWindow::_Show(BOOL isShowWnd)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::isShowWnd"));
     if (_pShadowWnd)
     {
         _pShadowWnd->_Show(isShowWnd);
@@ -210,12 +219,14 @@ void CCandidateWindow::_Show(BOOL isShowWnd)
 
 VOID CCandidateWindow::_SetTextColor(_In_ COLORREF crColor, _In_ COLORREF crBkColor)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_SetTextColor"));
     _crTextColor = _AdjustTextColor(crColor, crBkColor);
     _crBkColor = crBkColor;
 }
 
 VOID CCandidateWindow::_SetFillColor(_In_ HBRUSH hBrush)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_SetFillColor"));
     _brshBkColor = hBrush;
 }
 
@@ -231,6 +242,7 @@ const int StringPosition = 4;
 
 LRESULT CALLBACK CCandidateWindow::_WindowProcCallback(_In_ HWND wndHandle, UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_WindowProcCallback"));
     switch (uMsg)
     {
     case WM_CREATE:
@@ -395,6 +407,7 @@ LRESULT CALLBACK CCandidateWindow::_WindowProcCallback(_In_ HWND wndHandle, UINT
 
 void CCandidateWindow::_HandleMouseMsg(_In_ UINT mouseMsg, _In_ POINT point)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_HandleMouseMsg"));
     switch (mouseMsg)
     {
     case WM_MOUSEMOVE:
@@ -417,6 +430,7 @@ void CCandidateWindow::_HandleMouseMsg(_In_ UINT mouseMsg, _In_ POINT point)
 
 void CCandidateWindow::_OnPaint(_In_ HDC dcHandle, _In_ PAINTSTRUCT *pPaintStruct)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_OnPaint"));
     SetBkMode(dcHandle, TRANSPARENT);
 
     HFONT hFontOld = (HFONT)SelectObject(dcHandle, Global::defaultlFontHandle);
@@ -447,6 +461,7 @@ cleanup:
 
 void CCandidateWindow::_OnLButtonDown(POINT pt)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_OnLButtonDown"));
     RECT rcWindow = {0, 0, 0, 0};;
     _GetClientRect(&rcWindow);
 
@@ -506,6 +521,7 @@ void CCandidateWindow::_OnLButtonDown(POINT pt)
 
 void CCandidateWindow::_OnLButtonUp(POINT pt)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_OnLButtonUp"));
     if (nullptr == _pVScrollBarWnd)
     {
         return;
@@ -533,6 +549,7 @@ void CCandidateWindow::_OnLButtonUp(POINT pt)
 
 void CCandidateWindow::_OnMouseMove(POINT pt)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_OnMouseMove"));
     RECT rcWindow = {0, 0, 0, 0};
 
     _GetClientRect(&rcWindow);
@@ -573,6 +590,7 @@ void CCandidateWindow::_OnMouseMove(POINT pt)
 
 void CCandidateWindow::_OnVScroll(DWORD dwSB, _In_ DWORD nPos)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_OnVScroll"));
     switch (dwSB)
     {
     case SB_LINEDOWN:
@@ -606,6 +624,7 @@ void CCandidateWindow::_OnVScroll(DWORD dwSB, _In_ DWORD nPos)
 
 void CCandidateWindow::_DrawList(_In_ HDC dcHandle, _In_ UINT iIndex, _In_ RECT *prc)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_DrawList"));
     int pageCount = 0;
     int candidateListPageCnt = _pIndexRange->Count();
 
@@ -673,6 +692,7 @@ void CCandidateWindow::_DrawList(_In_ HDC dcHandle, _In_ UINT iIndex, _In_ RECT 
 //----------------------------------------------------------------------------
 void CCandidateWindow::_DrawBorder(_In_ HWND wndHandle, _In_ int cx)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_DrawBorder"));
     RECT rcWnd;
 
     HDC dcHandle = GetWindowDC(wndHandle);
@@ -704,6 +724,7 @@ void CCandidateWindow::_DrawBorder(_In_ HWND wndHandle, _In_ int cx)
 
 void CCandidateWindow::_AddString(_Inout_ CCandidateListItem *pCandidateItem, _In_ BOOL isAddFindKeyCode)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_AddString"));
     DWORD_PTR dwItemString = pCandidateItem->_ItemString.GetLength();
     const WCHAR* pwchString = nullptr;
     if (dwItemString)
@@ -769,6 +790,7 @@ void CCandidateWindow::_AddString(_Inout_ CCandidateListItem *pCandidateItem, _I
 
 void CCandidateWindow::_ClearList()
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_ClearList"));
     for (UINT index = 0; index < _candidateList.Count(); index++)
     {
         CCandidateListItem* pItemList = nullptr;
@@ -789,6 +811,7 @@ void CCandidateWindow::_ClearList()
 
 void CCandidateWindow::_SetScrollInfo(_In_ int nMax, _In_ int nPage)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_SetScrollInfo"));
     CScrollInfo si;
     si.nMax = nMax;
     si.nPage = nPage;
@@ -808,6 +831,7 @@ void CCandidateWindow::_SetScrollInfo(_In_ int nMax, _In_ int nPage)
 
 DWORD CCandidateWindow::_GetCandidateString(_In_ int iIndex, _Outptr_result_maybenull_z_ const WCHAR **ppwchCandidateString)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_GetCandidateString"));
     CCandidateListItem* pItemList = nullptr;
 
     if (iIndex < 0 )
@@ -840,6 +864,7 @@ DWORD CCandidateWindow::_GetCandidateString(_In_ int iIndex, _Outptr_result_mayb
 
 DWORD CCandidateWindow::_GetSelectedCandidateString(_Outptr_result_maybenull_ const WCHAR **ppwchCandidateString)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_GetSelectedCandidateString"));
     CCandidateListItem* pItemList = nullptr;
 
     if (_currentSelection >= _candidateList.Count())
@@ -864,6 +889,7 @@ DWORD CCandidateWindow::_GetSelectedCandidateString(_Outptr_result_maybenull_ co
 
 BOOL CCandidateWindow::_SetSelectionInPage(int nPos)
 {	
+    Global::LogInfo(TEXT("CCandidateWindow::_SetSelectionInPage"));
     if (nPos < 0)
     {
         return FALSE;
@@ -895,6 +921,7 @@ BOOL CCandidateWindow::_SetSelectionInPage(int nPos)
 
 BOOL CCandidateWindow::_MoveSelection(_In_ int offSet, _In_ BOOL isNotify)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_MoveSelection"));
     if (_currentSelection + offSet >= _candidateList.Count())
     {
         return FALSE;
@@ -920,6 +947,7 @@ BOOL CCandidateWindow::_MoveSelection(_In_ int offSet, _In_ BOOL isNotify)
 
 BOOL CCandidateWindow::_SetSelection(_In_ int selectedIndex, _In_ BOOL isNotify)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_SetSelection"));
     if (selectedIndex == -1)
     {
         selectedIndex = _candidateList.Count() - 1;
@@ -955,6 +983,7 @@ BOOL CCandidateWindow::_SetSelection(_In_ int selectedIndex, _In_ BOOL isNotify)
 //----------------------------------------------------------------------------
 void CCandidateWindow::_SetSelection(_In_ int nIndex)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_SetSelection"));
     _currentSelection = nIndex;
 }
 
@@ -966,6 +995,7 @@ void CCandidateWindow::_SetSelection(_In_ int nIndex)
 
 BOOL CCandidateWindow::_MovePage(_In_ int offSet, _In_ BOOL isNotify)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_MovePage"));
     if (offSet == 0)
     {
         return TRUE;
@@ -1018,6 +1048,7 @@ BOOL CCandidateWindow::_MovePage(_In_ int offSet, _In_ BOOL isNotify)
 
 BOOL CCandidateWindow::_SetSelectionOffset(_In_ int offSet)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_SetSelectionOffset"));
 	if (_currentSelection + offSet >= _candidateList.Count())
     {
         return FALSE;
@@ -1068,6 +1099,7 @@ BOOL CCandidateWindow::_SetSelectionOffset(_In_ int offSet)
 
 HRESULT CCandidateWindow::_GetPageIndex(UINT *pIndex, _In_ UINT uSize, _Inout_ UINT *puPageCnt)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_GetPageIndex"));
     HRESULT hr = S_OK;
 
     if (uSize > _PageIndex.Count())

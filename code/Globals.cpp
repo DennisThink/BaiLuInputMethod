@@ -10,8 +10,10 @@
 #include "BaseWindow.h"
 #include "define.h"
 #include "SampleIMEBaseStructure.h"
+#include "Globals.h"
 
 namespace Global {
+HANDLE g_hLogFile = INVALID_HANDLE_VALUE;
 HINSTANCE dllInstanceHandle;
 
 LONG dllRefCount = -1;
@@ -456,5 +458,59 @@ BOOL UpdateModifiers(WPARAM wParam, LPARAM lParam)
 BOOL CompareElements(LCID locale, const CStringRange* pElement1, const CStringRange* pElement2)
 {
     return (CStringRange::Compare(locale, (CStringRange*)pElement1, (CStringRange*)pElement2) == CSTR_EQUAL) ? TRUE : FALSE;
+}
+void OpenLogFile()
+{
+    if (g_hLogFile == INVALID_HANDLE_VALUE)
+    {
+        // 打开或创建日志文件
+        g_hLogFile = CreateFile(TEXT("BaiLuInputLog.txt"),
+            GENERIC_WRITE,
+            FILE_SHARE_READ,
+            NULL,
+            OPEN_ALWAYS,
+            FILE_ATTRIBUTE_NORMAL,
+            NULL);
+    }
+    
+    if (g_hLogFile != INVALID_HANDLE_VALUE) {
+        // 将文件指针移动到文件末尾
+        SetFilePointer(g_hLogFile, 0, NULL, FILE_END);
+        LogInfo(TEXT("DLL loaded successfully."));
+    }
+    else {
+        OutputDebugString(TEXT("Failed to open log file.\n"));
+    }
+}
+void LogInfo(const TCHAR* message)
+{
+    if (g_hLogFile != INVALID_HANDLE_VALUE) {
+        SYSTEMTIME time;
+        GetLocalTime(&time);
+        TCHAR buffer[1024] = { 0 };
+        wsprintf(buffer, TEXT("[%04d-%02d-%02d %02d:%02d:%02d] %s"),
+            time.wYear, time.wMonth, time.wDay,
+            time.wHour, time.wMinute, time.wSecond,
+            message);
+        {
+            DWORD bytesWritten;
+            // 写入文件
+            WriteFile(g_hLogFile, buffer, lstrlen(buffer) * sizeof(TCHAR), &bytesWritten, NULL);
+            // 写入换行符（需要考虑字符集）
+#ifdef _UNICODE
+            const TCHAR* newline = L"\r\n";
+#else
+            const TCHAR* newline = "\r\n";
+#endif
+            WriteFile(g_hLogFile, newline, lstrlen(newline) * sizeof(TCHAR), &bytesWritten, NULL);
+        }
+    }
+}
+void CloseLogFile()
+{
+    if (g_hLogFile != INVALID_HANDLE_VALUE) {
+        CloseHandle(g_hLogFile);
+        g_hLogFile = INVALID_HANDLE_VALUE;
+    }
 }
 }

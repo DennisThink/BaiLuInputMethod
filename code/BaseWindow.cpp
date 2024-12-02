@@ -19,6 +19,7 @@
 
 CBaseWindow::CBaseWindow()
 {
+    Global::LogInfo(TEXT("CBaseWindow::CBaseWindow"));
     _wndHandle = nullptr;
     _pParentWnd = nullptr;
     _pUIWnd = nullptr;
@@ -42,6 +43,7 @@ CBaseWindow::CBaseWindow()
 
 CBaseWindow::~CBaseWindow()
 {
+    Global::LogInfo(TEXT("CBaseWindow::~CBaseWindow"));
     _SetThis(_wndHandle, nullptr);
 }
 
@@ -54,6 +56,7 @@ CBaseWindow::~CBaseWindow()
 /* static */
 BOOL CBaseWindow::_InitWindowClass(_In_ LPCWSTR lpwszClassName, _Out_ ATOM *patom)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_InitWindowClass"));
     WNDCLASS wc;
 
     wc.style         = CS_DBLCLKS | CS_HREDRAW | CS_VREDRAW | CS_IME;
@@ -81,6 +84,7 @@ BOOL CBaseWindow::_InitWindowClass(_In_ LPCWSTR lpwszClassName, _Out_ ATOM *pato
 /* static */
 void CBaseWindow::_UninitWindowClass(ATOM atom)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_UninitWindowClass"));
     if (atom != 0)
     {
         UnregisterClass((LPCTSTR)atom, Global::dllInstanceHandle);
@@ -95,6 +99,7 @@ void CBaseWindow::_UninitWindowClass(ATOM atom)
 
 BOOL CBaseWindow::_Create(ATOM atom, DWORD dwExStyle, DWORD dwStyle, _In_opt_ CBaseWindow *pParentWnd, int wndWidth, int wndHeight, _In_opt_ HWND parentWndHandle)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_Create"));
     _pParentWnd = pParentWnd;
 
     if (atom != 0)
@@ -129,6 +134,7 @@ BOOL CBaseWindow::_Create(ATOM atom, DWORD dwExStyle, DWORD dwStyle, _In_opt_ CB
 
 void CBaseWindow::_Destroy()
 {
+    Global::LogInfo(TEXT("CBaseWindow::_Destroy"));
     if (_wndHandle != nullptr)
     {
         DestroyWindow(_wndHandle);
@@ -144,6 +150,7 @@ void CBaseWindow::_Destroy()
 
 void CBaseWindow::_Move(int x, int y)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_Move"));
     if (_wndHandle != nullptr)
     {
         SetWindowPos(_wndHandle, 0, x, y, 0, 0, SWP_NOACTIVATE | SWP_NOSIZE | SWP_NOZORDER);
@@ -168,6 +175,7 @@ void CBaseWindow::_Move(int x, int y)
 
 void CBaseWindow::_Resize(int x, int y, int cx, int cy)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_Resize"));
     if (_wndHandle != nullptr)
     {
         MoveWindow(_wndHandle, x, y, cx, cy, TRUE);
@@ -189,6 +197,7 @@ void CBaseWindow::_Resize(int x, int y, int cx, int cy)
 
 void CBaseWindow::_Show(BOOL isShowWnd)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_Show"));
     if (_wndHandle != nullptr)
     {
         if (isShowWnd)
@@ -214,6 +223,7 @@ void CBaseWindow::_Show(BOOL isShowWnd)
 
 BOOL CBaseWindow::_IsWindowVisible()
 {
+    Global::LogInfo(TEXT("CBaseWindow::_IsWindowVisible"));
     if (_wndHandle != nullptr)
     {
         return IsWindowVisible(_wndHandle);
@@ -232,6 +242,7 @@ BOOL CBaseWindow::_IsWindowVisible()
 
 void CBaseWindow::_Enable(BOOL enableWindowReceiveInput)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_Enable"));
     if (_wndHandle != nullptr)
     {
         EnableWindow(_wndHandle, enableWindowReceiveInput);
@@ -250,6 +261,7 @@ void CBaseWindow::_Enable(BOOL enableWindowReceiveInput)
 
 BOOL CBaseWindow::_IsEnabled()
 {
+    Global::LogInfo(TEXT("CBaseWindow::_IsEnabled"));
     if (_wndHandle != nullptr)
     {
         return IsWindowEnabled(_wndHandle);
@@ -268,6 +280,7 @@ BOOL CBaseWindow::_IsEnabled()
 
 void CBaseWindow::_InvalidateRect()
 {
+    Global::LogInfo(TEXT("CBaseWindow::_InvalidateRect"));
     if (_wndHandle != nullptr)
     {
         InvalidateRect(_wndHandle, NULL, TRUE);
@@ -295,6 +308,7 @@ void CBaseWindow::_InvalidateRect()
 
 BOOL CBaseWindow::_GetWindowRect(_Inout_ LPRECT lpRect)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_GetWindowRect"));
     if (_wndHandle != nullptr)
     {
         return GetWindowRect(_wndHandle, lpRect);
@@ -314,6 +328,7 @@ BOOL CBaseWindow::_GetWindowRect(_Inout_ LPRECT lpRect)
 
 BOOL CBaseWindow::_GetClientRect(_Inout_ LPRECT lpRect)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_GetClientRect"));
     if (_wndHandle != nullptr)
     {
         return GetClientRect(_wndHandle, lpRect);
@@ -333,6 +348,7 @@ BOOL CBaseWindow::_GetClientRect(_Inout_ LPRECT lpRect)
 
 HRESULT CBaseWindow::_GetWindowExtent(_In_ const RECT *prcTextExtent, _In_opt_ RECT *prcCandidateExtent, _Inout_ POINT *pptCandidate)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_GetWindowExtent"));
     RECT rcWorkArea = {0, 0, 0, 0};
 
     // Get work area
@@ -355,6 +371,7 @@ HRESULT CBaseWindow::_GetWindowExtent(_In_ const RECT *prcTextExtent, _In_opt_ R
 
 void CBaseWindow::CalcFitPointAroundTextExtent(_In_ const RECT *prcTextExtent, _In_ const RECT *prcWorkArea, _In_ const RECT *prcWindow, _Out_ POINT *ppt)
 {
+    Global::LogInfo(TEXT("CBaseWindow::CalcFitPointAroundTextExtent"));
     RECT rcTargetWindow[2];
     DWORD dwFlags[2];
 
@@ -437,6 +454,7 @@ void CBaseWindow::CalcFitPointAroundTextExtent(_In_ const RECT *prcTextExtent, _
 
 DWORD CBaseWindow::RectInRect(_In_ const RECT *prcLimit, _In_ const RECT *prcTarget)
 {
+    Global::LogInfo(TEXT("CBaseWindow::RectInRect"));
     DWORD dwFlags = 0;
     // Check if prcTarget is entirely inside prcLimit
     if (prcLimit->left <= prcTarget->left && prcTarget->right  <= prcLimit->right &&
@@ -492,6 +510,7 @@ DWORD CBaseWindow::RectInRect(_In_ const RECT *prcLimit, _In_ const RECT *prcTar
 
 LRESULT CBaseWindow::_NotifyCommand(UINT uMsg, DWORD dwSB, int nPos)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_NotifyCommand"));
     CBaseWindow* pUIWnd = _GetUIWnd();
     if (pUIWnd && pUIWnd->_GetWnd())
     {
@@ -512,6 +531,7 @@ LRESULT CBaseWindow::_NotifyCommand(UINT uMsg, DWORD dwSB, int nPos)
 
 void CBaseWindow::_SetCaptureObject(_In_opt_ CBaseWindow *pUIObj)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_SetCaptureObject"));
     CBaseWindow* pUIWnd = _GetTopmostUIWnd();
     if (nullptr == pUIWnd)
     {
@@ -537,6 +557,7 @@ void CBaseWindow::_SetCaptureObject(_In_opt_ CBaseWindow *pUIObj)
 
 void CBaseWindow::_SetTimerObject(_In_opt_ CBaseWindow *pUIObj, UINT uElapse)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_SetTimerObject"));
     CBaseWindow* pUIWnd = _GetTopmostUIWnd();
     if (nullptr == pUIWnd)
     {
@@ -564,6 +585,7 @@ void CBaseWindow::_SetTimerObject(_In_opt_ CBaseWindow *pUIObj, UINT uElapse)
 /* static */
 LRESULT CALLBACK CBaseWindow::_WindowProc(_In_ HWND wndHandle, UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)
 {
+    Global::LogInfo(TEXT("CBaseWindow::_WindowProc"));
     if (uMsg == WM_CREATE)
     {
         _SetThis(wndHandle, ((CREATESTRUCT*)lParam)->lpCreateParams);
@@ -602,6 +624,7 @@ LRESULT CALLBACK CBaseWindow::_WindowProc(_In_ HWND wndHandle, UINT uMsg, _In_ W
 
 void CBaseWindow::GetWorkAreaFromPoint(_In_ const POINT& ptPoint, _Out_ LPRECT lprcWorkArea)
 {
+    Global::LogInfo(TEXT("CBaseWindow::GetWorkAreaFromPoint"));
     if (lprcWorkArea == nullptr)
     {
         return;
@@ -631,6 +654,7 @@ void CBaseWindow::GetWorkAreaFromPoint(_In_ const POINT& ptPoint, _Out_ LPRECT l
 
 BOOL CBaseWindow::_IsTimer()
 {
+    Global::LogInfo(TEXT("CBaseWindow::_IsTimer"));
     CBaseWindow* pobj = _GetTopmostUIWnd();
     if (pobj != nullptr)
     {
@@ -641,6 +665,7 @@ BOOL CBaseWindow::_IsTimer()
 
 BOOL CBaseWindow::_IsCapture()
 {
+    Global::LogInfo(TEXT("CBaseWindow::_IsCapture"));
     CBaseWindow* pobj = _GetTopmostUIWnd();
     if (pobj != nullptr)
     {
@@ -651,6 +676,7 @@ BOOL CBaseWindow::_IsCapture()
 
 CBaseWindow* CBaseWindow::_GetTopmostUIWnd()
 {
+    Global::LogInfo(TEXT("CBaseWindow::_GetTopmostUIWnd"));
     CBaseWindow* pobj = this;
 
     while (pobj->_pParentWnd != nullptr)

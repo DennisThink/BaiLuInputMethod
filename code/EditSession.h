@@ -6,6 +6,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved
 
 
+
+//--------------------------
+// Begin By DennisThink
+// 不太清楚作用是什么 TODO:
+// End By DennisThink
+//--------------------------
 #pragma once
 
 class CSampleIME;

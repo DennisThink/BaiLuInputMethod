@@ -21,6 +21,7 @@
 /* static */
 HRESULT CSampleIME::CreateInstance(_In_ IUnknown *pUnkOuter, REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CSampleIME::CreateInstance"));
     CSampleIME* pSampleIME = nullptr;
     HRESULT hr = S_OK;
 
@@ -57,6 +58,7 @@ HRESULT CSampleIME::CreateInstance(_In_ IUnknown *pUnkOuter, REFIID riid, _Outpt
 
 CSampleIME::CSampleIME()
 {
+    Global::LogInfo(TEXT("CSampleIME::CSampleIME"));
     DllAddRef();
 
     _pThreadMgr = nullptr;
@@ -97,6 +99,7 @@ CSampleIME::CSampleIME()
 
 CSampleIME::~CSampleIME()
 {
+    Global::LogInfo(TEXT("CSampleIME::~CSampleIME"));
     if (_pCandidateListUIPresenter)
     {
         delete _pCandidateListUIPresenter;
@@ -113,6 +116,7 @@ CSampleIME::~CSampleIME()
 
 STDAPI CSampleIME::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CSampleIME::QueryInterface"));
     if (ppvObj == nullptr)
     {
         return E_INVALIDARG;
@@ -188,6 +192,7 @@ STDAPI CSampleIME::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 
 STDAPI_(ULONG) CSampleIME::AddRef()
 {
+    Global::LogInfo(TEXT("CSampleIME::AddRef"));
     return ++_refCount;
 }
 
@@ -199,6 +204,7 @@ STDAPI_(ULONG) CSampleIME::AddRef()
 
 STDAPI_(ULONG) CSampleIME::Release()
 {
+    Global::LogInfo(TEXT("CSampleIME::Release"));
     LONG cr = --_refCount;
 
     assert(_refCount >= 0);
@@ -219,6 +225,7 @@ STDAPI_(ULONG) CSampleIME::Release()
 
 STDAPI CSampleIME::ActivateEx(ITfThreadMgr *pThreadMgr, TfClientId tfClientId, DWORD dwFlags)
 {
+    Global::LogInfo(TEXT("CSampleIME::ActivateEx"));
     _pThreadMgr = pThreadMgr;
     _pThreadMgr->AddRef();
 
@@ -282,6 +289,7 @@ ExitError:
 
 STDAPI CSampleIME::Deactivate()
 {
+    Global::LogInfo(TEXT("CSampleIME::Deactivate"));
     if (_pCompositionProcessorEngine)
     {
         delete _pCompositionProcessorEngine;
@@ -351,6 +359,7 @@ STDAPI CSampleIME::Deactivate()
 //----------------------------------------------------------------------------
 HRESULT CSampleIME::GetType(__RPC__out GUID *pguid)
 {
+    Global::LogInfo(TEXT("CSampleIME::GetType"));
     HRESULT hr = E_INVALIDARG;
     if (pguid)
     {
@@ -367,6 +376,7 @@ HRESULT CSampleIME::GetType(__RPC__out GUID *pguid)
 //----------------------------------------------------------------------------
 HRESULT CSampleIME::GetDescription(__RPC__deref_out_opt BSTR *pbstrDesc)
 {
+    Global::LogInfo(TEXT("CSampleIME::GetDescription"));
     HRESULT hr = E_INVALIDARG;
     if (pbstrDesc != nullptr)
     {
@@ -383,6 +393,7 @@ HRESULT CSampleIME::GetDescription(__RPC__deref_out_opt BSTR *pbstrDesc)
 //----------------------------------------------------------------------------
 HRESULT CSampleIME::GetFunction(__RPC__in REFGUID rguid, __RPC__in REFIID riid, __RPC__deref_out_opt IUnknown **ppunk)
 {
+    Global::LogInfo(TEXT("CSampleIME::GetFunction"));
     HRESULT hr = E_NOINTERFACE;
 
     if ((IsEqualGUID(rguid, GUID_NULL)) 
@@ -405,6 +416,7 @@ HRESULT CSampleIME::GetFunction(__RPC__in REFGUID rguid, __RPC__in REFIID riid, 
 //----------------------------------------------------------------------------
 HRESULT CSampleIME::GetDisplayName(_Out_ BSTR *pbstrDisplayName)
 {
+    Global::LogInfo(TEXT("CSampleIME::GetDisplayName"));
     HRESULT hr = E_INVALIDARG;
     if (pbstrDisplayName != nullptr)
     {
@@ -421,6 +433,7 @@ HRESULT CSampleIME::GetDisplayName(_Out_ BSTR *pbstrDisplayName)
 //----------------------------------------------------------------------------
 HRESULT CSampleIME::GetLayout(_Out_ TKBLayoutType *ptkblayoutType, _Out_ WORD *pwPreferredLayoutId)
 {
+    Global::LogInfo(TEXT("CSampleIME::GetLayout"));
     HRESULT hr = E_INVALIDARG;
     if ((ptkblayoutType != nullptr) && (pwPreferredLayoutId != nullptr))
     {

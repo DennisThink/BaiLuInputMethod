@@ -5,7 +5,12 @@
 //
 // Copyright (c) Microsoft Corporation. All rights reserved
 
-
+//-------------------------------------
+// 
+// Begin By DennisThink
+// 输入字典解析结果
+// End By DennisThink
+//-------------------------------------
 #pragma once
 
 #include "File.h"

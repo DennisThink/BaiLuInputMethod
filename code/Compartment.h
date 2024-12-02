@@ -5,6 +5,13 @@
 //
 // Copyright (c) Microsoft Corporation. All rights reserved
 
+
+//-------------------
+// 
+// Begin By DennisThink
+// 这个部分不太明白, TODO:
+// End By DennisThink
+//-------------------
 #pragma once
 
 class CCompartment

@@ -159,4 +159,10 @@ extern const int PunctuationOffIcoIndex;
 extern const WCHAR LangbarImeModeDescription[];
 extern const WCHAR LangbarDoubleSingleByteDescription[];
 extern const WCHAR LangbarPunctuationDescription[];
+
+//Begin By DennisThink
+//End By DennisThink
+void LogInfo(const TCHAR* message);
+void OpenLogFile();
+void CloseLogFile();
 }

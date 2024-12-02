@@ -5,6 +5,13 @@
 //
 // Copyright (c) Microsoft Corporation. All rights reserved
 
+
+//-----------------
+// Begin By DennisThink
+// TODO:
+// ¼Ì³ÐCOM½Ó¿Ú
+// End By DennisThink
+//-----------------
 #pragma once
 
 #include "Globals.h"

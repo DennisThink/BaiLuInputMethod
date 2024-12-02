@@ -5,6 +5,12 @@
 //
 // Copyright (c) Microsoft Corporation. All rights reserved
 
+//-----------------------------
+// Begin By DennisThink
+// 
+// 用于读取字典文件
+// End By DennisThink
+//-----------------------------
 #pragma once
 
 class CFile

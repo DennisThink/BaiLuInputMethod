@@ -11,6 +11,14 @@
 #include "File.h"
 #include "SampleIMEBaseStructure.h"
 
+//---------------------------------------
+// 
+// Begin By DennisThink
+// 
+// 基础的字典引擎，实现根据输入的字符(字符串),获取待选择的多个字或者词。
+// End By DennisThink
+// 
+//---------------------------------------
 class CBaseDictionaryEngine
 {
 public:

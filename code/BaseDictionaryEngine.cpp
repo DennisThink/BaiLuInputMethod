@@ -15,6 +15,7 @@
 
 CBaseDictionaryEngine::CBaseDictionaryEngine(LCID locale, _In_ CFile *pDictionaryFile)
 {
+    Global::LogInfo(TEXT("CBaseDictionaryEngine::CBaseDictionaryEngine"));
     _locale = locale;
     _pDictionaryFile = pDictionaryFile;
 }
@@ -25,6 +26,7 @@ CBaseDictionaryEngine::CBaseDictionaryEngine(LCID locale, _In_ CFile *pDictionar
 
 CBaseDictionaryEngine::~CBaseDictionaryEngine()
 {
+    Global::LogInfo(TEXT("CBaseDictionaryEngine::~CBaseDictionaryEngine"));
 }
 
 //+---------------------------------------------------------------------------
@@ -33,6 +35,7 @@ CBaseDictionaryEngine::~CBaseDictionaryEngine()
 
 VOID CBaseDictionaryEngine::SortListItemByFindKeyCode(_Inout_ CSampleImeArray<CCandidateListItem> *pItemList)
 {
+    Global::LogInfo(TEXT("CBaseDictionaryEngine::SortListItemByFindKeyCode"));
     MergeSortByFindKeyCode(pItemList, 0, pItemList->Count() - 1);
 }
 
@@ -45,6 +48,7 @@ VOID CBaseDictionaryEngine::SortListItemByFindKeyCode(_Inout_ CSampleImeArray<CC
 
 VOID CBaseDictionaryEngine::MergeSortByFindKeyCode(_Inout_ CSampleImeArray<CCandidateListItem> *pItemList, int leftRange, int rightRange)
 {
+    Global::LogInfo(TEXT("CBaseDictionaryEngine::MergeSortByFindKeyCode"));
     int candidateCount = CalculateCandidateCount(leftRange, rightRange);
 
     if (candidateCount > 2)
@@ -111,6 +115,7 @@ VOID CBaseDictionaryEngine::MergeSortByFindKeyCode(_Inout_ CSampleImeArray<CCand
 
 int CBaseDictionaryEngine::CalculateCandidateCount(int leftRange,  int rightRange)
 {
+    Global::LogInfo(TEXT("CBaseDictionaryEngine::CalculateCandidateCount"));
     assert(leftRange >= 0);
     assert(rightRange >= 0);
 

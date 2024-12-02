@@ -12,6 +12,7 @@
 
 BOOL CSampleIME::VerifySampleIMECLSID(_In_ REFCLSID clsid)
 {
+    Global::LogInfo(TEXT("CSampleIME::VerifySampleIMECLSID"));
     if (IsEqualCLSID(clsid, Global::SampleIMECLSID))
     {
         return TRUE;
@@ -28,6 +29,7 @@ BOOL CSampleIME::VerifySampleIMECLSID(_In_ REFCLSID clsid)
 
 STDAPI CSampleIME::OnActivated(_In_ REFCLSID clsid, _In_ REFGUID guidProfile, _In_ BOOL isActivated)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnActivated"));
 	guidProfile;
 
     if (FALSE == VerifySampleIMECLSID(clsid))
@@ -70,6 +72,7 @@ STDAPI CSampleIME::OnActivated(_In_ REFCLSID clsid, _In_ REFGUID guidProfile, _I
 
 BOOL CSampleIME::_InitActiveLanguageProfileNotifySink()
 {
+    Global::LogInfo(TEXT("CSampleIME::_InitActiveLanguageProfileNotifySink"));
     ITfSource* pSource = nullptr;
     BOOL ret = FALSE;
 
@@ -100,6 +103,7 @@ Exit:
 
 void CSampleIME::_UninitActiveLanguageProfileNotifySink()
 {
+    Global::LogInfo(TEXT("CSampleIME::_UninitActiveLanguageProfileNotifySink"));
     ITfSource* pSource = nullptr;
 
     if (_activeLanguageProfileNotifySinkCookie == TF_INVALID_COOKIE)

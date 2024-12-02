@@ -6,6 +6,14 @@
 // Copyright (c) Microsoft Corporation. All rights reserved
 
 
+//------------------------------
+// 
+// Begin By DennisThink
+// 
+// 输入候选词选择窗口，用数字键选择候选词
+// End By DennisThink
+//------------------------------
+
 #pragma once
 
 #include "private.h"

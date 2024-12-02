@@ -10,6 +10,13 @@
 
 #include "BaseWindow.h"
 
+//--------------------
+// 
+// Begin By DennisThink
+// 
+// 不清楚这个按钮窗口的作用。TODO:
+// End By DennisThink
+//--------------------
 class CButtonWindow : public CBaseWindow
 {
 public:

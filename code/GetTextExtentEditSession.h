@@ -5,6 +5,13 @@
 //
 // Copyright (c) Microsoft Corporation. All rights reserved
 
+
+//----------------------------
+// 
+// Begin By DennisThink
+// TODO
+// End By DennisThink
+//----------------------------
 #pragma once
 
 #include "EditSession.h"

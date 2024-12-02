@@ -6,6 +6,14 @@
 // Copyright (c) Microsoft Corporation. All rights reserved
 
 
+//--------------------------
+// 
+// Begin By DennisThink
+// 
+// 字典解析的相关类，
+// 
+// End By DennisThink
+//--------------------------
 #pragma once
 
 #include "Globals.h"

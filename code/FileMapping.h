@@ -5,6 +5,13 @@
 //
 // Copyright (c) Microsoft Corporation. All rights reserved
 
+
+//----------------------------
+// 
+// Begin By DennisThink
+// File的具体实现, 但是个人感觉File的设计不好
+// End By DennisThink
+//----------------------------
 #pragma once
 
 #include "File.h"

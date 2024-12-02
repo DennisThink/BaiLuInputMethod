@@ -6,6 +6,14 @@
 // Copyright (c) Microsoft Corporation. All rights reserved
 
 
+//---------------------------------
+// 
+// Begin By DennisThink
+// 界面显示的属性相关的类 TODO:
+// End By DennisThink
+//---------------------------------
+
+
 #pragma once
 
 //+---------------------------------------------------------------------------

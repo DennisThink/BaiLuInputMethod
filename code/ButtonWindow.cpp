@@ -8,6 +8,7 @@
 #include "Private.h"
 #include "BaseWindow.h"
 #include "ButtonWindow.h"
+#include "Globals.h"
 
 //+---------------------------------------------------------------------------
 //
@@ -17,6 +18,7 @@
 
 CButtonWindow::CButtonWindow()
 {
+    Global::LogInfo(TEXT("CButtonWindow::CButtonWindow"));
     typeOfControl = 0;
 }
 
@@ -28,6 +30,7 @@ CButtonWindow::CButtonWindow()
 
 CButtonWindow::~CButtonWindow()
 {
+    Global::LogInfo(TEXT("CButtonWindow::~CButtonWindow"));
 }
 
 //+---------------------------------------------------------------------------
@@ -40,6 +43,7 @@ void CButtonWindow::_OnPaint(_In_ HDC dcHandle, _In_ PAINTSTRUCT *pps)
 {
     dcHandle;
     pps;
+    Global::LogInfo(TEXT("CButtonWindow::_OnPaint"));
 }
 
 //+---------------------------------------------------------------------------
@@ -54,6 +58,7 @@ void CButtonWindow::_OnLButtonDown(POINT pt)
 
     typeOfControl = DFCS_PUSHED;
     _StartCapture();
+    Global::LogInfo(TEXT("CButtonWindow::_OnLButtonDown"));
 }
 
 //+---------------------------------------------------------------------------
@@ -63,6 +68,7 @@ void CButtonWindow::_OnLButtonDown(POINT pt)
 //----------------------------------------------------------------------------
 LRESULT CALLBACK CButtonWindow::_WindowProcCallback(_In_ HWND wndHandle, UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) 
 { 
+    Global::LogInfo(TEXT("CButtonWindow::_WindowProcCallback"));
     wndHandle;
     uMsg;
     wParam;
@@ -79,6 +85,7 @@ LRESULT CALLBACK CButtonWindow::_WindowProcCallback(_In_ HWND wndHandle, UINT uM
 
 void CButtonWindow::_OnLButtonUp(POINT pt)
 {
+    Global::LogInfo(TEXT("CButtonWindow::_OnLButtonUp"));
     pt;
 
     if (_IsCapture())
