@@ -58,6 +58,7 @@ const TF_DISPLAYATTRIBUTE CDisplayAttributeInfoConverted::_s_DisplayAttribute =
 
 CDisplayAttributeInfo::CDisplayAttributeInfo()
 {
+    Global::LogInfo(TEXT("CDisplayAttributeInfo::CDisplayAttributeInfo"));
     DllAddRef();
 
     _pguid = nullptr;
@@ -75,6 +76,7 @@ CDisplayAttributeInfo::CDisplayAttributeInfo()
 
 CDisplayAttributeInfo::~CDisplayAttributeInfo()
 {
+    Global::LogInfo(TEXT("CDisplayAttributeInfo::~CDisplayAttributeInfo"));
     DllRelease();
 }
 
@@ -86,6 +88,7 @@ CDisplayAttributeInfo::~CDisplayAttributeInfo()
 
 STDAPI CDisplayAttributeInfo::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CDisplayAttributeInfo::QueryInterface"));
     if (ppvObj == nullptr)
         return E_INVALIDARG;
 
@@ -114,6 +117,7 @@ STDAPI CDisplayAttributeInfo::QueryInterface(REFIID riid, _Outptr_ void **ppvObj
 
 ULONG CDisplayAttributeInfo::AddRef(void)
 {
+    Global::LogInfo(TEXT("CDisplayAttributeInfo::AddRef"));
     return ++_refCount;
 }
 
@@ -125,6 +129,7 @@ ULONG CDisplayAttributeInfo::AddRef(void)
 
 ULONG CDisplayAttributeInfo::Release(void)
 {
+    Global::LogInfo(TEXT("CDisplayAttributeInfo::Release"));
     LONG cr = --_refCount;
 
     assert(_refCount >= 0);
@@ -145,6 +150,7 @@ ULONG CDisplayAttributeInfo::Release(void)
 
 STDAPI CDisplayAttributeInfo::GetGUID(_Out_ GUID *pguid)
 {
+    Global::LogInfo(TEXT("CDisplayAttributeInfo::GetGUID"));
     if (pguid == nullptr)
         return E_INVALIDARG;
 
@@ -164,6 +170,7 @@ STDAPI CDisplayAttributeInfo::GetGUID(_Out_ GUID *pguid)
 
 STDAPI CDisplayAttributeInfo::GetDescription(_Out_ BSTR *pbstrDesc)
 {
+    Global::LogInfo(TEXT("CDisplayAttributeInfo::GetDescription"));
     BSTR tempDesc;
 
     if (pbstrDesc == nullptr)
@@ -191,6 +198,7 @@ STDAPI CDisplayAttributeInfo::GetDescription(_Out_ BSTR *pbstrDesc)
 
 STDAPI CDisplayAttributeInfo::GetAttributeInfo(_Out_ TF_DISPLAYATTRIBUTE *ptfDisplayAttr)
 {
+    Global::LogInfo(TEXT("CDisplayAttributeInfo::GetAttributeInfo"));
     if (ptfDisplayAttr == nullptr)
     {
         return E_INVALIDARG;
@@ -210,6 +218,7 @@ STDAPI CDisplayAttributeInfo::GetAttributeInfo(_Out_ TF_DISPLAYATTRIBUTE *ptfDis
 
 STDAPI CDisplayAttributeInfo::SetAttributeInfo(_In_ const TF_DISPLAYATTRIBUTE *ptfDisplayAttr)
 {
+    Global::LogInfo(TEXT("CDisplayAttributeInfo::SetAttributeInfo"));
     ptfDisplayAttr;
 
     return E_NOTIMPL;
@@ -223,5 +232,6 @@ STDAPI CDisplayAttributeInfo::SetAttributeInfo(_In_ const TF_DISPLAYATTRIBUTE *p
 
 STDAPI CDisplayAttributeInfo::Reset()
 {
+    Global::LogInfo(TEXT("CDisplayAttributeInfo::Reset"));
     return SetAttributeInfo(_pDisplayAttribute);
 }

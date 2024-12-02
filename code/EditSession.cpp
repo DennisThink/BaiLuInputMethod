@@ -17,6 +17,7 @@
 
 CEditSessionBase::CEditSessionBase(_In_ CSampleIME *pTextService, _In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CEditSessionBase::CEditSessionBase"));
     _refCount = 1;
     _pContext = pContext;
     _pContext->AddRef();
@@ -33,6 +34,7 @@ CEditSessionBase::CEditSessionBase(_In_ CSampleIME *pTextService, _In_ ITfContex
 
 CEditSessionBase::~CEditSessionBase()
 {
+    Global::LogInfo(TEXT("CEditSessionBase::~CEditSessionBase"));
     _pContext->Release();
     _pTextService->Release();
 }
@@ -45,6 +47,7 @@ CEditSessionBase::~CEditSessionBase()
 
 STDAPI CEditSessionBase::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CEditSessionBase::QueryInterface"));
     if (ppvObj == nullptr)
     {
         return E_INVALIDARG;
@@ -75,6 +78,7 @@ STDAPI CEditSessionBase::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 
 STDAPI_(ULONG) CEditSessionBase::AddRef(void)
 {
+    Global::LogInfo(TEXT("CEditSessionBase::AddRef"));
     return ++_refCount;
 }
 
@@ -86,6 +90,7 @@ STDAPI_(ULONG) CEditSessionBase::AddRef(void)
 
 STDAPI_(ULONG) CEditSessionBase::Release(void)
 {
+    Global::LogInfo(TEXT("CEditSessionBase::Release"));
     LONG cr = --_refCount;
 
     assert(_refCount >= 0);

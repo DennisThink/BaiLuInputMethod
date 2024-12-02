@@ -29,11 +29,13 @@ class CEndCompositionEditSession : public CEditSessionBase
 public:
     CEndCompositionEditSession(_In_ CSampleIME *pTextService, _In_ ITfContext *pContext) : CEditSessionBase(pTextService, pContext)
     {
+        Global::LogInfo(TEXT("CEndCompositionEditSession::CEndCompositionEditSession"));
     }
 
     // ITfEditSession
     STDMETHODIMP DoEditSession(TfEditCookie ec)
     {
+        Global::LogInfo(TEXT("CEndCompositionEditSession::DoEditSession"));
         _pTextService->_TerminateComposition(ec, _pContext, TRUE);
         return S_OK;
     }
@@ -54,6 +56,7 @@ public:
 
 void CSampleIME::_TerminateComposition(TfEditCookie ec, _In_ ITfContext *pContext, BOOL isCalledFromDeactivate)
 {
+    Global::LogInfo(TEXT("CSampleIME::_TerminateComposition"));
 	isCalledFromDeactivate;
 
     if (_pComposition != nullptr)
@@ -86,6 +89,7 @@ void CSampleIME::_TerminateComposition(TfEditCookie ec, _In_ ITfContext *pContex
 
 void CSampleIME::_EndComposition(_In_opt_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::_EndComposition"));
     CEndCompositionEditSession *pEditSession = new (std::nothrow) CEndCompositionEditSession(this, pContext);
     HRESULT hr = S_OK;
 

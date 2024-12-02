@@ -19,6 +19,7 @@
 
 STDAPI CSampleIME::EnumDisplayAttributeInfo(__RPC__deref_out_opt IEnumTfDisplayAttributeInfo **ppEnum)
 {
+    Global::LogInfo(TEXT("CSampleIME::EnumDisplayAttributeInfo"));
     CEnumDisplayAttributeInfo* pAttributeEnum = nullptr;
 
     if (ppEnum == nullptr)
@@ -47,6 +48,7 @@ STDAPI CSampleIME::EnumDisplayAttributeInfo(__RPC__deref_out_opt IEnumTfDisplayA
 
 STDAPI CSampleIME::GetDisplayAttributeInfo(__RPC__in REFGUID guidInfo, __RPC__deref_out_opt ITfDisplayAttributeInfo **ppInfo)
 {
+    Global::LogInfo(TEXT("CSampleIME::GetDisplayAttributeInfo"));
     if (ppInfo == nullptr)
     {
         return E_INVALIDARG;

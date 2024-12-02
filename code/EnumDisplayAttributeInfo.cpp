@@ -19,6 +19,7 @@
 
 CEnumDisplayAttributeInfo::CEnumDisplayAttributeInfo()
 {
+    Global::LogInfo(TEXT("CEnumDisplayAttributeInfo::CEnumDisplayAttributeInfo"));
     DllAddRef();
 
     _index = 0;
@@ -33,6 +34,7 @@ CEnumDisplayAttributeInfo::CEnumDisplayAttributeInfo()
 
 CEnumDisplayAttributeInfo::~CEnumDisplayAttributeInfo()
 {
+    Global::LogInfo(TEXT("CEnumDisplayAttributeInfo::~CEnumDisplayAttributeInfo"));
     DllRelease();
 }
 
@@ -44,6 +46,7 @@ CEnumDisplayAttributeInfo::~CEnumDisplayAttributeInfo()
 
 STDAPI CEnumDisplayAttributeInfo::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CEnumDisplayAttributeInfo::QueryInterface"));
     if (ppvObj == nullptr)
         return E_INVALIDARG;
 
@@ -73,6 +76,7 @@ STDAPI CEnumDisplayAttributeInfo::QueryInterface(REFIID riid, _Outptr_ void **pp
 
 STDAPI_(ULONG) CEnumDisplayAttributeInfo::AddRef()
 {
+    Global::LogInfo(TEXT("CEnumDisplayAttributeInfo::AddRef"));
     return ++_refCount;
 }
 
@@ -84,6 +88,7 @@ STDAPI_(ULONG) CEnumDisplayAttributeInfo::AddRef()
 
 STDAPI_(ULONG) CEnumDisplayAttributeInfo::Release()
 {
+    Global::LogInfo(TEXT("CEnumDisplayAttributeInfo::Release"));
     LONG cr = --_refCount;
 
     assert(_refCount >= 0);
@@ -105,6 +110,7 @@ STDAPI_(ULONG) CEnumDisplayAttributeInfo::Release()
 
 STDAPI CEnumDisplayAttributeInfo::Clone(_Out_ IEnumTfDisplayAttributeInfo **ppEnum)
 {
+    Global::LogInfo(TEXT("CEnumDisplayAttributeInfo::Clone"));
     CEnumDisplayAttributeInfo* pClone = nullptr;
 
     if (ppEnum == nullptr)
@@ -139,6 +145,7 @@ const int MAX_DISPLAY_ATTRIBUTE_INFO = 2;
 
 STDAPI CEnumDisplayAttributeInfo::Next(ULONG ulCount, __RPC__out_ecount_part(ulCount, *pcFetched) ITfDisplayAttributeInfo **rgInfo, __RPC__out ULONG *pcFetched)
 {
+    Global::LogInfo(TEXT("CEnumDisplayAttributeInfo::Next"));
     ULONG fetched;
 
     fetched = 0;
@@ -203,6 +210,7 @@ STDAPI CEnumDisplayAttributeInfo::Next(ULONG ulCount, __RPC__out_ecount_part(ulC
 
 STDAPI CEnumDisplayAttributeInfo::Reset()
 {
+    Global::LogInfo(TEXT("CEnumDisplayAttributeInfo::Reset"));
     _index = 0;
     return S_OK;
 }
@@ -216,6 +224,7 @@ STDAPI CEnumDisplayAttributeInfo::Reset()
 
 STDAPI CEnumDisplayAttributeInfo::Skip(ULONG ulCount)
 {
+    Global::LogInfo(TEXT("CEnumDisplayAttributeInfo::Skip"));
     if ((ulCount + _index) > MAX_DISPLAY_ATTRIBUTE_INFO || (ulCount + _index) < ulCount)
     {
         _index = MAX_DISPLAY_ATTRIBUTE_INFO;

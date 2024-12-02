@@ -1133,6 +1133,7 @@ HRESULT CCandidateWindow::_GetPageIndex(UINT *pIndex, _In_ UINT uSize, _Inout_ U
 
 HRESULT CCandidateWindow::_SetPageIndex(UINT *pIndex, _In_ UINT uPageCnt)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_SetPageIndex"));
     uPageCnt;
 
     _PageIndex.Clear();
@@ -1158,6 +1159,7 @@ HRESULT CCandidateWindow::_SetPageIndex(UINT *pIndex, _In_ UINT uPageCnt)
 
 HRESULT CCandidateWindow::_GetCurrentPage(_Inout_ UINT *pCurrentPage)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_GetCurrentPage"));
     HRESULT hr = S_OK;
 
     if (pCurrentPage == nullptr)
@@ -1205,6 +1207,7 @@ Exit:
 
 HRESULT CCandidateWindow::_GetCurrentPage(_Inout_ int *pCurrentPage)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_GetCurrentPage"));
     HRESULT hr = E_FAIL;
     UINT needCastCurrentPage = 0;
     
@@ -1239,6 +1242,7 @@ Exit:
 
 BOOL CCandidateWindow::_AdjustPageIndexForSelection()
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_AdjustPageIndexForSelection"));
     UINT candidateListPageCnt = _pIndexRange->Count();
     UINT* pNewPageIndex = nullptr;
     UINT newPageCnt = 0;
@@ -1314,6 +1318,7 @@ BOOL CCandidateWindow::_AdjustPageIndexForSelection()
 
 COLORREF _AdjustTextColor(_In_ COLORREF crColor, _In_ COLORREF crBkColor)
 {
+    Global::LogInfo(TEXT("_AdjustTextColor"));
     if (!Global::IsTooSimilar(crColor, crBkColor))
     {
         return crColor;
@@ -1332,6 +1337,7 @@ COLORREF _AdjustTextColor(_In_ COLORREF crColor, _In_ COLORREF crBkColor)
 
 HRESULT CCandidateWindow::_CurrentPageHasEmptyItems(_Inout_ BOOL *hasEmptyItems)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_CurrentPageHasEmptyItems"));
     int candidateListPageCnt = _pIndexRange->Count();
     UINT currentPage = 0;
 
@@ -1362,6 +1368,7 @@ HRESULT CCandidateWindow::_CurrentPageHasEmptyItems(_Inout_ BOOL *hasEmptyItems)
 
 void CCandidateWindow::_FireMessageToLightDismiss(_In_ HWND wndHandle, _In_ WINDOWPOS *pWndPos)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_FireMessageToLightDismiss"));
     if (nullptr == pWndPos)
     {
         return;
@@ -1393,6 +1400,7 @@ void CCandidateWindow::_FireMessageToLightDismiss(_In_ HWND wndHandle, _In_ WIND
 
 HRESULT CCandidateWindow::_AdjustPageIndex(_Inout_ UINT & currentPage, _Inout_ UINT & currentPageIndex)
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_AdjustPageIndex"));
     HRESULT hr = E_FAIL;
     UINT candidateListPageCnt = _pIndexRange->Count();
 
@@ -1453,6 +1461,7 @@ Exit:
 }
 void CCandidateWindow::_DeleteShadowWnd()
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_DeleteShadowWnd"));
     if (nullptr != _pShadowWnd)
     {
         delete _pShadowWnd;
@@ -1462,6 +1471,7 @@ void CCandidateWindow::_DeleteShadowWnd()
 
 void CCandidateWindow::_DeleteVScrollBarWnd()
 {
+    Global::LogInfo(TEXT("CCandidateWindow::_DeleteVScrollBarWnd"));
     if (nullptr != _pVScrollBarWnd)
     {
         delete _pVScrollBarWnd;

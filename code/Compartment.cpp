@@ -21,6 +21,7 @@
 
 CCompartment::CCompartment(_In_ IUnknown* punk, TfClientId tfClientId, _In_ REFGUID guidCompartment)
 {
+    Global::LogInfo(TEXT("CCompartment::CCompartment"));
     _guidCompartment = guidCompartment;
 
     _punk = punk;
@@ -35,6 +36,7 @@ CCompartment::CCompartment(_In_ IUnknown* punk, TfClientId tfClientId, _In_ REFG
 
 CCompartment::~CCompartment()
 {
+    Global::LogInfo(TEXT("CCompartment::~CCompartment"));
     _punk->Release();
 }
 
@@ -44,6 +46,7 @@ CCompartment::~CCompartment()
 
 HRESULT CCompartment::_GetCompartment(_Outptr_ ITfCompartment **ppCompartment)
 {
+    Global::LogInfo(TEXT("CCompartment::_GetCompartment"));
     HRESULT hr = S_OK;
     ITfCompartmentMgr* pCompartmentMgr = nullptr;
 
@@ -63,6 +66,7 @@ HRESULT CCompartment::_GetCompartment(_Outptr_ ITfCompartment **ppCompartment)
 
 HRESULT CCompartment::_GetCompartmentBOOL(_Out_ BOOL &flag)
 {
+    Global::LogInfo(TEXT("CCompartment::_GetCompartmentBOOL"));
     HRESULT hr = S_OK;
     ITfCompartment* pCompartment = nullptr;
     flag = FALSE;
@@ -93,6 +97,7 @@ HRESULT CCompartment::_GetCompartmentBOOL(_Out_ BOOL &flag)
 
 HRESULT CCompartment::_SetCompartmentBOOL(_In_ BOOL flag)
 {
+    Global::LogInfo(TEXT("CCompartment::_SetCompartmentBOOL"));
     HRESULT hr = S_OK;
     ITfCompartment* pCompartment = nullptr;
 
@@ -115,6 +120,7 @@ HRESULT CCompartment::_SetCompartmentBOOL(_In_ BOOL flag)
 
 HRESULT CCompartment::_GetCompartmentDWORD(_Out_ DWORD &dw)
 {
+    Global::LogInfo(TEXT("CCompartment::_GetCompartmentDWORD"));
     HRESULT hr = S_OK;
     ITfCompartment* pCompartment = nullptr;
     dw = 0;
@@ -146,6 +152,7 @@ HRESULT CCompartment::_GetCompartmentDWORD(_Out_ DWORD &dw)
 
 HRESULT CCompartment::_SetCompartmentDWORD(_In_ DWORD dw)
 {
+    Global::LogInfo(TEXT("CCompartment::_SetCompartmentDWORD"));
     HRESULT hr = S_OK;
     ITfCompartment* pCompartment = nullptr;
 
@@ -170,6 +177,7 @@ HRESULT CCompartment::_SetCompartmentDWORD(_In_ DWORD dw)
 
 HRESULT CCompartment::_ClearCompartment()
 {
+    Global::LogInfo(TEXT("CCompartment::_ClearCompartment"));
     if (IsEqualGUID(_guidCompartment, GUID_COMPARTMENT_KEYBOARD_OPENCLOSE))
     {
         return S_FALSE;
@@ -199,6 +207,7 @@ HRESULT CCompartment::_ClearCompartment()
 
 CCompartmentEventSink::CCompartmentEventSink(_In_ CESCALLBACK pfnCallback, _In_ void *pv)
 {
+    Global::LogInfo(TEXT("CCompartmentEventSink::CCompartmentEventSink"));
     _pfnCallback = pfnCallback;
     _pv = pv;
     _refCount = 1;
@@ -210,6 +219,7 @@ CCompartmentEventSink::CCompartmentEventSink(_In_ CESCALLBACK pfnCallback, _In_ 
 
 CCompartmentEventSink::~CCompartmentEventSink()
 {
+    Global::LogInfo(TEXT("CCompartmentEventSink::~CCompartmentEventSink"));
 }
 
 //+---------------------------------------------------------------------------
@@ -220,6 +230,7 @@ CCompartmentEventSink::~CCompartmentEventSink()
 
 STDAPI CCompartmentEventSink::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CCompartmentEventSink::QueryInterface"));
     if (ppvObj == nullptr)
         return E_INVALIDARG;
 
@@ -249,6 +260,7 @@ STDAPI CCompartmentEventSink::QueryInterface(REFIID riid, _Outptr_ void **ppvObj
 
 STDAPI_(ULONG) CCompartmentEventSink::AddRef()
 {
+    Global::LogInfo(TEXT("CCompartmentEventSink::AddRef"));
     return ++_refCount;
 }
 
@@ -260,6 +272,7 @@ STDAPI_(ULONG) CCompartmentEventSink::AddRef()
 
 STDAPI_(ULONG) CCompartmentEventSink::Release()
 {
+    Global::LogInfo(TEXT("CCompartmentEventSink::Release"));
     LONG cr = --_refCount;
 
     assert(_refCount >= 0);
@@ -280,6 +293,7 @@ STDAPI_(ULONG) CCompartmentEventSink::Release()
 
 STDAPI CCompartmentEventSink::OnChange(_In_ REFGUID guidCompartment)
 {
+    Global::LogInfo(TEXT("CCompartmentEventSink::OnChange"));
     return _pfnCallback(_pv, guidCompartment);
 }
 
@@ -291,6 +305,7 @@ STDAPI CCompartmentEventSink::OnChange(_In_ REFGUID guidCompartment)
 
 HRESULT CCompartmentEventSink::_Advise(_In_ IUnknown *punk, _In_ REFGUID guidCompartment)
 {
+    Global::LogInfo(TEXT("CCompartmentEventSink::_Advise"));
     HRESULT hr = S_OK;
     ITfCompartmentMgr* pCompartmentMgr = nullptr;
     ITfSource* pSource = nullptr;
@@ -325,6 +340,7 @@ HRESULT CCompartmentEventSink::_Advise(_In_ IUnknown *punk, _In_ REFGUID guidCom
 
 HRESULT CCompartmentEventSink::_Unadvise()
 {
+    Global::LogInfo(TEXT("CCompartmentEventSink::_Unadvise"));
     HRESULT hr = S_OK;
     ITfSource* pSource = nullptr;
 

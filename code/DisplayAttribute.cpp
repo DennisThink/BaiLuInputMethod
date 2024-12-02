@@ -17,6 +17,7 @@
 
 void CSampleIME::_ClearCompositionDisplayAttributes(TfEditCookie ec, _In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::_ClearCompositionDisplayAttributes"));
     ITfRange* pRangeComposition = nullptr;
     ITfProperty* pDisplayAttributeProperty = nullptr;
 
@@ -46,6 +47,7 @@ void CSampleIME::_ClearCompositionDisplayAttributes(TfEditCookie ec, _In_ ITfCon
 
 BOOL CSampleIME::_SetCompositionDisplayAttributes(TfEditCookie ec, _In_ ITfContext *pContext, TfGuidAtom gaDisplayAttribute)
 {
+    Global::LogInfo(TEXT("CSampleIME::_SetCompositionDisplayAttributes"));
     ITfRange* pRangeComposition = nullptr;
     ITfProperty* pDisplayAttributeProperty = nullptr;
     HRESULT hr = S_OK;
@@ -87,6 +89,7 @@ BOOL CSampleIME::_SetCompositionDisplayAttributes(TfEditCookie ec, _In_ ITfConte
 
 BOOL CSampleIME::_InitDisplayAttributeGuidAtom()
 {
+    Global::LogInfo(TEXT("CSampleIME::_InitDisplayAttributeGuidAtom"));
     ITfCategoryMgr* pCategoryMgr = nullptr;
     HRESULT hr = CoCreateInstance(CLSID_TF_CategoryMgr, nullptr, CLSCTX_INPROC_SERVER, IID_ITfCategoryMgr, (void**)&pCategoryMgr);
 

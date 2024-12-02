@@ -10,6 +10,7 @@
 
 HRESULT CEnumTfCandidates::CreateInstance(_Out_ CEnumTfCandidates **ppobj, _In_ const CSampleImeArray<ITfCandidateString*> &rgelm, UINT currentNum)
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::CreateInstance"));
     if (ppobj == nullptr)
     {
         return E_INVALIDARG;
@@ -27,6 +28,7 @@ HRESULT CEnumTfCandidates::CreateInstance(_Out_ CEnumTfCandidates **ppobj, _In_ 
 
 HRESULT CEnumTfCandidates::CreateInstance(REFIID riid, _Out_ void **ppvObj, _In_ const CSampleImeArray<ITfCandidateString*> &rgelm, UINT currentNum)
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::CreateInstance"));
     if (ppvObj == nullptr)
     {
         return E_POINTER;
@@ -44,6 +46,7 @@ HRESULT CEnumTfCandidates::CreateInstance(REFIID riid, _Out_ void **ppvObj, _In_
 
 CEnumTfCandidates::CEnumTfCandidates(_In_ const CSampleImeArray<ITfCandidateString*> &rgelm, UINT currentNum)
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::CEnumTfCandidates"));
     _refCount = 0;
     _rgelm = rgelm;
     _currentCandidateStrIndex = currentNum;

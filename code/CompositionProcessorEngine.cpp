@@ -30,6 +30,7 @@
 
 BOOL CSampleIME::_AddTextProcessorEngine()
 {
+    Global::LogInfo(TEXT("CSampleIME::_AddTextProcessorEngine"));
     LANGID langid = 0;
     CLSID clsid = GUID_NULL;
     GUID guidProfile = GUID_NULL;
@@ -98,6 +99,7 @@ BOOL CSampleIME::_AddTextProcessorEngine()
 
 CCompositionProcessorEngine::CCompositionProcessorEngine()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::CCompositionProcessorEngine"));
     _pTableDictionaryEngine = nullptr;
     _pDictionaryFile = nullptr;
 
@@ -137,6 +139,7 @@ CCompositionProcessorEngine::CCompositionProcessorEngine()
 
 CCompositionProcessorEngine::~CCompositionProcessorEngine()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::~CCompositionProcessorEngine"));
     if (_pTableDictionaryEngine)
     {
         delete _pTableDictionaryEngine;
@@ -217,6 +220,7 @@ CCompositionProcessorEngine::~CCompositionProcessorEngine()
 
 BOOL CCompositionProcessorEngine::SetupLanguageProfile(LANGID langid, REFGUID guidLanguageProfile, _In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId, BOOL isSecureMode, BOOL isComLessMode)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetupLanguageProfile"));
     BOOL ret = TRUE;
     if ((tfClientId == 0) && (pThreadMgr == nullptr))
     {
@@ -253,6 +257,7 @@ Exit:
 
 BOOL CCompositionProcessorEngine::AddVirtualKey(WCHAR wch)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::AddVirtualKey"));
     if (!wch)
     {
         return FALSE;
@@ -293,6 +298,7 @@ BOOL CCompositionProcessorEngine::AddVirtualKey(WCHAR wch)
 
 void CCompositionProcessorEngine::RemoveVirtualKey(DWORD_PTR dwIndex)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::RemoveVirtualKey"));
     DWORD_PTR srgKeystrokeBufLen = _keystrokeBuffer.GetLength();
 
     if (dwIndex + 1 < srgKeystrokeBufLen)
@@ -318,6 +324,7 @@ void CCompositionProcessorEngine::RemoveVirtualKey(DWORD_PTR dwIndex)
 
 void CCompositionProcessorEngine::PurgeVirtualKey()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::PurgeVirtualKey"));
     if (_keystrokeBuffer.Get())
     {
         delete [] _keystrokeBuffer.Get();
@@ -327,6 +334,7 @@ void CCompositionProcessorEngine::PurgeVirtualKey()
 
 WCHAR CCompositionProcessorEngine::GetVirtualKey(DWORD_PTR dwIndex) 
 { 
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::GetVirtualKey"));
     if (dwIndex < _keystrokeBuffer.GetLength())
     {
         return *(_keystrokeBuffer.Get() + dwIndex);
@@ -346,6 +354,7 @@ WCHAR CCompositionProcessorEngine::GetVirtualKey(DWORD_PTR dwIndex)
 
 void CCompositionProcessorEngine::GetReadingStrings(_Inout_ CSampleImeArray<CStringRange> *pReadingStrings, _Out_ BOOL *pIsWildcardIncluded)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::GetReadingStrings"));
     CStringRange oneKeystroke;
 
     _hasWildcardIncludedInKeystrokeBuffer = FALSE;
@@ -382,6 +391,7 @@ void CCompositionProcessorEngine::GetReadingStrings(_Inout_ CSampleImeArray<CStr
 
 void CCompositionProcessorEngine::GetCandidateList(_Inout_ CSampleImeArray<CCandidateListItem> *pCandidateList, BOOL isIncrementalWordSearch, BOOL isWildcardSearch)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::GetCandidateList"));
     if (!IsDictionaryAvailable())
     {
         return;
@@ -496,6 +506,7 @@ void CCompositionProcessorEngine::GetCandidateList(_Inout_ CSampleImeArray<CCand
 
 void CCompositionProcessorEngine::GetCandidateStringInConverted(CStringRange &searchString, _In_ CSampleImeArray<CCandidateListItem> *pCandidateList)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::GetCandidateStringInConverted"));
     if (!IsDictionaryAvailable())
     {
         return;
@@ -540,6 +551,7 @@ void CCompositionProcessorEngine::GetCandidateStringInConverted(CStringRange &se
 
 BOOL CCompositionProcessorEngine::IsPunctuation(WCHAR wch)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::IsPunctuation"));
     for (int i = 0; i < ARRAYSIZE(Global::PunctuationTable); i++)
     {
         if (Global::PunctuationTable[i]._Code == wch)
@@ -582,6 +594,7 @@ BOOL CCompositionProcessorEngine::IsPunctuation(WCHAR wch)
 
 WCHAR CCompositionProcessorEngine::GetPunctuation(WCHAR wch)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::GetPunctuation"));
     for (int i = 0; i < ARRAYSIZE(Global::PunctuationTable); i++)
     {
         if (Global::PunctuationTable[i]._Code == wch)
@@ -647,6 +660,7 @@ WCHAR CCompositionProcessorEngine::GetPunctuation(WCHAR wch)
 
 BOOL CCompositionProcessorEngine::IsDoubleSingleByte(WCHAR wch)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::IsDoubleSingleByte"));
     if (L' ' <= wch && wch <= L'~')
     {
         return TRUE;
@@ -662,6 +676,7 @@ BOOL CCompositionProcessorEngine::IsDoubleSingleByte(WCHAR wch)
 
 void CCompositionProcessorEngine::SetupKeystroke()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetupKeystroke"));
     SetKeystrokeTable(&_KeystrokeComposition);
     return;
 }
@@ -674,6 +689,7 @@ void CCompositionProcessorEngine::SetupKeystroke()
 
 void CCompositionProcessorEngine::SetKeystrokeTable(_Inout_ CSampleImeArray<_KEYSTROKE> *pKeystroke)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetKeystrokeTable"));
     for (int i = 0; i < 26; i++)
     {
         _KEYSTROKE* pKS = nullptr;
@@ -695,6 +711,7 @@ void CCompositionProcessorEngine::SetKeystrokeTable(_Inout_ CSampleImeArray<_KEY
 
 void CCompositionProcessorEngine::SetupPreserved(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetupPreserved"));
     TF_PRESERVEDKEY preservedKeyImeMode;
     preservedKeyImeMode.uVKey = VK_SHIFT;
     preservedKeyImeMode.uModifiers = _TF_MOD_ON_KEYUP_SHIFT_ONLY;
@@ -725,6 +742,7 @@ void CCompositionProcessorEngine::SetupPreserved(_In_ ITfThreadMgr *pThreadMgr, 
 
 void CCompositionProcessorEngine::SetPreservedKey(const CLSID clsid, TF_PRESERVEDKEY & tfPreservedKey, _In_z_ LPCWSTR pwszDescription, _Out_ XPreservedKey *pXPreservedKey)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetPreservedKey"));
     pXPreservedKey->Guid = clsid;
 
     TF_PRESERVEDKEY *ptfPsvKey1 = pXPreservedKey->TSFPreservedKeyTable.Append();
@@ -759,6 +777,7 @@ void CCompositionProcessorEngine::SetPreservedKey(const CLSID clsid, TF_PRESERVE
 
 BOOL CCompositionProcessorEngine::InitPreservedKey(_In_ XPreservedKey *pXPreservedKey, _In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::InitPreservedKey"));
     ITfKeystrokeMgr *pKeystrokeMgr = nullptr;
 
     if (IsEqualGUID(pXPreservedKey->Guid, GUID_NULL))
@@ -797,6 +816,7 @@ BOOL CCompositionProcessorEngine::InitPreservedKey(_In_ XPreservedKey *pXPreserv
 
 BOOL CCompositionProcessorEngine::CheckShiftKeyOnly(_In_ CSampleImeArray<TF_PRESERVEDKEY> *pTSFPreservedKeyTable)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::CheckShiftKeyOnly"));
     for (UINT i = 0; i < pTSFPreservedKeyTable->Count(); i++)
     {
         TF_PRESERVEDKEY *ptfPsvKey = pTSFPreservedKeyTable->GetAt(i);
@@ -820,6 +840,7 @@ BOOL CCompositionProcessorEngine::CheckShiftKeyOnly(_In_ CSampleImeArray<TF_PRES
 
 void CCompositionProcessorEngine::OnPreservedKey(REFGUID rguid, _Out_ BOOL *pIsEaten, _In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::InitPreservedKey"));
     if (IsEqualGUID(rguid, _PreservedKey_IMEMode.Guid))
     {
         if (!CheckShiftKeyOnly(&_PreservedKey_IMEMode.TSFPreservedKeyTable))
@@ -875,6 +896,7 @@ void CCompositionProcessorEngine::OnPreservedKey(REFGUID rguid, _Out_ BOOL *pIsE
 
 void CCompositionProcessorEngine::SetupConfiguration()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetupConfiguration"));
     _isWildcard = TRUE;
     _isDisableWildcardAtFirst = TRUE;
     _hasMakePhraseFromText = TRUE;
@@ -896,6 +918,7 @@ void CCompositionProcessorEngine::SetupConfiguration()
 
 void CCompositionProcessorEngine::SetupLanguageBar(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId, BOOL isSecureMode)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetupLanguageBar"));
     DWORD dwEnable = 1;
     CreateLanguageBarButton(dwEnable, GUID_LBI_INPUTMODE, Global::LangbarImeModeDescription, Global::ImeModeDescription, Global::ImeModeOnIcoIndex, Global::ImeModeOffIcoIndex, &_pLanguageBar_IMEMode, isSecureMode);
     CreateLanguageBarButton(dwEnable, Global::SampleIMEGuidLangBarDoubleSingleByte, Global::LangbarDoubleSingleByteDescription, Global::DoubleSingleByteDescription, Global::DoubleSingleByteOnIcoIndex, Global::DoubleSingleByteOffIcoIndex, &_pLanguageBar_DoubleSingleByte, isSecureMode);
@@ -939,6 +962,7 @@ void CCompositionProcessorEngine::SetupLanguageBar(_In_ ITfThreadMgr *pThreadMgr
 
 void CCompositionProcessorEngine::CreateLanguageBarButton(DWORD dwEnable, GUID guidLangBar, _In_z_ LPCWSTR pwszDescriptionValue, _In_z_ LPCWSTR pwszTooltipValue, DWORD dwOnIconIndex, DWORD dwOffIconIndex, _Outptr_result_maybenull_ CLangBarItemButton **ppLangBarItemButton, BOOL isSecureMode)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::CreateLanguageBarButton"));
 	dwEnable;
 
     if (ppLangBarItemButton)
@@ -957,6 +981,7 @@ void CCompositionProcessorEngine::CreateLanguageBarButton(DWORD dwEnable, GUID g
 
 BOOL CCompositionProcessorEngine::InitLanguageBar(_In_ CLangBarItemButton *pLangBarItemButton, _In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId, REFGUID guidCompartment)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::InitLanguageBar"));
     if (pLangBarItemButton)
     {
         if (pLangBarItemButton->_AddItem(pThreadMgr) == S_OK)
@@ -978,6 +1003,7 @@ BOOL CCompositionProcessorEngine::InitLanguageBar(_In_ CLangBarItemButton *pLang
 
 BOOL CCompositionProcessorEngine::SetupDictionaryFile()
 {	
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetupDictionaryFile"));
     // Not yet registered
     // Register CFileMapping
     WCHAR wszFileName[MAX_PATH] = {'\0'};
@@ -1040,6 +1066,7 @@ ErrorExit:
 
 CFile* CCompositionProcessorEngine::GetDictionaryFile()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::GetDictionaryFile"));
     return _pDictionaryFile;
 }
 
@@ -1051,6 +1078,7 @@ CFile* CCompositionProcessorEngine::GetDictionaryFile()
 
 void CCompositionProcessorEngine::SetupPunctuationPair()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetupPunctuationPair"));
     // Punctuation pair
     const int pair_count = 2;
     CPunctuationPair punc_quotation_mark(L'"', 0x201C, 0x201D);
@@ -1076,6 +1104,7 @@ void CCompositionProcessorEngine::SetupPunctuationPair()
 
 void CCompositionProcessorEngine::InitializeSampleIMECompartment(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::InitializeSampleIMECompartment"));
 	// set initial mode
     CCompartment CompartmentKeyboardOpen(pThreadMgr, tfClientId, GUID_COMPARTMENT_KEYBOARD_OPENCLOSE);
     CompartmentKeyboardOpen._SetCompartmentBOOL(TRUE);
@@ -1097,6 +1126,7 @@ void CCompositionProcessorEngine::InitializeSampleIMECompartment(_In_ ITfThreadM
 // static
 HRESULT CCompositionProcessorEngine::CompartmentCallback(_In_ void *pv, REFGUID guidCompartment)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::CompartmentCallback"));
     CCompositionProcessorEngine* fakeThis = (CCompositionProcessorEngine*)pv;
     if (nullptr == fakeThis)
     {
@@ -1139,6 +1169,7 @@ HRESULT CCompositionProcessorEngine::CompartmentCallback(_In_ void *pv, REFGUID 
 
 void CCompositionProcessorEngine::ConversionModeCompartmentUpdated(_In_ ITfThreadMgr *pThreadMgr)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::ConversionModeCompartmentUpdated"));
     if (!_pCompartmentConversion)
     {
         return;
@@ -1200,6 +1231,7 @@ void CCompositionProcessorEngine::ConversionModeCompartmentUpdated(_In_ ITfThrea
 
 void CCompositionProcessorEngine::PrivateCompartmentsUpdated(_In_ ITfThreadMgr *pThreadMgr)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::PrivateCompartmentsUpdated"));
     if (!_pCompartmentConversion)
     {
         return;
@@ -1256,6 +1288,7 @@ void CCompositionProcessorEngine::PrivateCompartmentsUpdated(_In_ ITfThreadMgr *
 
 void CCompositionProcessorEngine::KeyboardOpenCompartmentUpdated(_In_ ITfThreadMgr *pThreadMgr)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::KeyboardOpenCompartmentUpdated"));
     if (!_pCompartmentConversion)
     {
         return;
@@ -1305,6 +1338,7 @@ void CCompositionProcessorEngine::KeyboardOpenCompartmentUpdated(_In_ ITfThreadM
 
 BOOL CCompositionProcessorEngine::XPreservedKey::UninitPreservedKey(_In_ ITfThreadMgr *pThreadMgr)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::XPreservedKey::UninitPreservedKey"));
     ITfKeystrokeMgr* pKeystrokeMgr = nullptr;
 
     if (IsEqualGUID(Guid, GUID_NULL))
@@ -1332,12 +1366,14 @@ BOOL CCompositionProcessorEngine::XPreservedKey::UninitPreservedKey(_In_ ITfThre
 
 CCompositionProcessorEngine::XPreservedKey::XPreservedKey()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::XPreservedKey::XPreservedKey"));
     Guid = GUID_NULL;
     Description = nullptr;
 }
 
 CCompositionProcessorEngine::XPreservedKey::~XPreservedKey()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::XPreservedKey::~XPreservedKey"));
     ITfThreadMgr* pThreadMgr = nullptr;
 
     HRESULT hr = CoCreateInstance(CLSID_TF_ThreadMgr, NULL, CLSCTX_INPROC_SERVER, IID_ITfThreadMgr, (void**)&pThreadMgr);
@@ -1361,6 +1397,7 @@ CCompositionProcessorEngine::XPreservedKey::~XPreservedKey()
 
 HRESULT CSampleIME::CreateInstance(REFCLSID rclsid, REFIID riid, _Outptr_result_maybenull_ LPVOID* ppv, _Out_opt_ HINSTANCE* phInst, BOOL isComLessMode)
 {
+    Global::LogInfo(TEXT("CSampleIME::CreateInstance"));
     HRESULT hr = S_OK;
     if (phInst == nullptr)
     {
@@ -1393,6 +1430,7 @@ HRESULT CSampleIME::CreateInstance(REFCLSID rclsid, REFIID riid, _Outptr_result_
 
 HRESULT CSampleIME::ComLessCreateInstance(REFGUID rclsid, REFIID riid, _Outptr_result_maybenull_ void **ppv, _Out_opt_ HINSTANCE *phInst)
 {
+    Global::LogInfo(TEXT("CSampleIME::ComLessCreateInstance"));
     HRESULT hr = S_OK;
     HINSTANCE sampleIMEDllHandle = nullptr;
     WCHAR wchPath[MAX_PATH] = {'\0'};
@@ -1449,6 +1487,7 @@ HRESULT CSampleIME::ComLessCreateInstance(REFGUID rclsid, REFIID riid, _Outptr_r
 
 HRESULT CSampleIME::GetComModuleName(REFGUID rclsid, _Out_writes_(cchPath)WCHAR* wchPath, DWORD cchPath)
 {
+    Global::LogInfo(TEXT("CSampleIME::GetComModuleName"));
     HRESULT hr = S_OK;
 
     CRegKey key;
@@ -1490,6 +1529,7 @@ HRESULT CSampleIME::GetComModuleName(REFGUID rclsid, _Out_writes_(cchPath)WCHAR*
 
 void CCompositionProcessorEngine::InitKeyStrokeTable()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::InitKeyStrokeTable"));
     for (int i = 0; i < 26; i++)
     {
         _keystrokeTable[i].VirtualKey = 'A' + i;
@@ -1500,16 +1540,19 @@ void CCompositionProcessorEngine::InitKeyStrokeTable()
 
 void CCompositionProcessorEngine::ShowAllLanguageBarIcons()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::ShowAllLanguageBarIcons"));
     SetLanguageBarStatus(TF_LBI_STATUS_HIDDEN, FALSE);
 }
 
 void CCompositionProcessorEngine::HideAllLanguageBarIcons()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::HideAllLanguageBarIcons"));
     SetLanguageBarStatus(TF_LBI_STATUS_HIDDEN, TRUE);
 }
 
 void CCompositionProcessorEngine::SetInitialCandidateListRange()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetInitialCandidateListRange"));
     for (DWORD i = 1; i <= 10; i++)
     {
         DWORD* pNewIndexRange = nullptr;
@@ -1531,6 +1574,7 @@ void CCompositionProcessorEngine::SetInitialCandidateListRange()
 
 void CCompositionProcessorEngine::SetDefaultCandidateTextFont()
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetDefaultCandidateTextFont"));
     // Candidate Text Font
     if (Global::defaultlFontHandle == nullptr)
     {
@@ -1570,6 +1614,7 @@ void CCompositionProcessorEngine::SetDefaultCandidateTextFont()
 
 BOOL CCompositionProcessorEngine::IsVirtualKeyNeed(UINT uCode, _In_reads_(1) WCHAR *pwch, BOOL fComposing, CANDIDATE_MODE candidateMode, BOOL hasCandidateWithWildcard, _Out_opt_ _KEYSTROKE_STATE *pKeyState)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::IsVirtualKeyNeed"));
     if (pKeyState)
     {
         pKeyState->Category = CATEGORY_NONE;
@@ -1815,6 +1860,7 @@ BOOL CCompositionProcessorEngine::IsVirtualKeyNeed(UINT uCode, _In_reads_(1) WCH
 
 BOOL CCompositionProcessorEngine::IsVirtualKeyKeystrokeComposition(UINT uCode, _Out_opt_ _KEYSTROKE_STATE *pKeyState, KEYSTROKE_FUNCTION function)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::IsVirtualKeyKeystrokeComposition"));
     if (pKeyState == nullptr)
     {
         return FALSE;
@@ -1857,6 +1903,7 @@ BOOL CCompositionProcessorEngine::IsVirtualKeyKeystrokeComposition(UINT uCode, _
 
 BOOL CCompositionProcessorEngine::IsVirtualKeyKeystrokeCandidate(UINT uCode, _In_ _KEYSTROKE_STATE *pKeyState, CANDIDATE_MODE candidateMode, _Out_ BOOL *pfRetCode, _In_ CSampleImeArray<_KEYSTROKE> *pKeystrokeMetric)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::IsVirtualKeyKeystrokeCandidate"));
     if (pfRetCode == nullptr)
     {
         return FALSE;
@@ -1894,6 +1941,7 @@ BOOL CCompositionProcessorEngine::IsVirtualKeyKeystrokeCandidate(UINT uCode, _In
 
 BOOL CCompositionProcessorEngine::IsKeystrokeRange(UINT uCode, _Out_ _KEYSTROKE_STATE *pKeyState, CANDIDATE_MODE candidateMode)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::IsKeystrokeRange"));
     if (pKeyState == nullptr)
     {
         return FALSE;

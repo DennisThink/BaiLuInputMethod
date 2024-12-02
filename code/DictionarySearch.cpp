@@ -17,6 +17,7 @@
 
 CDictionarySearch::CDictionarySearch(LCID locale, _In_ CFile *pFile, _In_ CStringRange *pSearchKeyCode) : CDictionaryParser(locale)
 {
+    Global::LogInfo(TEXT("CDictionarySearch::CDictionarySearch"));
     _pFile = pFile;
     _pSearchKeyCode = pSearchKeyCode;
     _charIndex = 0;
@@ -30,6 +31,7 @@ CDictionarySearch::CDictionarySearch(LCID locale, _In_ CFile *pFile, _In_ CStrin
 
 CDictionarySearch::~CDictionarySearch()
 {
+    Global::LogInfo(TEXT("CDictionarySearch::~CDictionarySearch"));
 }
 
 //+---------------------------------------------------------------------------
@@ -40,6 +42,7 @@ CDictionarySearch::~CDictionarySearch()
 
 BOOL CDictionarySearch::FindPhrase(_Out_ CDictionaryResult **ppdret)
 {
+    Global::LogInfo(TEXT("CDictionarySearch::FindPhrase"));
     return FindWorker(FALSE, ppdret, FALSE); // NO WILDCARD
 }
 
@@ -51,6 +54,7 @@ BOOL CDictionarySearch::FindPhrase(_Out_ CDictionaryResult **ppdret)
 
 BOOL CDictionarySearch::FindPhraseForWildcard(_Out_ CDictionaryResult **ppdret)
 {
+    Global::LogInfo(TEXT("CDictionarySearch::FindPhraseForWildcard"));
     return FindWorker(FALSE, ppdret, TRUE); // Wildcard
 }
 
@@ -62,6 +66,7 @@ BOOL CDictionarySearch::FindPhraseForWildcard(_Out_ CDictionaryResult **ppdret)
 
 BOOL CDictionarySearch::FindConvertedStringForWildcard(CDictionaryResult **ppdret)
 {
+    Global::LogInfo(TEXT("CDictionarySearch::FindConvertedStringForWildcard"));
     return FindWorker(TRUE, ppdret, TRUE); // Wildcard
 }
 
@@ -73,6 +78,7 @@ BOOL CDictionarySearch::FindConvertedStringForWildcard(CDictionaryResult **ppdre
 
 BOOL CDictionarySearch::FindWorker(BOOL isTextSearch, _Out_ CDictionaryResult **ppdret, BOOL isWildcardSearch)
 {
+    Global::LogInfo(TEXT("CDictionarySearch::FindWorker"));
     DWORD_PTR dwTotalBufLen = GetBufferInWCharLength();        // in char
     if (dwTotalBufLen == 0)
     {

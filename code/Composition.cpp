@@ -20,6 +20,7 @@
 
 STDAPI CSampleIME::OnCompositionTerminated(TfEditCookie ecWrite, _In_ ITfComposition *pComposition)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnCompositionTerminated"));
     // Clear dummy composition
     _RemoveDummyCompositionForComposing(ecWrite, pComposition);
 
@@ -51,6 +52,7 @@ STDAPI CSampleIME::OnCompositionTerminated(TfEditCookie ecWrite, _In_ ITfComposi
 
 BOOL CSampleIME::_IsComposing()
 {
+    Global::LogInfo(TEXT("CSampleIME::_IsComposing"));
     return _pComposition != nullptr;
 }
 
@@ -62,6 +64,7 @@ BOOL CSampleIME::_IsComposing()
 
 void CSampleIME::_SetComposition(_In_ ITfComposition *pComposition)
 {
+    Global::LogInfo(TEXT("CSampleIME::_SetComposition"));
     _pComposition = pComposition;
 }
 
@@ -73,6 +76,7 @@ void CSampleIME::_SetComposition(_In_ ITfComposition *pComposition)
 
 HRESULT CSampleIME::_AddComposingAndChar(TfEditCookie ec, _In_ ITfContext *pContext, _In_ CStringRange *pstrAddString)
 {
+    Global::LogInfo(TEXT("CSampleIME::_AddComposingAndChar"));
     HRESULT hr = S_OK;
 
     ULONG fetched = 0;
@@ -121,6 +125,7 @@ HRESULT CSampleIME::_AddComposingAndChar(TfEditCookie ec, _In_ ITfContext *pCont
 
 HRESULT CSampleIME::_AddCharAndFinalize(TfEditCookie ec, _In_ ITfContext *pContext, _In_ CStringRange *pstrAddString)
 {
+    Global::LogInfo(TEXT("CSampleIME::_AddCharAndFinalize"));
     HRESULT hr = E_FAIL;
 
     ULONG fetched = 0;
@@ -153,6 +158,7 @@ HRESULT CSampleIME::_AddCharAndFinalize(TfEditCookie ec, _In_ ITfContext *pConte
 
 BOOL CSampleIME::_FindComposingRange(TfEditCookie ec, _In_ ITfContext *pContext, _In_ ITfRange *pSelection, _Outptr_result_maybenull_ ITfRange **ppRange)
 {
+    Global::LogInfo(TEXT("CSampleIME::_FindComposingRange"));
     if (ppRange == nullptr)
     {
         return FALSE;
@@ -210,6 +216,7 @@ BOOL CSampleIME::_FindComposingRange(TfEditCookie ec, _In_ ITfContext *pContext,
 
 HRESULT CSampleIME::_SetInputString(TfEditCookie ec, _In_ ITfContext *pContext, _Out_opt_ ITfRange *pRange, _In_ CStringRange *pstrAddString, BOOL exist_composing)
 {
+    Global::LogInfo(TEXT("CSampleIME::_SetInputString"));
     ITfRange* pRangeInsert = nullptr;
     if (!exist_composing)
     {
@@ -262,6 +269,7 @@ HRESULT CSampleIME::_SetInputString(TfEditCookie ec, _In_ ITfContext *pContext, 
 
 HRESULT CSampleIME::_InsertAtSelection(TfEditCookie ec, _In_ ITfContext *pContext, _In_ CStringRange *pstrAddString, _Outptr_ ITfRange **ppCompRange)
 {
+    Global::LogInfo(TEXT("CSampleIME::_InsertAtSelection"));
     ITfRange* rangeInsert = nullptr;
     ITfInsertAtSelection* pias = nullptr;
     HRESULT hr = S_OK;
@@ -305,6 +313,7 @@ Exit:
 
 HRESULT CSampleIME::_RemoveDummyCompositionForComposing(TfEditCookie ec, _In_ ITfComposition *pComposition)
 {
+    Global::LogInfo(TEXT("CSampleIME::_RemoveDummyCompositionForComposing"));
     HRESULT hr = S_OK;
 
     ITfRange* pRange = nullptr;
@@ -330,6 +339,7 @@ HRESULT CSampleIME::_RemoveDummyCompositionForComposing(TfEditCookie ec, _In_ IT
 
 BOOL CSampleIME::_SetCompositionLanguage(TfEditCookie ec, _In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::_SetCompositionLanguage"));
     HRESULT hr = S_OK;
     BOOL ret = TRUE;
 
