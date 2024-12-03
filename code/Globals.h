@@ -163,6 +163,7 @@ extern const WCHAR LangbarPunctuationDescription[];
 //Begin By DennisThink
 //End By DennisThink
 void LogInfo(const TCHAR* message);
+void LogInfo(const std::string strMsg);
 void OpenLogFile();
 void CloseLogFile();
 }

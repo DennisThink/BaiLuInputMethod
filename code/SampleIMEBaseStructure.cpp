@@ -123,51 +123,51 @@ BOOL IsSpace(LCID locale, WCHAR wch)
 
 CStringRange::CStringRange()
 {
-    Global::LogInfo(TEXT("CStringRange::CStringRange"));
+    //Global::LogInfo(TEXT("CStringRange::CStringRange"));
     _stringBufLen = 0;
     _pStringBuf = nullptr;
 }
 
 CStringRange::~CStringRange() 
 { 
-    Global::LogInfo(TEXT("CStringRange::~CStringRange"));
+    //Global::LogInfo(TEXT("CStringRange::~CStringRange"));
 }
 
 const WCHAR *CStringRange::Get() const
 {
-    Global::LogInfo(TEXT("CStringRange::Get"));
+    //Global::LogInfo(TEXT("CStringRange::Get"));
     return _pStringBuf;
 }
 
 const DWORD_PTR CStringRange::GetLength() const
 {
-    Global::LogInfo(TEXT("CStringRange::GetLength"));
+    //Global::LogInfo(TEXT("CStringRange::GetLength"));
     return _stringBufLen;
 }
 
 void CStringRange::Clear()
 {
-    Global::LogInfo(TEXT("CStringRange::Clear"));
+    //Global::LogInfo(TEXT("CStringRange::Clear"));
     _stringBufLen = 0;
     _pStringBuf = nullptr;
 }
 
 void CStringRange::Set(const WCHAR *pwch, DWORD_PTR dwLength)
 {
-    Global::LogInfo(TEXT("CStringRange::Set"));
+    //Global::LogInfo(TEXT("CStringRange::Set"));
     _stringBufLen = dwLength;
     _pStringBuf = pwch;
 }
 
 void CStringRange::Set(CStringRange &sr)
 {
-    Global::LogInfo(TEXT("CStringRange::Set"));
+    //Global::LogInfo(TEXT("CStringRange::Set"));
     *this = sr;
 }
 
 CStringRange& CStringRange::operator =(const CStringRange& sr)
 {
-    Global::LogInfo(TEXT("CStringRange::operator ="));
+    //Global::LogInfo(TEXT("CStringRange::operator ="));
     _stringBufLen = sr._stringBufLen;
     _pStringBuf = sr._pStringBuf;
     return *this;
@@ -175,7 +175,7 @@ CStringRange& CStringRange::operator =(const CStringRange& sr)
 
 void CStringRange::CharNext(_Inout_ CStringRange* pCharNext)
 {
-    Global::LogInfo(TEXT("CStringRange::CharNext"));
+    //Global::LogInfo(TEXT("CStringRange::CharNext"));
     if (!_stringBufLen)
     {
         pCharNext->_stringBufLen = 0;
@@ -201,7 +201,7 @@ void CStringRange::CharNext(_Inout_ CStringRange* pCharNext)
 
 int CStringRange::Compare(LCID locale, _In_ CStringRange* pString1, _In_ CStringRange* pString2)
 {
-    Global::LogInfo(TEXT("CStringRange::Compare"));
+    //Global::LogInfo(TEXT("CStringRange::Compare"));
     return CompareString(locale, 
         NORM_IGNORECASE, 
         pString1->Get(), 
@@ -212,7 +212,7 @@ int CStringRange::Compare(LCID locale, _In_ CStringRange* pString1, _In_ CString
 
 BOOL CStringRange::WildcardCompare(LCID locale, _In_ CStringRange* stringWithWildcard, _In_ CStringRange* targetString)
 {
-    Global::LogInfo(TEXT("CStringRange::WildcardCompare"));
+    //Global::LogInfo(TEXT("CStringRange::WildcardCompare"));
     if (stringWithWildcard->GetLength() == 0)
     {
         return targetString->GetLength() == 0 ? TRUE : FALSE;
@@ -245,19 +245,19 @@ BOOL CStringRange::WildcardCompare(LCID locale, _In_ CStringRange* stringWithWil
 
 CCandidateRange::CCandidateRange(void)
 {
-    Global::LogInfo(TEXT("CCandidateRange::CCandidateRange"));
+    //Global::LogInfo(TEXT("CCandidateRange::CCandidateRange"));
 }
 
 
 CCandidateRange::~CCandidateRange(void)
 {
-    Global::LogInfo(TEXT("CCandidateRange::~CCandidateRange"));
+    //Global::LogInfo(TEXT("CCandidateRange::~CCandidateRange"));
 }
 
 
 BOOL CCandidateRange::IsRange(UINT vKey)
 {
-    Global::LogInfo(TEXT("CCandidateRange::IsRange"));
+    //Global::LogInfo(TEXT("CCandidateRange::IsRange"));
     DWORD value = vKey - L'0';
 
     for (UINT i = 0; i < _CandidateListIndexRange.Count(); i++)
@@ -279,7 +279,7 @@ BOOL CCandidateRange::IsRange(UINT vKey)
 
 int CCandidateRange::GetIndex(UINT vKey)
 {
-    Global::LogInfo(TEXT("CCandidateRange::GetIndex"));
+    //Global::LogInfo(TEXT("CCandidateRange::GetIndex"));
     DWORD value = vKey - L'0';
 
     for (UINT i = 0; i < _CandidateListIndexRange.Count(); i++)
@@ -301,7 +301,7 @@ int CCandidateRange::GetIndex(UINT vKey)
 
 CPunctuationPair::CPunctuationPair()
 {
-    Global::LogInfo(TEXT("CPunctuationPair::CPunctuationPair"));
+    //Global::LogInfo(TEXT("CPunctuationPair::CPunctuationPair"));
     _punctuation._Code = 0;
     _punctuation._Punctuation = 0;
     _pairPunctuation = 0;

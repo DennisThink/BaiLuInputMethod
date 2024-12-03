@@ -274,6 +274,25 @@ STDAPI CSampleIME::OnSetFocus(BOOL fForeground)
     return S_OK;
 }
 
+std::string VirtualKeyCodeToString(UINT vkCode) {
+    // 用于存储键名的缓冲区
+    char keyName[256] = { 0 };
+
+    // 将虚拟键码转换为扫描码
+    UINT scanCode = MapVirtualKey(vkCode, MAPVK_VK_TO_VSC);
+
+    // 构造lParam用于GetKeyNameText函数
+    // 高16位放扫描码，低16位中的第25位（bit24）用于指示扩展键
+    LONG lParam = (scanCode << 16);
+
+    // 获取键名
+    if (GetKeyNameTextA(lParam, keyName, sizeof(keyName)) > 0) {
+        return std::string(keyName);
+    }
+
+    return "Unknown Key";
+}
+
 //+---------------------------------------------------------------------------
 //
 // ITfKeyEventSink::OnTestKeyDown
@@ -284,6 +303,14 @@ STDAPI CSampleIME::OnSetFocus(BOOL fForeground)
 STDAPI CSampleIME::OnTestKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten)
 {
     Global::LogInfo(TEXT("CSampleIME::OnTestKeyDown"));
+    {
+        UINT vCode = UINT(wParam);
+        std::string strCodeName = VirtualKeyCodeToString(vCode);
+        char buff[1024] = { 0 };
+        sprintf(buff, "CSampleIME::OnTestKeyDown Name:%s  Code:%d  Code2: %d\n", strCodeName.c_str(), vCode, (UINT)(lParam));
+        std::string strLog(buff);
+        Global::LogInfo(strLog);
+    }
     Global::UpdateModifiers(wParam, lParam);
 
     _KEYSTROKE_STATE KeystrokeState;

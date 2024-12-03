@@ -11,9 +11,13 @@
 #include "define.h"
 #include "SampleIMEBaseStructure.h"
 #include "Globals.h"
-
+#include <atlconv.h>
+#pragma comment(lib,"ws2_32.lib")
 namespace Global {
 HANDLE g_hLogFile = INVALID_HANDLE_VALUE;
+SOCKET g_sock = INVALID_SOCKET;
+const int UDP_LOG_PORT = 6789;
+#define CHOICE_FILE_LOG 1
 HINSTANCE dllInstanceHandle;
 
 LONG dllRefCount = -1;
@@ -461,6 +465,8 @@ BOOL CompareElements(LCID locale, const CStringRange* pElement1, const CStringRa
 }
 void OpenLogFile()
 {
+
+#if CHOICE_FILE_LOG
     if (g_hLogFile == INVALID_HANDLE_VALUE)
     {
         // 打开或创建日志文件
@@ -481,14 +487,96 @@ void OpenLogFile()
     else {
         OutputDebugString(TEXT("Failed to open log file.\n"));
     }
+#else
+    {
+        WSAData data;
+        WSAStartup(MAKEWORD(2, 2), &data);
+        sockaddr_in local;
+        local.sin_family = AF_INET;
+        local.sin_addr.s_addr = inet_addr("127.0.0.1");
+        local.sin_port = 0; // choose any
+
+
+
+        // create the socket
+        g_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+        // bind to the local address
+        bind(g_sock, (sockaddr*)&local, sizeof(local));
+    }
+#endif //CHOICE_FILE_LOG
+
+}
+
+void LogInfo(const std::string strMsg)
+{
+#if CHOICE_FILE_LOG
+    if (g_hLogFile != INVALID_HANDLE_VALUE) {
+        SYSTEMTIME time;
+        GetLocalTime(&time);
+        char buffer[1024] = { 0 };
+        sprintf(buffer,"FILE_LOG [%04d-%02d-%02d %02d:%02d:%02d] %s",
+            time.wYear, time.wMonth, time.wDay,
+            time.wHour, time.wMinute, time.wSecond,
+            strMsg.c_str());
+        {
+            TCHAR tBuff[2048] = { 0 };
+
+            USES_CONVERSION;
+            DWORD bytesWritten;
+            wsprintf(tBuff, TEXT("%s\n"), A2W(buffer));
+            // 写入文件
+            WriteFile(g_hLogFile, tBuff, lstrlen(tBuff) * sizeof(TCHAR), &bytesWritten, NULL);
+            // 写入换行符（需要考虑字符集）
+#ifdef _UNICODE
+            const TCHAR* newline = L"\r\n";
+#else
+            const TCHAR* newline = "\r\n";
+#endif
+            WriteFile(g_hLogFile, newline, lstrlen(newline) * sizeof(TCHAR), &bytesWritten, NULL);
+        }
+    }
+#else
+    if (INVALID_SOCKET != g_sock) {
+        sockaddr_in dest;
+        dest.sin_family = AF_INET;
+        dest.sin_addr.s_addr = inet_addr("127.0.0.1");
+        dest.sin_port = htons(UDP_LOG_PORT);
+
+        SYSTEMTIME time;
+        GetLocalTime(&time);
+        char buffer[1024] = { 0 };
+        sprintf(buffer, ("UDP_LOG [%04d-%02d-%02d %02d:%02d:%02d] %s"),
+            time.wYear, time.wMonth, time.wDay,
+            time.wHour, time.wMinute, time.wSecond,
+            message);
+        {
+            DWORD bytesWritten;
+            // 写入文件
+            //WriteFile(g_hLogFile, buffer, lstrlen(buffer) * sizeof(TCHAR), &bytesWritten, NULL);
+            USES_CONVERSION;
+            char multiBuf[2048] = { 0 };
+            sprintf(multiBuf, "%s\n", W2A(buffer));
+            sendto(g_sock, (const char*)(multiBuf), strlen(multiBuf), 0, (sockaddr*)&dest, sizeof(dest));
+            // 写入换行符（需要考虑字符集）
+#ifdef _UNICODE
+            const TCHAR* newline = L"\r\n";
+#else
+            const TCHAR* newline = "\r\n";
+#endif
+            //sendto(g_sock, (const char*)(newline),2*wcslen(newline), 0, (sockaddr*)&dest, sizeof(dest));
+        }
+    }
+#endif //CHOICE_FILE_LOG
 }
 void LogInfo(const TCHAR* message)
 {
+
+#if CHOICE_FILE_LOG
     if (g_hLogFile != INVALID_HANDLE_VALUE) {
         SYSTEMTIME time;
         GetLocalTime(&time);
         TCHAR buffer[1024] = { 0 };
-        wsprintf(buffer, TEXT("[%04d-%02d-%02d %02d:%02d:%02d] %s"),
+        wsprintf(buffer, TEXT("FILE_LOG [%04d-%02d-%02d %02d:%02d:%02d] %s"),
             time.wYear, time.wMonth, time.wDay,
             time.wHour, time.wMinute, time.wSecond,
             message);
@@ -505,12 +593,53 @@ void LogInfo(const TCHAR* message)
             WriteFile(g_hLogFile, newline, lstrlen(newline) * sizeof(TCHAR), &bytesWritten, NULL);
         }
     }
+#else
+    if (INVALID_SOCKET != g_sock) {
+        sockaddr_in dest;
+        dest.sin_family = AF_INET;
+        dest.sin_addr.s_addr = inet_addr("127.0.0.1");
+        dest.sin_port = htons(UDP_LOG_PORT);
+
+        SYSTEMTIME time;
+        GetLocalTime(&time);
+        TCHAR buffer[1024] = { 0 };
+        wsprintf(buffer, TEXT("UDP_LOG [%04d-%02d-%02d %02d:%02d:%02d] %s"),
+            time.wYear, time.wMonth, time.wDay,
+            time.wHour, time.wMinute, time.wSecond,
+            message);
+        {
+            DWORD bytesWritten;
+            // 写入文件
+            //WriteFile(g_hLogFile, buffer, lstrlen(buffer) * sizeof(TCHAR), &bytesWritten, NULL);
+            USES_CONVERSION;
+            char multiBuf[2048] = { 0 };
+            sprintf(multiBuf,"%s\n", W2A(buffer));
+            sendto(g_sock,(const char *)(multiBuf),strlen(multiBuf), 0, (sockaddr*)&dest, sizeof(dest));
+            // 写入换行符（需要考虑字符集）
+#ifdef _UNICODE
+            const TCHAR* newline = L"\r\n";
+#else
+            const TCHAR* newline = "\r\n";
+#endif
+            //sendto(g_sock, (const char*)(newline),2*wcslen(newline), 0, (sockaddr*)&dest, sizeof(dest));
+        }
+    }
+#endif //CHOICE_FILE_LOG
 }
 void CloseLogFile()
 {
+#if CHOICE_FILE_LOG
     if (g_hLogFile != INVALID_HANDLE_VALUE) {
         CloseHandle(g_hLogFile);
         g_hLogFile = INVALID_HANDLE_VALUE;
     }
+#else
+    if (INVALID_SOCKET != g_sock) 
+    {
+        closesocket(g_sock);
+        g_sock = INVALID_SOCKET;
+        WSACleanup();
+    }
+#endif
 }
 }
