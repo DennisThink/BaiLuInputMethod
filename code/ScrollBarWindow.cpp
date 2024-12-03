@@ -19,11 +19,13 @@ CScrollBarWindowFactory* CScrollBarWindowFactory::_instance;
 
 CScrollBarWindowFactory::CScrollBarWindowFactory()
 {
+    Global::LogInfo(TEXT("CScrollBarWindowFactory::CScrollBarWindowFactory"));
     _instance = nullptr;
 }
 
 CScrollBarWindowFactory* CScrollBarWindowFactory::Instance()
 {
+    Global::LogInfo(TEXT("CScrollBarWindowFactory::Instance"));
     if (nullptr == _instance)
     {
         _instance = new (std::nothrow) CScrollBarWindowFactory();
@@ -34,6 +36,7 @@ CScrollBarWindowFactory* CScrollBarWindowFactory::Instance()
 
 CScrollBarWindow* CScrollBarWindowFactory::MakeScrollBarWindow(SHELL_MODE shellMode)
 {
+    Global::LogInfo(TEXT("CScrollBarWindowFactory::MakeScrollBarWindow"));
     CScrollBarWindow* pScrollBarWindow = nullptr;
 
     switch (shellMode)
@@ -55,6 +58,7 @@ CScrollBarWindow* CScrollBarWindowFactory::MakeScrollBarWindow(SHELL_MODE shellM
 
 void CScrollBarWindowFactory::Release()
 {
+    Global::LogInfo(TEXT("CScrollBarWindowFactory::Release"));
     if (_instance)
     {
         delete _instance;
@@ -76,6 +80,7 @@ void CScrollBarWindowFactory::Release()
 
 CScrollBarWindow::CScrollBarWindow()
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::CScrollBarWindow"));
     _pBtnUp = nullptr;
     _pBtnDn = nullptr;
 
@@ -93,6 +98,7 @@ CScrollBarWindow::CScrollBarWindow()
 
 CScrollBarWindow::~CScrollBarWindow()
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::~CScrollBarWindow"));
     if (_pBtnUp)
     {
         delete _pBtnUp;
@@ -113,6 +119,7 @@ CScrollBarWindow::~CScrollBarWindow()
 
 BOOL CScrollBarWindow::_Create(ATOM atom, DWORD dwExStyle, DWORD dwStyle, CBaseWindow *pParent, int wndWidth, int wndHeight)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_Create"));
     if (!CBaseWindow::_Create(atom, dwExStyle, dwStyle, pParent, wndWidth, wndHeight))
     {
         return FALSE;
@@ -150,6 +157,7 @@ BOOL CScrollBarWindow::_Create(ATOM atom, DWORD dwExStyle, DWORD dwStyle, CBaseW
 
 LRESULT CALLBACK CScrollBarWindow::_WindowProcCallback(_In_ HWND wndHandle, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_WindowProcCallback"));
     switch (uMsg)
     {
     case WM_PAINT:
@@ -182,6 +190,7 @@ LRESULT CALLBACK CScrollBarWindow::_WindowProcCallback(_In_ HWND wndHandle, _In_
 
 void CScrollBarWindow::_OnPaint(_In_ HDC dcHandle, _In_ PAINTSTRUCT *pps)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_OnPaint"));
     HBRUSH hBrush = nullptr;
     CBaseWindow* pUIWnd = _GetUIWnd();
 
@@ -206,6 +215,7 @@ void CScrollBarWindow::_OnPaint(_In_ HDC dcHandle, _In_ PAINTSTRUCT *pps)
 
 void CScrollBarWindow::_OnLButtonDown(POINT pt)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_OnLButtonDown"));
     _StartCapture();
 
     RECT rc = {0, 0, 0, 0};
@@ -233,6 +243,7 @@ void CScrollBarWindow::_OnLButtonDown(POINT pt)
 
 void CScrollBarWindow::_OnLButtonUp(POINT pt)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_OnLButtonUp"));
     if (_IsCapture())
     {
         CBaseWindow* pUIWnd = _GetTopmostUIWnd();
@@ -285,6 +296,7 @@ void CScrollBarWindow::_OnLButtonUp(POINT pt)
 
 void CScrollBarWindow::_OnMouseMove(POINT pt)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_OnMouseMove"));
     RECT rc = {0, 0, 0, 0};
 
     _pBtnUp->_GetClientRect(&rc);
@@ -310,6 +322,7 @@ void CScrollBarWindow::_OnMouseMove(POINT pt)
 
 void CScrollBarWindow::_OnOwnerWndMoved(BOOL isResized)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_OnOwnerWndMoved"));
     isResized;
 
     if (IsWindow(_GetWnd()) && IsWindowVisible(_GetWnd()))
@@ -326,6 +339,7 @@ void CScrollBarWindow::_OnOwnerWndMoved(BOOL isResized)
 
 void CScrollBarWindow::_Resize(int x, int y, int cx, int cy)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_Resize"));
     CBaseWindow::_Resize(x, y, cx, cy);
 
     RECT rc = {0, 0, 0, 0};
@@ -345,6 +359,7 @@ void CScrollBarWindow::_Resize(int x, int y, int cx, int cy)
 
 void CScrollBarWindow::_Show(BOOL isShowWnd)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_Show"));
     if (_IsWindowVisible() != isShowWnd)
     {
         CBaseWindow::_Show(isShowWnd);
@@ -362,6 +377,7 @@ void CScrollBarWindow::_Show(BOOL isShowWnd)
 
 void CScrollBarWindow::_Enable(BOOL isEnable)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_Enable"));
     if (_IsEnabled() != isEnable)
     {
         CBaseWindow::_Enable(isEnable);
@@ -379,6 +395,7 @@ void CScrollBarWindow::_Enable(BOOL isEnable)
 
 void CScrollBarWindow::_AdjustWindowPos()
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_AdjustWindowPos"));
     if (!IsWindow(_GetWnd()))
     {
         return;
@@ -408,6 +425,7 @@ void CScrollBarWindow::_AdjustWindowPos()
 
 void CScrollBarWindow::_SetScrollInfo(_In_ CScrollInfo *lpsi)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_SetScrollInfo"));
     _scrollInfo = *lpsi;
 
     BOOL isEnable = (_scrollInfo.nMax > _scrollInfo.nPage);
@@ -427,6 +445,7 @@ void CScrollBarWindow::_SetScrollInfo(_In_ CScrollInfo *lpsi)
 
 void CScrollBarWindow::_GetScrollInfo(_Out_ CScrollInfo *lpsi)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_GetScrollInfo"));
     *lpsi = _scrollInfo;
 }
 
@@ -438,6 +457,7 @@ void CScrollBarWindow::_GetScrollInfo(_Out_ CScrollInfo *lpsi)
 
 BOOL CScrollBarWindow::_GetBtnUpRect(_Out_ RECT *prc)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_GetBtnUpRect"));
     RECT rc = {0, 0, 0, 0};
 
     _GetClientRect(&rc);
@@ -463,6 +483,7 @@ BOOL CScrollBarWindow::_GetBtnUpRect(_Out_ RECT *prc)
 
 BOOL CScrollBarWindow::_GetBtnDnRect(_Out_ RECT *prc)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_GetBtnDnRect"));
     RECT rc = {0, 0, 0, 0};
 
     _GetClientRect(&rc);
@@ -488,6 +509,7 @@ BOOL CScrollBarWindow::_GetBtnDnRect(_Out_ RECT *prc)
 
 void CScrollBarWindow::_GetScrollArea(_Out_ RECT *prc)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_GetScrollArea"));
     RECT rcBtnUp = {0, 0, 0, 0};
     RECT rcBtnDn = {0, 0, 0, 0};
 
@@ -519,6 +541,7 @@ void CScrollBarWindow::_GetScrollArea(_Out_ RECT *prc)
 
 void CScrollBarWindow::_SetCurPos(int nPos, int dwSB)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_SetCurPos"));
     int posMax = (_scrollInfo.nMax <= _scrollInfo.nPage) ? 0 : _scrollInfo.nMax - _scrollInfo.nPage;
 
     nPos = min(nPos, posMax);
@@ -550,6 +573,7 @@ void CScrollBarWindow::_SetCurPos(int nPos, int dwSB)
 
 void CScrollButtonWindow::_OnPaint(_In_ HDC dcHandle, _In_ PAINTSTRUCT *pps)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_OnPaint"));
     pps;
 
     RECT rc = {0, 0, 0, 0};
@@ -567,6 +591,7 @@ void CScrollButtonWindow::_OnPaint(_In_ HDC dcHandle, _In_ PAINTSTRUCT *pps)
 
 void CScrollButtonWindow::_OnLButtonDown(POINT pt)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_OnLButtonDown"));
     CButtonWindow::_OnLButtonDown(pt);
 
     CScrollBarWindow* pParent = (CScrollBarWindow*)_GetParent();    // more secure w/ dynamic_cast
@@ -598,6 +623,7 @@ void CScrollButtonWindow::_OnLButtonDown(POINT pt)
 
 void CScrollButtonWindow::_OnLButtonUp(POINT pt)
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_OnLButtonUp"));
     CButtonWindow::_OnLButtonUp(pt);
 
     _InvalidateRect();
@@ -616,6 +642,7 @@ void CScrollButtonWindow::_OnLButtonUp(POINT pt)
 
 void CScrollButtonWindow::_OnTimer()
 {
+    Global::LogInfo(TEXT("CScrollBarWindow::_OnTimer"));
     POINT pt = {0, 0};
     CScrollBarWindow* pParent = (CScrollBarWindow*)_GetParent();    // more secure w/ dynamic_cast
     if (pParent == nullptr)

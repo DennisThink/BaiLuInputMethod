@@ -7,6 +7,7 @@
 
 #include "Private.h"
 #include "RegKey.h"
+#include "Globals.h"
 
 //---------------------------------------------------------------------
 //
@@ -16,6 +17,7 @@
 
 CRegKey::CRegKey()
 {
+    Global::LogInfo(TEXT("CRegKey::CRegKey"));
     _keyHandle = nullptr;
 }
 
@@ -27,6 +29,7 @@ CRegKey::CRegKey()
 
 CRegKey::~CRegKey()
 {
+    Global::LogInfo(TEXT("CRegKey::~CRegKey"));
     Close();
 }
 
@@ -39,6 +42,7 @@ CRegKey::~CRegKey()
 
 HKEY CRegKey::GetHKEY()
 {
+    Global::LogInfo(TEXT("CRegKey::GetHKEY"));
     return _keyHandle;
 }
 
@@ -50,6 +54,7 @@ HKEY CRegKey::GetHKEY()
 
 LONG CRegKey::Create(_In_ HKEY hKeyPresent, _In_ LPCWSTR pwszKeyName, _In_reads_opt_(255) LPWSTR pwszClass, DWORD dwOptions, REGSAM samDesired, _Inout_ LPSECURITY_ATTRIBUTES lpSecAttr, _Out_opt_ LPDWORD lpdwDisposition)
 {
+    Global::LogInfo(TEXT("CRegKey::Create"));
     DWORD disposition = 0;
     HKEY keyHandle = nullptr;
 
@@ -78,6 +83,7 @@ LONG CRegKey::Create(_In_ HKEY hKeyPresent, _In_ LPCWSTR pwszKeyName, _In_reads_
 
 LONG CRegKey::Open(_In_ HKEY hKeyParent, _In_ LPCWSTR pwszKeyName, REGSAM samDesired)
 {
+    Global::LogInfo(TEXT("CRegKey::Open"));
     HKEY keyHandle = nullptr;
 
     LONG res = RegOpenKeyEx(hKeyParent, pwszKeyName, 0, samDesired, &keyHandle);
@@ -97,6 +103,7 @@ LONG CRegKey::Open(_In_ HKEY hKeyParent, _In_ LPCWSTR pwszKeyName, REGSAM samDes
 
 LONG CRegKey::Close()
 {
+    Global::LogInfo(TEXT("CRegKey::Close"));
     LONG res = ERROR_SUCCESS;
     if (_keyHandle)
     {
@@ -115,11 +122,13 @@ LONG CRegKey::Close()
 
 LONG CRegKey::DeleteSubKey(_In_ LPCWSTR pwszSubKey)
 {
+    Global::LogInfo(TEXT("CRegKey::DeleteSubKey"));
     return RegDeleteKey(_keyHandle, pwszSubKey);
 }
 
 LONG CRegKey::RecurseDeleteKey(_In_ LPCWSTR pwszSubKey)
 {
+    Global::LogInfo(TEXT("CRegKey::RecurseDeleteKey"));
     CRegKey key;
     LONG res = key.Open(_keyHandle, pwszSubKey, KEY_READ | KEY_WRITE);
     if (res != ERROR_SUCCESS)
@@ -154,6 +163,7 @@ LONG CRegKey::RecurseDeleteKey(_In_ LPCWSTR pwszSubKey)
 
 LONG CRegKey::DeleteValue(_In_ LPCWSTR pwszValue)
 {
+    Global::LogInfo(TEXT("CRegKey::DeleteValue"));
     return RegDeleteValue(_keyHandle, pwszValue);
 }
 
@@ -166,6 +176,7 @@ LONG CRegKey::DeleteValue(_In_ LPCWSTR pwszValue)
 
 LONG CRegKey::QueryStringValue(_In_opt_ LPCWSTR pwszValueName, _Out_writes_opt_(*pnChars) LPWSTR pwszValue, _Inout_ ULONG *pnChars)
 {
+    Global::LogInfo(TEXT("CRegKey::QueryStringValue"));
     LONG res = 0;
     DWORD dataType = REG_NONE;
     ULONG pwszValueSize = 0;
@@ -195,6 +206,7 @@ LONG CRegKey::QueryStringValue(_In_opt_ LPCWSTR pwszValueName, _Out_writes_opt_(
 
 LONG CRegKey::SetStringValue(_In_opt_ LPCWSTR pwszValueName, _In_ LPCWSTR pwszValue, DWORD dwType)
 {
+    Global::LogInfo(TEXT("CRegKey::SetStringValue"));
 	size_t lenOfValue = 0;
     if (pwszValue == nullptr)
     {
@@ -218,6 +230,7 @@ LONG CRegKey::SetStringValue(_In_opt_ LPCWSTR pwszValueName, _In_ LPCWSTR pwszVa
 
 LONG CRegKey::QueryDWORDValue(_In_opt_ LPCWSTR pwszValueName, _Out_ DWORD &dwValue)
 {
+    Global::LogInfo(TEXT("CRegKey::QueryDWORDValue"));
     LONG res = 0;
     DWORD dataType = REG_NONE;
     ULONG pwszValueSize = 0;
@@ -238,6 +251,7 @@ LONG CRegKey::QueryDWORDValue(_In_opt_ LPCWSTR pwszValueName, _Out_ DWORD &dwVal
 
 LONG CRegKey::SetDWORDValue(_In_opt_ LPCWSTR pwszValueName, DWORD dwValue)
 {
+    Global::LogInfo(TEXT("CRegKey::SetDWORDValue"));
     return RegSetValueEx(_keyHandle, pwszValueName, NULL, REG_DWORD, (LPBYTE)(&dwValue), sizeof(DWORD));
 }
 
@@ -250,6 +264,7 @@ LONG CRegKey::SetDWORDValue(_In_opt_ LPCWSTR pwszValueName, DWORD dwValue)
 
 LONG CRegKey::QueryBinaryValue(_In_opt_ LPCWSTR pwszValueName, _Out_writes_opt_(cbData) BYTE* lpData, DWORD cbData)
 {
+    Global::LogInfo(TEXT("CRegKey::QueryBinaryValue"));
     LONG res = 0;
     DWORD dataType = REG_NONE;
     ULONG pwszValueSize = 0;
@@ -274,5 +289,6 @@ LONG CRegKey::QueryBinaryValue(_In_opt_ LPCWSTR pwszValueName, _Out_writes_opt_(
 
 LONG CRegKey::SetBinaryValue(_In_opt_ LPCWSTR pwszValueName, _In_reads_(cbData) BYTE* lpData, DWORD cbData)
 {
+    Global::LogInfo(TEXT("CRegKey::SetBinaryValue"));
     return RegSetValueEx(_keyHandle, pwszValueName, NULL, REG_BINARY, lpData, cbData);
 }

@@ -54,6 +54,7 @@ CEnumTfCandidates::CEnumTfCandidates(_In_ const CSampleImeArray<ITfCandidateStri
 
 CEnumTfCandidates::~CEnumTfCandidates()
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::~CEnumTfCandidates"));
 }
 
 //
@@ -61,6 +62,7 @@ CEnumTfCandidates::~CEnumTfCandidates()
 //
 STDMETHODIMP CEnumTfCandidates::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::QueryInterface"));
     if (ppvObj == nullptr)
     {
         return E_POINTER;
@@ -83,11 +85,13 @@ STDMETHODIMP CEnumTfCandidates::QueryInterface(REFIID riid, _Outptr_ void **ppvO
 
 STDMETHODIMP_(ULONG) CEnumTfCandidates::AddRef()
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::AddRef"));
     return (ULONG)InterlockedIncrement(&_refCount);
 }
 
 STDMETHODIMP_(ULONG) CEnumTfCandidates::Release()
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::Release"));
     ULONG cRef = (ULONG)InterlockedDecrement(&_refCount);
     if (0 < cRef)
     {
@@ -104,6 +108,7 @@ STDMETHODIMP_(ULONG) CEnumTfCandidates::Release()
 //
 STDMETHODIMP CEnumTfCandidates::Next(ULONG ulCount, _Out_ ITfCandidateString **ppObj, _Out_ ULONG *pcFetched)
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::Next"));
     ULONG fetched = 0;
     if (ppObj == nullptr)
     {
@@ -128,6 +133,7 @@ STDMETHODIMP CEnumTfCandidates::Next(ULONG ulCount, _Out_ ITfCandidateString **p
 
 STDMETHODIMP CEnumTfCandidates::Skip(ULONG ulCount)
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::Skip"));
     while ((0 < ulCount) && (_currentCandidateStrIndex < _rgelm.Count()))
     {
         _currentCandidateStrIndex++;
@@ -139,11 +145,13 @@ STDMETHODIMP CEnumTfCandidates::Skip(ULONG ulCount)
 
 STDMETHODIMP CEnumTfCandidates::Reset()
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::Reset"));
     _currentCandidateStrIndex = 0;
     return S_OK;
 }
 
 STDMETHODIMP CEnumTfCandidates::Clone(_Out_ IEnumTfCandidates **ppEnum)
 {
+    Global::LogInfo(TEXT("CEnumTfCandidates::Clone"));
     return CreateInstance(__uuidof(IEnumTfCandidates), (void**)ppEnum, _rgelm, _currentCandidateStrIndex);
 }

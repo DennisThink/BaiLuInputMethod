@@ -10,6 +10,7 @@
 #include "GetTextExtentEditSession.h"
 #include "TfTextLayoutSink.h"
 
+#include "Globals.h"
 //+---------------------------------------------------------------------------
 //
 // ctor
@@ -18,6 +19,7 @@
 
 CGetTextExtentEditSession::CGetTextExtentEditSession(_In_ CSampleIME *pTextService, _In_ ITfContext *pContext, _In_ ITfContextView *pContextView, _In_ ITfRange *pRangeComposition, _In_ CTfTextLayoutSink *pTfTextLayoutSink) : CEditSessionBase(pTextService, pContext)
 {
+    Global::LogInfo(TEXT("CGetTextExtentEditSession::CGetTextExtentEditSession"));
     _pContextView = pContextView;
     _pRangeComposition = pRangeComposition;
     _pTfTextLayoutSink = pTfTextLayoutSink;
@@ -31,6 +33,7 @@ CGetTextExtentEditSession::CGetTextExtentEditSession(_In_ CSampleIME *pTextServi
 
 STDAPI CGetTextExtentEditSession::DoEditSession(TfEditCookie ec)
 {
+    Global::LogInfo(TEXT("CGetTextExtentEditSession::DoEditSession"));
     RECT rc = {0, 0, 0, 0};
     BOOL isClipped = TRUE;
 

@@ -12,6 +12,7 @@
 
 CTfTextLayoutSink::CTfTextLayoutSink(_In_ CSampleIME *pTextService)
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::CTfTextLayoutSink"));
     _pTextService = pTextService;
     _pTextService->AddRef();
 
@@ -28,6 +29,7 @@ CTfTextLayoutSink::CTfTextLayoutSink(_In_ CSampleIME *pTextService)
 
 CTfTextLayoutSink::~CTfTextLayoutSink()
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::~CTfTextLayoutSink"));
     if (_pTextService)
     {
         _pTextService->Release();
@@ -38,6 +40,7 @@ CTfTextLayoutSink::~CTfTextLayoutSink()
 
 STDAPI CTfTextLayoutSink::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::QueryInterface"));
     if (ppvObj == nullptr)
     {
         return E_INVALIDARG;
@@ -62,11 +65,13 @@ STDAPI CTfTextLayoutSink::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 
 STDAPI_(ULONG) CTfTextLayoutSink::AddRef()
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::AddRef"));
     return ++_refCount;
 }
 
 STDAPI_(ULONG) CTfTextLayoutSink::Release()
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::Release"));
     LONG cr = --_refCount;
 
     assert(_refCount >= 0);
@@ -87,6 +92,7 @@ STDAPI_(ULONG) CTfTextLayoutSink::Release()
 
 STDAPI CTfTextLayoutSink::OnLayoutChange(_In_ ITfContext *pContext, TfLayoutCode lcode, _In_ ITfContextView *pContextView)
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::OnLayoutChange"));
     // we're interested in only document context.
     if (pContext != _pContextDocument)
     {
@@ -119,6 +125,7 @@ STDAPI CTfTextLayoutSink::OnLayoutChange(_In_ ITfContext *pContext, TfLayoutCode
 
 HRESULT CTfTextLayoutSink::_StartLayout(_In_ ITfContext *pContextDocument, TfEditCookie ec, _In_ ITfRange *pRangeComposition)
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::_StartLayout"));
     _pContextDocument = pContextDocument;
     _pContextDocument->AddRef();
 
@@ -132,6 +139,7 @@ HRESULT CTfTextLayoutSink::_StartLayout(_In_ ITfContext *pContextDocument, TfEdi
 
 VOID CTfTextLayoutSink::_EndLayout()
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::_EndLayout"));
     if (_pRangeComposition)
     {
         _pRangeComposition->Release();
@@ -148,6 +156,7 @@ VOID CTfTextLayoutSink::_EndLayout()
 
 HRESULT CTfTextLayoutSink::_AdviseTextLayoutSink()
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::_AdviseTextLayoutSink"));
     HRESULT hr = S_OK;
     ITfSource* pSource = nullptr;
 
@@ -171,6 +180,7 @@ HRESULT CTfTextLayoutSink::_AdviseTextLayoutSink()
 
 HRESULT CTfTextLayoutSink::_UnadviseTextLayoutSink()
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::_UnadviseTextLayoutSink"));
     HRESULT hr = S_OK;
     ITfSource* pSource = nullptr;
 
@@ -199,6 +209,7 @@ HRESULT CTfTextLayoutSink::_UnadviseTextLayoutSink()
 
 HRESULT CTfTextLayoutSink::_GetTextExt(_Out_ RECT *lpRect)
 {
+    Global::LogInfo(TEXT("CTfTextLayoutSink::_GetTextExt"));
     HRESULT hr = S_OK;
     BOOL isClipped = TRUE;
     ITfContextView* pContextView = nullptr;

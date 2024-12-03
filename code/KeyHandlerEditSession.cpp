@@ -28,6 +28,7 @@
 
 STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 {
+    Global::LogInfo(TEXT("CKeyHandlerEditSession::DoEditSession"));
     HRESULT hResult = S_OK;
 
     CKeyStateCategoryFactory* pKeyStateCategoryFactory = CKeyStateCategoryFactory::Instance();

@@ -21,6 +21,7 @@
 // vkeys that the IME handles specially
 __inline UINT VKeyFromVKPacketAndWchar(UINT vk, WCHAR wch)
 {
+    Global::LogInfo(TEXT("VKeyFromVKPacketAndWchar"));
     UINT vkRet = vk;
     if (LOWORD(vk) == VK_PACKET)
     {
@@ -60,6 +61,7 @@ __inline UINT VKeyFromVKPacketAndWchar(UINT vk, WCHAR wch)
 
 BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT *pCodeOut, _Out_writes_(1) WCHAR *pwch, _Out_opt_ _KEYSTROKE_STATE *pKeyState)
 {
+    Global::LogInfo(TEXT("CSampleIME::_IsKeyEaten"));
     pContext;
 
     *pCodeOut = codeIn;
@@ -181,6 +183,7 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 
 WCHAR CSampleIME::ConvertVKey(UINT code)
 {
+    Global::LogInfo(TEXT("CSampleIME::ConvertVKey"));
     //
     // Map virtual key to scan code
     //
@@ -216,6 +219,7 @@ WCHAR CSampleIME::ConvertVKey(UINT code)
 
 BOOL CSampleIME::_IsKeyboardDisabled()
 {
+    Global::LogInfo(TEXT("CSampleIME::_IsKeyboardDisabled"));
     ITfDocumentMgr* pDocMgrFocus = nullptr;
     ITfContext* pContext = nullptr;
     BOOL isDisabled = FALSE;
@@ -264,6 +268,7 @@ BOOL CSampleIME::_IsKeyboardDisabled()
 
 STDAPI CSampleIME::OnSetFocus(BOOL fForeground)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnSetFocus"));
 	fForeground;
 
     return S_OK;
@@ -278,6 +283,7 @@ STDAPI CSampleIME::OnSetFocus(BOOL fForeground)
 
 STDAPI CSampleIME::OnTestKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnTestKeyDown"));
     Global::UpdateModifiers(wParam, lParam);
 
     _KEYSTROKE_STATE KeystrokeState;
@@ -308,6 +314,7 @@ STDAPI CSampleIME::OnTestKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lPa
 
 STDAPI CSampleIME::OnKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnKeyDown"));
     Global::UpdateModifiers(wParam, lParam);
 
     _KEYSTROKE_STATE KeystrokeState;
@@ -357,6 +364,7 @@ STDAPI CSampleIME::OnKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam,
 
 STDAPI CSampleIME::OnTestKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnTestKeyUp"));
     if (pIsEaten == nullptr)
     {
         return E_INVALIDARG;
@@ -382,6 +390,7 @@ STDAPI CSampleIME::OnTestKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lPara
 
 STDAPI CSampleIME::OnKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnKeyUp"));
     Global::UpdateModifiers(wParam, lParam);
 
     WCHAR wch = '\0';
@@ -401,6 +410,7 @@ STDAPI CSampleIME::OnKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, B
 
 STDAPI CSampleIME::OnPreservedKey(ITfContext *pContext, REFGUID rguid, BOOL *pIsEaten)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnPreservedKey"));
 	pContext;
 
     CCompositionProcessorEngine *pCompositionProcessorEngine;
@@ -420,6 +430,7 @@ STDAPI CSampleIME::OnPreservedKey(ITfContext *pContext, REFGUID rguid, BOOL *pIs
 
 BOOL CSampleIME::_InitKeyEventSink()
 {
+    Global::LogInfo(TEXT("CSampleIME::_InitKeyEventSink"));
     ITfKeystrokeMgr* pKeystrokeMgr = nullptr;
     HRESULT hr = S_OK;
 
@@ -444,6 +455,7 @@ BOOL CSampleIME::_InitKeyEventSink()
 
 void CSampleIME::_UninitKeyEventSink()
 {
+    Global::LogInfo(TEXT("CSampleIME::_UninitKeyEventSink"));
     ITfKeystrokeMgr* pKeystrokeMgr = nullptr;
 
     if (FAILED(_pThreadMgr->QueryInterface(IID_ITfKeystrokeMgr, (void **)&pKeystrokeMgr)))

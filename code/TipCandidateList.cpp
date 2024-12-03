@@ -12,6 +12,7 @@
 
 HRESULT CTipCandidateList::CreateInstance(_Outptr_ ITfCandidateList **ppobj, size_t candStrReserveSize)
 {  
+    Global::LogInfo(TEXT("CTipCandidateList::CreateInstance"));
     if (ppobj == nullptr)
     {
         return E_INVALIDARG;
@@ -29,6 +30,7 @@ HRESULT CTipCandidateList::CreateInstance(_Outptr_ ITfCandidateList **ppobj, siz
 
 HRESULT CTipCandidateList::CreateInstance(REFIID riid, _Outptr_ void **ppvObj, size_t candStrReserveSize)
 {  
+    Global::LogInfo(TEXT("CTipCandidateList::CreateInstance"));
     if (ppvObj == nullptr)
     {
         return E_INVALIDARG;
@@ -46,6 +48,7 @@ HRESULT CTipCandidateList::CreateInstance(REFIID riid, _Outptr_ void **ppvObj, s
 
 CTipCandidateList::CTipCandidateList(size_t candStrReserveSize)
 {
+    Global::LogInfo(TEXT("CTipCandidateList::CTipCandidateList"));
     _refCount = 0;
 
     if (0 < candStrReserveSize)
@@ -56,10 +59,12 @@ CTipCandidateList::CTipCandidateList(size_t candStrReserveSize)
 
 CTipCandidateList::~CTipCandidateList()
 {
+    Global::LogInfo(TEXT("CTipCandidateList::~CTipCandidateList"));
 }
 
 STDMETHODIMP CTipCandidateList::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CTipCandidateList::QueryInterface"));
     if (ppvObj == nullptr)
     {
         return E_POINTER;
@@ -86,11 +91,13 @@ STDMETHODIMP CTipCandidateList::QueryInterface(REFIID riid, _Outptr_ void **ppvO
 
 STDMETHODIMP_(ULONG) CTipCandidateList::AddRef()
 {
+    Global::LogInfo(TEXT("CTipCandidateList::AddRef"));
     return (ULONG)InterlockedIncrement((LONG*)&_refCount);
 }
 
 STDMETHODIMP_(ULONG) CTipCandidateList::Release()
 {
+    Global::LogInfo(TEXT("CTipCandidateList::Release"));
     ULONG  cRefT  = (ULONG)InterlockedDecrement((LONG*)&_refCount);
     if (0 < cRefT)
     {
@@ -104,11 +111,13 @@ STDMETHODIMP_(ULONG) CTipCandidateList::Release()
 
 STDMETHODIMP CTipCandidateList::EnumCandidates(_Outptr_ IEnumTfCandidates **ppEnum)
 {
+    Global::LogInfo(TEXT("CTipCandidateList::EnumCandidates"));
     return CEnumTfCandidates::CreateInstance(IID_IEnumTfCandidates, (void**)ppEnum, _tfCandStrList);
 }
 
 STDMETHODIMP CTipCandidateList::GetCandidate(ULONG nIndex, _Outptr_result_maybenull_ ITfCandidateString **ppCandStr)
 {
+    Global::LogInfo(TEXT("CTipCandidateList::GetCandidate"));
     if (ppCandStr == nullptr)
     {
         return E_POINTER;
@@ -152,6 +161,7 @@ STDMETHODIMP CTipCandidateList::GetCandidate(ULONG nIndex, _Outptr_result_mayben
 
 STDMETHODIMP CTipCandidateList::GetCandidateNum(_Out_ ULONG *pnCnt)
 {
+    Global::LogInfo(TEXT("CTipCandidateList::GetCandidateNum"));
     if (pnCnt == nullptr)
     {
         return E_POINTER;
@@ -163,6 +173,7 @@ STDMETHODIMP CTipCandidateList::GetCandidateNum(_Out_ ULONG *pnCnt)
 
 STDMETHODIMP CTipCandidateList::SetResult(ULONG nIndex, TfCandidateResult imcr)
 {
+    Global::LogInfo(TEXT("CTipCandidateList::SetResult"));
     nIndex;imcr;
 
     return E_NOTIMPL;
@@ -170,6 +181,7 @@ STDMETHODIMP CTipCandidateList::SetResult(ULONG nIndex, TfCandidateResult imcr)
 
 STDMETHODIMP CTipCandidateList::SetCandidate(_In_ ITfCandidateString **ppCandStr)
 {
+    Global::LogInfo(TEXT("CTipCandidateList::SetCandidate"));
     if (ppCandStr == nullptr)
     {
         return E_POINTER;

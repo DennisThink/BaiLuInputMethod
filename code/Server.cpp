@@ -30,6 +30,7 @@ static CClassFactory* classFactoryObjects[1] = { nullptr };
 
 void DllAddRef(void)
 {
+    Global::LogInfo(TEXT("DllAddRef"));
     InterlockedIncrement(&Global::dllRefCount);
 }
 
@@ -41,6 +42,7 @@ void DllAddRef(void)
 
 void DllRelease(void)
 {
+    Global::LogInfo(TEXT("DllRelease"));
     if (InterlockedDecrement(&Global::dllRefCount) < 0)
     {
         EnterCriticalSection(&Global::CS);
@@ -77,6 +79,7 @@ public:
     CClassFactory(REFCLSID rclsid, HRESULT (*pfnCreateInstance)(IUnknown *pUnkOuter, REFIID riid, void **ppvObj))
         : _rclsid(rclsid)
     {
+        Global::LogInfo(TEXT("CClassFactory::CClassFactory"));
         _pfnCreateInstance = pfnCreateInstance;
     }
 
@@ -95,6 +98,7 @@ private:
 
 STDAPI CClassFactory::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CClassFactory::QueryInterface"));
     if (IsEqualIID(riid, IID_IClassFactory) || IsEqualIID(riid, IID_IUnknown))
     {
         *ppvObj = this;
@@ -114,6 +118,7 @@ STDAPI CClassFactory::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 
 STDAPI_(ULONG) CClassFactory::AddRef()
 {
+    Global::LogInfo(TEXT("CClassFactory::AddRef"));
     DllAddRef();
     return (Global::dllRefCount + 1);
 }
@@ -126,6 +131,7 @@ STDAPI_(ULONG) CClassFactory::AddRef()
 
 STDAPI_(ULONG) CClassFactory::Release()
 {
+    Global::LogInfo(TEXT("CClassFactory::Release"));
     DllRelease();
     return (Global::dllRefCount + 1);
 }
@@ -138,6 +144,7 @@ STDAPI_(ULONG) CClassFactory::Release()
 
 STDAPI CClassFactory::CreateInstance(_In_opt_ IUnknown *pUnkOuter, _In_ REFIID riid, _COM_Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CClassFactory::CreateInstance"));
     return _pfnCreateInstance(pUnkOuter, riid, ppvObj);
 }
 
@@ -149,6 +156,7 @@ STDAPI CClassFactory::CreateInstance(_In_opt_ IUnknown *pUnkOuter, _In_ REFIID r
 
 STDAPI CClassFactory::LockServer(BOOL fLock)
 {
+    Global::LogInfo(TEXT("CClassFactory::LockServer"));
     if (fLock)
     {
         DllAddRef();
@@ -169,6 +177,7 @@ STDAPI CClassFactory::LockServer(BOOL fLock)
 
 void BuildGlobalObjects(void)
 {
+    Global::LogInfo(TEXT("BuildGlobalObjects"));
     classFactoryObjects[0] = new (std::nothrow) CClassFactory(Global::SampleIMECLSID, CSampleIME::CreateInstance);
 }
 
@@ -180,6 +189,7 @@ void BuildGlobalObjects(void)
 
 void FreeGlobalObjects(void)
 {
+    Global::LogInfo(TEXT("FreeGlobalObjects"));
     for (int i = 0; i < ARRAYSIZE(classFactoryObjects); i++)
     {
         if (nullptr != classFactoryObjects[i])
@@ -203,6 +213,7 @@ STDAPI  DllGetClassObject(
 	_In_ REFIID riid, 
 	_Outptr_ void** ppv)
 {
+    Global::LogInfo(TEXT("DllGetClassObject"));
     if (classFactoryObjects[0] == nullptr)
     {
         EnterCriticalSection(&Global::CS);
@@ -244,6 +255,7 @@ STDAPI  DllGetClassObject(
 
 STDAPI DllCanUnloadNow(void)
 {
+    Global::LogInfo(TEXT("DllCanUnloadNow"));
     if (Global::dllRefCount >= 0)
     {
         return S_FALSE;
@@ -260,6 +272,7 @@ STDAPI DllCanUnloadNow(void)
 
 STDAPI DllUnregisterServer(void)
 {
+    Global::LogInfo(TEXT("DllUnregisterServer"));
     UnregisterProfiles();
     UnregisterCategories();
     UnregisterServer();
@@ -275,6 +288,7 @@ STDAPI DllUnregisterServer(void)
 
 STDAPI DllRegisterServer(void)
 {
+    Global::LogInfo(TEXT("DllRegisterServer"));
     if ((!RegisterServer()) || (!RegisterProfiles()) || (!RegisterCategories()))
     {
         DllUnregisterServer();

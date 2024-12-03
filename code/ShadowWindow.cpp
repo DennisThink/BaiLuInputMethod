@@ -57,6 +57,7 @@ const BYTE CornerShadowAlphaMetric[SHADOW_ALPHANUMBER][SHADOW_ALPHANUMBER] = {
 
 BOOL CShadowWindow::_Create(ATOM atom, DWORD dwExStyle, DWORD dwStyle, _In_opt_ CBaseWindow *pParent, int wndWidth, int wndHeight)
 {
+    Global::LogInfo(TEXT("CShadowWindow::_Create"));
     if (!CBaseWindow::_Create(atom, dwExStyle, dwStyle, pParent, wndWidth, wndHeight))
     {
         return FALSE;
@@ -74,6 +75,7 @@ BOOL CShadowWindow::_Create(ATOM atom, DWORD dwExStyle, DWORD dwStyle, _In_opt_ 
 
 LRESULT CALLBACK CShadowWindow::_WindowProcCallback(_In_ HWND wndHandle, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+    Global::LogInfo(TEXT("CShadowWindow::_WindowProcCallback"));
     switch (uMsg)
     {
     case WM_PAINT:
@@ -107,6 +109,7 @@ LRESULT CALLBACK CShadowWindow::_WindowProcCallback(_In_ HWND wndHandle, UINT uM
 
 void CShadowWindow::_OnSettingChange()
 {
+    Global::LogInfo(TEXT("CShadowWindow::_OnSettingChange"));
     _InitSettings();
 
     DWORD dwWndStyleEx = GetWindowLong(_GetWnd(), GWL_EXSTYLE);
@@ -132,6 +135,7 @@ void CShadowWindow::_OnSettingChange()
 
 void CShadowWindow::_OnOwnerWndMoved(BOOL isResized)
 {
+    Global::LogInfo(TEXT("CShadowWindow::_OnOwnerWndMoved"));
     if (IsWindow(_GetWnd()) && _IsWindowVisible())
     {
         _AdjustWindowPos();
@@ -151,6 +155,7 @@ void CShadowWindow::_OnOwnerWndMoved(BOOL isResized)
 
 void CShadowWindow::_Show(BOOL isShowWnd)
 {
+    Global::LogInfo(TEXT("CShadowWindow::_Show"));
     _OnOwnerWndMoved(TRUE);
     CBaseWindow::_Show(isShowWnd);
 }
@@ -163,6 +168,7 @@ void CShadowWindow::_Show(BOOL isShowWnd)
 
 BOOL CShadowWindow::_Initialize()
 {
+    Global::LogInfo(TEXT("CShadowWindow::_Initialize"));
     _InitSettings();
 
     return TRUE;
@@ -176,6 +182,7 @@ BOOL CShadowWindow::_Initialize()
 
 void CShadowWindow::_InitSettings()
 {
+    Global::LogInfo(TEXT("CShadowWindow::_InitSettings"));
     HDC dcHandle = GetDC(nullptr);
 
     // device caps
@@ -207,6 +214,7 @@ void CShadowWindow::_InitSettings()
 
 void CShadowWindow::_AdjustWindowPos()
 {
+    Global::LogInfo(TEXT("CShadowWindow::_AdjustWindowPos"));
     if (!IsWindow(_GetWnd()))
     {
         return;
@@ -234,6 +242,7 @@ void CShadowWindow::_AdjustWindowPos()
 
 void CShadowWindow::_InitShadow()
 {
+    Global::LogInfo(TEXT("CShadowWindow::_InitShadow"));
     typedef struct _RGBAPLHA {
         BYTE rgbBlue;
         BYTE rgbGreen;

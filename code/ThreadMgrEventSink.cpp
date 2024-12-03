@@ -20,6 +20,7 @@
 
 STDAPI CSampleIME::OnInitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnInitDocumentMgr"));
     pDocMgr;
     return E_NOTIMPL;
 }
@@ -34,6 +35,7 @@ STDAPI CSampleIME::OnInitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr)
 
 STDAPI CSampleIME::OnUninitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnUninitDocumentMgr"));
     pDocMgr;
     return E_NOTIMPL;
 }
@@ -49,6 +51,7 @@ STDAPI CSampleIME::OnUninitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr)
 
 STDAPI CSampleIME::OnSetFocus(_In_ ITfDocumentMgr *pDocMgrFocus, _In_ ITfDocumentMgr *pDocMgrPrevFocus)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnSetFocus"));
     pDocMgrPrevFocus;
 
     _InitTextEditSink(pDocMgrFocus);
@@ -103,6 +106,7 @@ STDAPI CSampleIME::OnSetFocus(_In_ ITfDocumentMgr *pDocMgrFocus, _In_ ITfDocumen
 
 STDAPI CSampleIME::OnPushContext(_In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnPushContext"));
     pContext;
 
     return E_NOTIMPL;
@@ -117,6 +121,7 @@ STDAPI CSampleIME::OnPushContext(_In_ ITfContext *pContext)
 
 STDAPI CSampleIME::OnPopContext(_In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnPopContext"));
     pContext;
 
     return E_NOTIMPL;
@@ -131,6 +136,7 @@ STDAPI CSampleIME::OnPopContext(_In_ ITfContext *pContext)
 
 BOOL CSampleIME::_InitThreadMgrEventSink()
 {
+    Global::LogInfo(TEXT("CSampleIME::_InitThreadMgrEventSink"));
     ITfSource* pSource = nullptr;
     BOOL ret = FALSE;
 
@@ -161,6 +167,7 @@ Exit:
 
 void CSampleIME::_UninitThreadMgrEventSink()
 {
+    Global::LogInfo(TEXT("CSampleIME::_UninitThreadMgrEventSink"));
     ITfSource* pSource = nullptr;
 
     if (_threadMgrEventSinkCookie == TF_INVALID_COOKIE)

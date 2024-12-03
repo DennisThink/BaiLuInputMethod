@@ -18,6 +18,7 @@
 
 STDAPI CSampleIME::OnEndEdit(__RPC__in_opt ITfContext *pContext, TfEditCookie ecReadOnly, __RPC__in_opt ITfEditRecord *pEditRecord)
 {
+    Global::LogInfo(TEXT("CSampleIME::OnEndEdit"));
     BOOL isSelectionChanged;
 
     //
@@ -78,6 +79,7 @@ STDAPI CSampleIME::OnEndEdit(__RPC__in_opt ITfContext *pContext, TfEditCookie ec
 
 BOOL CSampleIME::_InitTextEditSink(_In_ ITfDocumentMgr *pDocMgr)
 {
+    Global::LogInfo(TEXT("CSampleIME::_InitTextEditSink"));
     ITfSource* pSource = nullptr;
     BOOL ret = TRUE;
 

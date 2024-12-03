@@ -17,6 +17,7 @@
 
 STDAPI CSampleIME::OnSetThreadFocus()
 {
+    Global::LogInfo(TEXT("CSampleIME::OnSetThreadFocus"));
     if (_pCandidateListUIPresenter)
     {
         ITfDocumentMgr* pCandidateListDocumentMgr = nullptr;
@@ -44,6 +45,7 @@ STDAPI CSampleIME::OnSetThreadFocus()
 
 STDAPI CSampleIME::OnKillThreadFocus()
 {
+    Global::LogInfo(TEXT("CSampleIME::OnKillThreadFocus"));
     if (_pCandidateListUIPresenter)
     {
         ITfDocumentMgr* pCandidateListDocumentMgr = nullptr;
@@ -69,6 +71,7 @@ STDAPI CSampleIME::OnKillThreadFocus()
 
 BOOL CSampleIME::_InitThreadFocusSink()
 {
+    Global::LogInfo(TEXT("CSampleIME::_InitThreadFocusSink"));
     ITfSource* pSource = nullptr;
 
     if (FAILED(_pThreadMgr->QueryInterface(IID_ITfSource, (void **)&pSource)))
@@ -89,6 +92,7 @@ BOOL CSampleIME::_InitThreadFocusSink()
 
 void CSampleIME::_UninitThreadFocusSink()
 {
+    Global::LogInfo(TEXT("CSampleIME::_UninitThreadFocusSink"));
     ITfSource* pSource = nullptr;
 
     if (FAILED(_pThreadMgr->QueryInterface(IID_ITfSource, (void **)&pSource)))

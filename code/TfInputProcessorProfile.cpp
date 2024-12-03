@@ -7,14 +7,16 @@
 
 #include "Private.h"
 #include "TfInputProcessorProfile.h"
-
+#include "Globals.h"
 CTfInputProcessorProfile::CTfInputProcessorProfile()
 {
+    Global::LogInfo(TEXT("CTfInputProcessorProfile::CTfInputProcessorProfile"));
     _pInputProcessorProfile = nullptr;
 }
 
 CTfInputProcessorProfile::~CTfInputProcessorProfile()
 {
+    Global::LogInfo(TEXT("CTfInputProcessorProfile::~CTfInputProcessorProfile"));
     if (_pInputProcessorProfile) {
         _pInputProcessorProfile->Release();
         _pInputProcessorProfile = nullptr;
@@ -23,6 +25,7 @@ CTfInputProcessorProfile::~CTfInputProcessorProfile()
 
 HRESULT CTfInputProcessorProfile::CreateInstance()
 {
+    Global::LogInfo(TEXT("CTfInputProcessorProfile::CreateInstance"));
     HRESULT	hr = CoCreateInstance(CLSID_TF_InputProcessorProfiles, nullptr, CLSCTX_INPROC_SERVER,
         IID_ITfInputProcessorProfiles, (void**)&_pInputProcessorProfile);
 
@@ -31,6 +34,7 @@ HRESULT CTfInputProcessorProfile::CreateInstance()
 
 HRESULT CTfInputProcessorProfile::GetCurrentLanguage(_Out_ LANGID *plangid)
 {
+    Global::LogInfo(TEXT("CTfInputProcessorProfile::GetCurrentLanguage"));
     if (_pInputProcessorProfile)
     {
         return _pInputProcessorProfile->GetCurrentLanguage(plangid);
@@ -43,6 +47,7 @@ HRESULT CTfInputProcessorProfile::GetCurrentLanguage(_Out_ LANGID *plangid)
 
 HRESULT CTfInputProcessorProfile::GetDefaultLanguageProfile(LANGID langid, REFGUID catid, _Out_ CLSID *pclsid, _Out_ GUID *pguidProfile)
 {
+    Global::LogInfo(TEXT("CTfInputProcessorProfile::GetDefaultLanguageProfile"));
     if (_pInputProcessorProfile)
     {
         return _pInputProcessorProfile->GetDefaultLanguageProfile(langid, catid, pclsid, pguidProfile);

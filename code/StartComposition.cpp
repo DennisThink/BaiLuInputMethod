@@ -21,6 +21,7 @@ class CStartCompositionEditSession : public CEditSessionBase
 public:
     CStartCompositionEditSession(_In_ CSampleIME *pTextService, _In_ ITfContext *pContext) : CEditSessionBase(pTextService, pContext)
     {
+        Global::LogInfo(TEXT("CStartCompositionEditSession::CStartCompositionEditSession"));
     }
 
     // ITfEditSession
@@ -35,6 +36,7 @@ public:
 
 STDAPI CStartCompositionEditSession::DoEditSession(TfEditCookie ec)
 {
+    Global::LogInfo(TEXT("CStartCompositionEditSession::DoEditSession"));
     ITfInsertAtSelection* pInsertAtSelection = nullptr;
     ITfRange* pRangeInsert = nullptr;
     ITfContextComposition* pContextComposition = nullptr;
@@ -104,6 +106,7 @@ Exit:
 
 void CSampleIME::_StartComposition(_In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CStartCompositionEditSession::_StartComposition"));
     CStartCompositionEditSession* pStartCompositionEditSession = new (std::nothrow) CStartCompositionEditSession(this, pContext);
 
     if (nullptr != pStartCompositionEditSession)
@@ -126,6 +129,7 @@ void CSampleIME::_StartComposition(_In_ ITfContext *pContext)
 
 void CSampleIME::_SaveCompositionContext(_In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CStartCompositionEditSession::_SaveCompositionContext"));
     assert(_pContext == nullptr);
 
     pContext->AddRef();

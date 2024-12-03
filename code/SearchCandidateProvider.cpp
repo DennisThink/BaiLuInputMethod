@@ -20,6 +20,7 @@ create instance of CSearchCandidateProvider
 ------------------------------------------------------------------------------*/
 HRESULT CSearchCandidateProvider::CreateInstance(_Outptr_ ITfFnSearchCandidateProvider **ppobj, _In_ ITfTextInputProcessorEx *ptip)
 {  
+    Global::LogInfo(TEXT("CSearchCandidateProvider::CreateInstance"));
     if (ppobj == nullptr)
     {
         return E_INVALIDARG;
@@ -42,6 +43,7 @@ create instance of CSearchCandidateProvider
 ------------------------------------------------------------------------------*/
 HRESULT CSearchCandidateProvider::CreateInstance(REFIID riid, _Outptr_ void **ppvObj, _In_ ITfTextInputProcessorEx *ptip)
 { 
+    Global::LogInfo(TEXT("CSearchCandidateProvider::CreateInstance"));
     if (ppvObj == nullptr)
     {
         return E_INVALIDARG;
@@ -64,6 +66,7 @@ constructor of CSearchCandidateProvider
 ------------------------------------------------------------------------------*/
 CSearchCandidateProvider::CSearchCandidateProvider(_In_ ITfTextInputProcessorEx *ptip)
 {
+    Global::LogInfo(TEXT("CSearchCandidateProvider::CSearchCandidateProvider"));
     assert(ptip != nullptr);
 
     _pTip = ptip;
@@ -76,7 +79,8 @@ destructor of CSearchCandidateProvider
 
 ------------------------------------------------------------------------------*/
 CSearchCandidateProvider::~CSearchCandidateProvider(void)
-{  
+{
+    Global::LogInfo(TEXT("CSearchCandidateProvider::~CSearchCandidateProvider"));
 }
 
 /*------------------------------------------------------------------------------
@@ -87,6 +91,7 @@ query interface
 ------------------------------------------------------------------------------*/
 STDMETHODIMP CSearchCandidateProvider::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CSearchCandidateProvider::QueryInterface"));
     if (ppvObj == nullptr)
     {
         return E_POINTER;
@@ -119,6 +124,7 @@ increment reference count
 ------------------------------------------------------------------------------*/
 STDMETHODIMP_(ULONG) CSearchCandidateProvider::AddRef()
 {
+    Global::LogInfo(TEXT("CSearchCandidateProvider::AddRef"));
     return (ULONG)InterlockedIncrement(&_refCount);
 }
 
@@ -130,6 +136,7 @@ decrement reference count and release object
 ------------------------------------------------------------------------------*/
 STDMETHODIMP_(ULONG) CSearchCandidateProvider::Release()
 {
+    Global::LogInfo(TEXT("CSearchCandidateProvider::Release"));
     ULONG ref = (ULONG)InterlockedDecrement(&_refCount);
     if (0 < ref)
     {
@@ -142,6 +149,7 @@ STDMETHODIMP_(ULONG) CSearchCandidateProvider::Release()
 
 STDMETHODIMP CSearchCandidateProvider::GetDisplayName(_Out_ BSTR *pbstrName)
 {
+    Global::LogInfo(TEXT("CSearchCandidateProvider::GetDisplayName"));
     if (pbstrName == nullptr)
     {
         return E_INVALIDARG;
@@ -153,6 +161,7 @@ STDMETHODIMP CSearchCandidateProvider::GetDisplayName(_Out_ BSTR *pbstrName)
 
 STDMETHODIMP CSearchCandidateProvider::GetSearchCandidates(BSTR bstrQuery, BSTR bstrApplicationID, _Outptr_result_maybenull_ ITfCandidateList **pplist)
 {
+    Global::LogInfo(TEXT("CSearchCandidateProvider::GetSearchCandidates"));
 	bstrApplicationID;bstrQuery;
     HRESULT hr = E_FAIL;
     *pplist = nullptr;
@@ -203,6 +212,7 @@ set result
 ------------------------------------------------------------------------------*/
 STDMETHODIMP CSearchCandidateProvider::SetResult(BSTR bstrQuery, BSTR bstrApplicationID, BSTR bstrResult)
 {
+    Global::LogInfo(TEXT("CSearchCandidateProvider::SetResult"));
     bstrQuery;bstrApplicationID;bstrResult;
 
     return E_NOTIMPL;

@@ -17,6 +17,7 @@
 
 CFileMapping::CFileMapping() : CFile()
 {
+    Global::LogInfo(TEXT("CFileMapping::CFileMapping"));
     _fileMappingHandle = nullptr;
     _pMapBuffer = nullptr;
 }
@@ -29,6 +30,7 @@ CFileMapping::CFileMapping() : CFile()
 
 CFileMapping::~CFileMapping()
 {
+    Global::LogInfo(TEXT("CFileMapping::~CFileMapping"));
     if (_pMapBuffer)
     {
         UnmapViewOfFile(_pMapBuffer);
@@ -50,6 +52,7 @@ CFileMapping::~CFileMapping()
 
 BOOL CFileMapping::SetupReadBuffer()
 {
+    Global::LogInfo(TEXT("CFileMapping::SetupReadBuffer"));
     if (_fileSize > sizeof(WCHAR))
     {
         //

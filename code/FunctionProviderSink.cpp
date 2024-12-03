@@ -17,6 +17,7 @@
 
 BOOL CSampleIME::_InitFunctionProviderSink()
 {
+    Global::LogInfo(TEXT("CSampleIME::_InitFunctionProviderSink"));
     ITfSourceSingle* pSourceSingle = nullptr;
     BOOL ret = FALSE;
     if (SUCCEEDED(_pThreadMgr->QueryInterface(IID_ITfSourceSingle, (void **)&pSourceSingle)))
@@ -46,6 +47,7 @@ BOOL CSampleIME::_InitFunctionProviderSink()
 
 void CSampleIME::_UninitFunctionProviderSink()
 {
+    Global::LogInfo(TEXT("CSampleIME::_UninitFunctionProviderSink"));
     ITfSourceSingle* pSourceSingle = nullptr;
     if (SUCCEEDED(_pThreadMgr->QueryInterface(IID_ITfSourceSingle, (void **)&pSourceSingle)))
     {

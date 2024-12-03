@@ -32,6 +32,7 @@ static const GUID SupportCategories[] = {
 
 BOOL RegisterProfiles()
 {
+    Global::LogInfo(TEXT("RegisterProfiles"));
     HRESULT hr = S_FALSE;
 
     ITfInputProcessorProfileMgr *pITfInputProcessorProfileMgr = nullptr;
@@ -85,6 +86,7 @@ Exit:
 
 void UnregisterProfiles()
 {
+    Global::LogInfo(TEXT("UnregisterProfiles"));
     HRESULT hr = S_OK;
 
     ITfInputProcessorProfileMgr *pITfInputProcessorProfileMgr = nullptr;
@@ -118,6 +120,7 @@ Exit:
 
 BOOL RegisterCategories()
 {
+    Global::LogInfo(TEXT("RegisterCategories"));
     ITfCategoryMgr* pCategoryMgr = nullptr;
     HRESULT hr = S_OK;
 
@@ -145,6 +148,7 @@ BOOL RegisterCategories()
 
 void UnregisterCategories()
 {
+    Global::LogInfo(TEXT("UnregisterCategories"));
     ITfCategoryMgr* pCategoryMgr = S_OK;
     HRESULT hr = S_OK;
 
@@ -174,6 +178,7 @@ void UnregisterCategories()
 
 LONG RecurseDeleteKey(_In_ HKEY hParentKey, _In_ LPCTSTR lpszKey)
 {
+    Global::LogInfo(TEXT("RecurseDeleteKey"));
     HKEY regKeyHandle = nullptr;
     LONG res = 0;
     FILETIME time;
@@ -209,6 +214,7 @@ LONG RecurseDeleteKey(_In_ HKEY hParentKey, _In_ LPCTSTR lpszKey)
 
 BOOL RegisterServer()
 {
+    Global::LogInfo(TEXT("RegisterServer"));
     DWORD copiedStringLen = 0;
     HKEY regKeyHandle = nullptr;
     HKEY regSubkeyHandle = nullptr;
@@ -270,6 +276,7 @@ Exit:
 
 void UnregisterServer()
 {
+    Global::LogInfo(TEXT("UnregisterServer"));
     WCHAR achIMEKey[ARRAYSIZE(RegInfo_Prefix_CLSID) + CLSID_STRLEN] = {'\0'};
 
     if (!CLSIDToString(Global::SampleIMECLSID, achIMEKey + ARRAYSIZE(RegInfo_Prefix_CLSID) - 1))

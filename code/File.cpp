@@ -9,6 +9,7 @@
 #include "File.h"
 #include "SampleIMEBaseStructure.h"
 
+#include "Globals.h"
 //---------------------------------------------------------------------
 //
 // ctor
@@ -17,6 +18,7 @@
 
 CFile::CFile(UINT codePage)
 {
+    Global::LogInfo(TEXT("CFile::CFile"));
     _codePage = codePage;
     _fileHandle = nullptr;
     _pReadBuffer = nullptr;
@@ -33,6 +35,7 @@ CFile::CFile(UINT codePage)
 
 CFile::~CFile()
 {
+    Global::LogInfo(TEXT("CFile::~CFile"));
     if (_pReadBuffer)
     {
         delete [] _pReadBuffer;
@@ -60,6 +63,7 @@ BOOL CFile::CreateFile(_In_ PCWSTR pFileName, DWORD desiredAccess,
     DWORD creationDisposition,
     DWORD sharedMode, _Inout_opt_ LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD flagsAndAttributes, _Inout_opt_ HANDLE templateFileHandle)
 {
+    Global::LogInfo(TEXT("CFile::CreateFile"));
     size_t fullPathLen = wcslen(pFileName);
     if (!_pFileName)
     {
@@ -93,6 +97,7 @@ BOOL CFile::CreateFile(_In_ PCWSTR pFileName, DWORD desiredAccess,
 
 BOOL CFile::SetupReadBuffer()
 {
+    Global::LogInfo(TEXT("CFile::SetupReadBuffer"));
     const WCHAR* pWideBuffer = nullptr;
 
     _pReadBuffer = (const WCHAR *) new (std::nothrow) BYTE[ _fileSize ];
@@ -186,6 +191,7 @@ BOOL CFile::SetupReadBuffer()
 
 BOOL CFile::IsEndOfFile()
 {
+    Global::LogInfo(TEXT("CFile::IsEndOfFile"));
     return _fileSize == _filePosPointer ? TRUE : FALSE;
 }
 
@@ -197,6 +203,7 @@ BOOL CFile::IsEndOfFile()
 
 VOID CFile::NextLine()
 {
+    Global::LogInfo(TEXT("CFile::NextLine"));
     DWORD_PTR totalBufLen = GetBufferInWCharLength();
     if (totalBufLen == 0)
     {

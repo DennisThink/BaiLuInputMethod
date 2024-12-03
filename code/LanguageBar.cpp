@@ -20,6 +20,7 @@
 
 void CSampleIME::_UpdateLanguageBarOnSetFocus(_In_ ITfDocumentMgr *pDocMgrFocus)
 {
+    Global::LogInfo(TEXT("CSampleIME::_UpdateLanguageBarOnSetFocus"));
     BOOL needDisableButtons = FALSE;
 
     if (!pDocMgrFocus) 
@@ -75,6 +76,7 @@ void CSampleIME::_UpdateLanguageBarOnSetFocus(_In_ ITfDocumentMgr *pDocMgrFocus)
 
 VOID CCompositionProcessorEngine::SetLanguageBarStatus(DWORD status, BOOL isSet)
 {
+    Global::LogInfo(TEXT("CCompositionProcessorEngine::SetLanguageBarStatus"));
     if (_pLanguageBar_IMEMode) {
         _pLanguageBar_IMEMode->SetStatus(status, isSet);
     }
@@ -94,6 +96,7 @@ VOID CCompositionProcessorEngine::SetLanguageBarStatus(DWORD status, BOOL isSet)
 
 CLangBarItemButton::CLangBarItemButton(REFGUID guidLangBar, LPCWSTR description, LPCWSTR tooltip, DWORD onIconIndex, DWORD offIconIndex, BOOL isSecureMode)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::CLangBarItemButton"));
     DWORD bufLen = 0;
 
     DllAddRef();
@@ -148,6 +151,7 @@ CLangBarItemButton::CLangBarItemButton(REFGUID guidLangBar, LPCWSTR description,
 
 CLangBarItemButton::~CLangBarItemButton()
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::~CLangBarItemButton"));
     DllRelease();
     CleanUp();
 }
@@ -160,6 +164,7 @@ CLangBarItemButton::~CLangBarItemButton()
 
 void CLangBarItemButton::CleanUp()
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::CleanUp"));
     if (_pTooltipText)
     {
         delete [] _pTooltipText;
@@ -202,6 +207,7 @@ void CLangBarItemButton::CleanUp()
 
 STDAPI CLangBarItemButton::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::QueryInterface"));
     if (ppvObj == nullptr)
     {
         return E_INVALIDARG;
@@ -238,6 +244,7 @@ STDAPI CLangBarItemButton::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
 
 STDAPI_(ULONG) CLangBarItemButton::AddRef()
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::AddRef"));
     return ++_refCount;
 }
 
@@ -249,6 +256,7 @@ STDAPI_(ULONG) CLangBarItemButton::AddRef()
 
 STDAPI_(ULONG) CLangBarItemButton::Release()
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::Release"));
     LONG cr = --_refCount;
 
     assert(_refCount >= 0);
@@ -269,6 +277,7 @@ STDAPI_(ULONG) CLangBarItemButton::Release()
 
 STDAPI CLangBarItemButton::GetInfo(_Out_ TF_LANGBARITEMINFO *pInfo)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::GetInfo"));
     _tfLangBarItemInfo.dwStyle |= TF_LBI_STYLE_SHOWNINTRAY;
     *pInfo = _tfLangBarItemInfo;
     return S_OK;
@@ -282,6 +291,7 @@ STDAPI CLangBarItemButton::GetInfo(_Out_ TF_LANGBARITEMINFO *pInfo)
 
 STDAPI CLangBarItemButton::GetStatus(_Out_ DWORD *pdwStatus)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::GetStatus"));
     if (pdwStatus == nullptr)
     {
         E_INVALIDARG;
@@ -299,6 +309,7 @@ STDAPI CLangBarItemButton::GetStatus(_Out_ DWORD *pdwStatus)
 
 void CLangBarItemButton::SetStatus(DWORD dwStatus, BOOL fSet)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::SetStatus"));
     BOOL isChange = FALSE;
 
     if (fSet) 
@@ -334,6 +345,7 @@ void CLangBarItemButton::SetStatus(DWORD dwStatus, BOOL fSet)
 
 STDAPI CLangBarItemButton::Show(BOOL fShow)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::Show"));
 	fShow;
     if (_pLangBarItemSink)
     {
@@ -350,6 +362,7 @@ STDAPI CLangBarItemButton::Show(BOOL fShow)
 
 STDAPI CLangBarItemButton::GetTooltipString(_Out_ BSTR *pbstrToolTip)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::GetTooltipString"));
     *pbstrToolTip = SysAllocString(_pTooltipText);
 
     return (*pbstrToolTip == nullptr) ? E_OUTOFMEMORY : S_OK;
@@ -363,6 +376,7 @@ STDAPI CLangBarItemButton::GetTooltipString(_Out_ BSTR *pbstrToolTip)
 
 STDAPI CLangBarItemButton::OnClick(TfLBIClick click, POINT pt, _In_ const RECT *prcArea)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::OnClick"));
     click;pt;
     prcArea;
 
@@ -382,6 +396,7 @@ STDAPI CLangBarItemButton::OnClick(TfLBIClick click, POINT pt, _In_ const RECT *
 
 STDAPI CLangBarItemButton::InitMenu(_In_ ITfMenu *pMenu)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::InitMenu"));
     pMenu;
 
     return S_OK;
@@ -395,6 +410,7 @@ STDAPI CLangBarItemButton::InitMenu(_In_ ITfMenu *pMenu)
 
 STDAPI CLangBarItemButton::OnMenuSelect(UINT wID)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::OnMenuSelect"));
     wID;
 
     return S_OK;
@@ -408,6 +424,7 @@ STDAPI CLangBarItemButton::OnMenuSelect(UINT wID)
 
 STDAPI CLangBarItemButton::GetIcon(_Out_ HICON *phIcon)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::GetIcon"));
     BOOL isOn = FALSE;
 
     if (!_pCompartment)
@@ -458,6 +475,7 @@ STDAPI CLangBarItemButton::GetIcon(_Out_ HICON *phIcon)
 
 STDAPI CLangBarItemButton::GetText(_Out_ BSTR *pbstrText)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::GetText"));
     *pbstrText = SysAllocString(_tfLangBarItemInfo.szDescription);
 
     return (*pbstrText == nullptr) ? E_OUTOFMEMORY : S_OK;
@@ -471,6 +489,7 @@ STDAPI CLangBarItemButton::GetText(_Out_ BSTR *pbstrText)
 
 STDAPI CLangBarItemButton::AdviseSink(__RPC__in REFIID riid, __RPC__in_opt IUnknown *punk, __RPC__out DWORD *pdwCookie)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::AdviseSink"));
     // We allow only ITfLangBarItemSink interface.
     if (!IsEqualIID(IID_ITfLangBarItemSink, riid))
     {
@@ -507,6 +526,7 @@ STDAPI CLangBarItemButton::AdviseSink(__RPC__in REFIID riid, __RPC__in_opt IUnkn
 
 STDAPI CLangBarItemButton::UnadviseSink(DWORD dwCookie)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::UnadviseSink"));
     // Check the given cookie.
     if (dwCookie != _cookie)
     {
@@ -533,6 +553,7 @@ STDAPI CLangBarItemButton::UnadviseSink(DWORD dwCookie)
 
 HRESULT CLangBarItemButton::_AddItem(_In_ ITfThreadMgr *pThreadMgr)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::_AddItem"));
     HRESULT hr = S_OK;
     ITfLangBarItemMgr* pLangBarItemMgr = nullptr;
 
@@ -563,6 +584,7 @@ HRESULT CLangBarItemButton::_AddItem(_In_ ITfThreadMgr *pThreadMgr)
 
 HRESULT CLangBarItemButton::_RemoveItem(_In_ ITfThreadMgr *pThreadMgr)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::_RemoveItem"));
     HRESULT hr = S_OK;
     ITfLangBarItemMgr* pLangBarItemMgr = nullptr;
 
@@ -593,6 +615,7 @@ HRESULT CLangBarItemButton::_RemoveItem(_In_ ITfThreadMgr *pThreadMgr)
 
 BOOL CLangBarItemButton::_RegisterCompartment(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId, REFGUID guidCompartment)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::_RegisterCompartment"));
     _pCompartment = new (std::nothrow) CCompartment(pThreadMgr, tfClientId, guidCompartment);
     if (_pCompartment)
     {
@@ -620,6 +643,7 @@ BOOL CLangBarItemButton::_RegisterCompartment(_In_ ITfThreadMgr *pThreadMgr, TfC
 
 BOOL CLangBarItemButton::_UnregisterCompartment(_In_ ITfThreadMgr *pThreadMgr)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::_UnregisterCompartment"));
 	pThreadMgr;
     if (_pCompartment)
     {
@@ -645,6 +669,7 @@ BOOL CLangBarItemButton::_UnregisterCompartment(_In_ ITfThreadMgr *pThreadMgr)
 // static
 HRESULT CLangBarItemButton::_CompartmentCallback(_In_ void *pv, REFGUID guidCompartment)
 {
+    Global::LogInfo(TEXT("CLangBarItemButton::_CompartmentCallback"));
     CLangBarItemButton* fakeThis = (CLangBarItemButton*)pv;
 
     GUID guid = GUID_NULL;

@@ -28,6 +28,7 @@
 
 BOOL CSampleIME::_IsRangeCovered(TfEditCookie ec, _In_ ITfRange *pRangeTest, _In_ ITfRange *pRangeCover)
 {
+    Global::LogInfo(TEXT("CSampleIME::_IsRangeCovered"));
     LONG lResult = 0;;
 
     if (FAILED(pRangeCover->CompareStart(ec, pRangeTest, TF_ANCHOR_START, &lResult)) 
@@ -53,6 +54,7 @@ BOOL CSampleIME::_IsRangeCovered(TfEditCookie ec, _In_ ITfRange *pRangeTest, _In
 
 VOID CSampleIME::_DeleteCandidateList(BOOL isForce, _In_opt_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::_DeleteCandidateList"));
     isForce;pContext;
 
     CCompositionProcessorEngine* pCompositionProcessorEngine = nullptr;
@@ -76,6 +78,7 @@ VOID CSampleIME::_DeleteCandidateList(BOOL isForce, _In_opt_ ITfContext *pContex
 
 HRESULT CSampleIME::_HandleComplete(TfEditCookie ec, _In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::_HandleComplete"));
     _DeleteCandidateList(FALSE, pContext);
 
     // just terminate the composition
@@ -92,6 +95,7 @@ HRESULT CSampleIME::_HandleComplete(TfEditCookie ec, _In_ ITfContext *pContext)
 
 HRESULT CSampleIME::_HandleCancel(TfEditCookie ec, _In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::_HandleCancel"));
     _RemoveDummyCompositionForComposing(ec, _pComposition);
 
     _DeleteCandidateList(FALSE, pContext);
@@ -111,6 +115,7 @@ HRESULT CSampleIME::_HandleCancel(TfEditCookie ec, _In_ ITfContext *pContext)
 
 HRESULT CSampleIME::_HandleCompositionInput(TfEditCookie ec, _In_ ITfContext *pContext, WCHAR wch)
 {
+    Global::LogInfo(TEXT("CSampleIME::_HandleCompositionInput"));
     ITfRange* pRangeComposition = nullptr;
     TF_SELECTION tfSelection;
     ULONG fetched = 0;
@@ -169,6 +174,7 @@ Exit:
 
 HRESULT CSampleIME::_HandleCompositionInputWorker(_In_ CCompositionProcessorEngine *pCompositionProcessorEngine, TfEditCookie ec, _In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::_HandleCompositionInputWorker"));
     HRESULT hr = S_OK;
     CSampleImeArray<CStringRange> readingStrings;
     BOOL isWildcardIncluded = TRUE;
@@ -225,6 +231,7 @@ HRESULT CSampleIME::_HandleCompositionInputWorker(_In_ CCompositionProcessorEngi
 
 HRESULT CSampleIME::_CreateAndStartCandidate(_In_ CCompositionProcessorEngine *pCompositionProcessorEngine, TfEditCookie ec, _In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::_CreateAndStartCandidate"));
     HRESULT hr = S_OK;
 
     if (((_candidateMode == CANDIDATE_PHRASE) && (_pCandidateListUIPresenter))
@@ -279,6 +286,7 @@ HRESULT CSampleIME::_CreateAndStartCandidate(_In_ CCompositionProcessorEngine *p
 
 HRESULT CSampleIME::_HandleCompositionFinalize(TfEditCookie ec, _In_ ITfContext *pContext, BOOL isCandidateList)
 {
+    Global::LogInfo(TEXT("CSampleIME::_HandleCompositionFinalize"));
     HRESULT hr = S_OK;
 
     if (isCandidateList && _pCandidateListUIPresenter)
@@ -343,6 +351,7 @@ HRESULT CSampleIME::_HandleCompositionFinalize(TfEditCookie ec, _In_ ITfContext 
 
 HRESULT CSampleIME::_HandleCompositionConvert(TfEditCookie ec, _In_ ITfContext *pContext, BOOL isWildcardSearch)
 {
+    Global::LogInfo(TEXT("CSampleIME::_HandleCompositionConvert"));
     HRESULT hr = S_OK;
 
     CSampleImeArray<CCandidateListItem> candidateList;
@@ -418,6 +427,7 @@ HRESULT CSampleIME::_HandleCompositionConvert(TfEditCookie ec, _In_ ITfContext *
 
 HRESULT CSampleIME::_HandleCompositionBackspace(TfEditCookie ec, _In_ ITfContext *pContext)
 {
+    Global::LogInfo(TEXT("CSampleIME::_HandleCompositionBackspace"));
     ITfRange* pRangeComposition = nullptr;
     TF_SELECTION tfSelection;
     ULONG fetched = 0;
@@ -485,6 +495,7 @@ Exit:
 
 HRESULT CSampleIME::_HandleCompositionArrowKey(TfEditCookie ec, _In_ ITfContext *pContext, KEYSTROKE_FUNCTION keyFunction)
 {
+    Global::LogInfo(TEXT("CSampleIME::_HandleCompositionArrowKey"));
     ITfRange* pRangeComposition = nullptr;
     TF_SELECTION tfSelection;
     ULONG fetched = 0;
@@ -526,6 +537,7 @@ Exit:
 
 HRESULT CSampleIME::_HandleCompositionPunctuation(TfEditCookie ec, _In_ ITfContext *pContext, WCHAR wch)
 {
+    Global::LogInfo(TEXT("CSampleIME::_HandleCompositionPunctuation"));
     HRESULT hr = S_OK;
 
     if (_candidateMode != CANDIDATE_NONE && _pCandidateListUIPresenter)
@@ -574,6 +586,7 @@ HRESULT CSampleIME::_HandleCompositionPunctuation(TfEditCookie ec, _In_ ITfConte
 
 HRESULT CSampleIME::_HandleCompositionDoubleSingleByte(TfEditCookie ec, _In_ ITfContext *pContext, WCHAR wch)
 {
+    Global::LogInfo(TEXT("CSampleIME::_HandleCompositionDoubleSingleByte"));
     HRESULT hr = S_OK;
 
     WCHAR fullWidth = Global::FullWidthCharTable[wch - 0x20];
@@ -609,6 +622,7 @@ HRESULT CSampleIME::_HandleCompositionDoubleSingleByte(TfEditCookie ec, _In_ ITf
 
 HRESULT CSampleIME::_InvokeKeyHandler(_In_ ITfContext *pContext, UINT code, WCHAR wch, DWORD flags, _KEYSTROKE_STATE keyState)
 {
+    Global::LogInfo(TEXT("CSampleIME::_InvokeKeyHandler"));
     flags;
 
     CKeyHandlerEditSession* pEditSession = nullptr;
