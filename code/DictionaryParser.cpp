@@ -44,7 +44,7 @@ CDictionaryParser::~CDictionaryParser()
 BOOL CDictionaryParser::ParseLine(_In_reads_(dwBufLen) LPCWSTR pwszBuffer, DWORD_PTR dwBufLen, _Out_ CParserStringRange *psrgKeyword, _Inout_opt_ CSampleImeArray<CParserStringRange> *pValue)
 {
     //To Many Logs to make it less
-    if (m_n_log_times % 100 == 0)
+    if (m_n_log_times % 1000 == 0)
     {
         Global::LogInfo(TEXT("CDictionaryParser::ParseLine"));
     }
@@ -93,7 +93,7 @@ _Ret_maybenull_
 LPCWSTR CDictionaryParser::GetToken(_In_reads_(dwBufLen) LPCWSTR pwszBuffer, DWORD_PTR dwBufLen, _In_ const WCHAR chDelimiter, _Out_ CParserStringRange *psrgValue)
 {
     //To Many Logs to make it less
-    if (m_n_log_times % 100 == 0)
+    if (m_n_log_times % 1000 == 0)
     {
         Global::LogInfo(TEXT("CDictionaryParser::GetToken"));
     }
@@ -159,7 +159,7 @@ LPCWSTR CDictionaryParser::GetToken(_In_reads_(dwBufLen) LPCWSTR pwszBuffer, DWO
 
 BOOL CDictionaryParser::RemoveWhiteSpaceFromBegin(_Inout_opt_ CStringRange *pString)
 {
-    if (m_n_log_times % 100 == 0)
+    if (m_n_log_times % 1000 == 0)
     {
         Global::LogInfo(TEXT("CDictionaryParser::RemoveWhiteSpaceFromBegin"));
     }
@@ -182,7 +182,7 @@ BOOL CDictionaryParser::RemoveWhiteSpaceFromBegin(_Inout_opt_ CStringRange *pStr
 
 BOOL CDictionaryParser::RemoveWhiteSpaceFromEnd(_Inout_opt_ CStringRange *pString)
 {
-    if (m_n_log_times % 100 == 0)
+    if (m_n_log_times % 1000 == 0)
     {
         Global::LogInfo(TEXT("CDictionaryParser::RemoveWhiteSpaceFromEnd"));
     }
@@ -208,7 +208,7 @@ BOOL CDictionaryParser::RemoveWhiteSpaceFromEnd(_Inout_opt_ CStringRange *pStrin
 BOOL CDictionaryParser::RemoveStringDelimiter(_Inout_opt_ CStringRange *pString)
 {
     
-    if (m_n_log_times % 100 == 0)
+    if (m_n_log_times % 1000 == 0)
     {
         Global::LogInfo(TEXT("CDictionaryParser::RemoveStringDelimiter"));
     }
@@ -241,7 +241,7 @@ BOOL CDictionaryParser::RemoveStringDelimiter(_Inout_opt_ CStringRange *pString)
 DWORD_PTR CDictionaryParser::GetOneLine(_In_z_ LPCWSTR pwszBuffer, DWORD_PTR dwBufLen)
 {
     //TO Many logs so make it less
-    if (m_n_log_times % 100 == 0)
+    if (m_n_log_times % 1000 == 0)
     {
         Global::LogInfo(TEXT("CDictionaryParser::GetOneLine"));
     }

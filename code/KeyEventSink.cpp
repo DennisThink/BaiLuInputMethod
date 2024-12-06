@@ -438,7 +438,7 @@ STDAPI CSampleIME::OnKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, B
 STDAPI CSampleIME::OnPreservedKey(ITfContext *pContext, REFGUID rguid, BOOL *pIsEaten)
 {
     Global::LogInfo(TEXT("CSampleIME::OnPreservedKey"));
-	pContext;
+    pContext;
 
     CCompositionProcessorEngine *pCompositionProcessorEngine;
     pCompositionProcessorEngine = _pCompositionProcessorEngine;

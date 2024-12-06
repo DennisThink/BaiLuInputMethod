@@ -7,6 +7,7 @@
 
 #include "Globals.h"
 
+static int g_n_log_less = 0;
 //---------------------------------------------------------------------
 //
 // CLSIDToString
@@ -56,7 +57,11 @@ BOOL CLSIDToString(REFGUID refGUID, _Out_writes_(39) WCHAR *pCLSIDString)
 
 HRESULT SkipWhiteSpace(LCID locale, _In_ LPCWSTR pwszBuffer, DWORD_PTR dwBufLen, _Out_ DWORD_PTR *pdwIndex)
 {
+    if (g_n_log_less % 1000 == 0)
+    {
     Global::LogInfo(TEXT("SkipWhiteSpace"));
+    }
+    g_n_log_less++;
     DWORD_PTR index = 0;
 
     *pdwIndex = 0;
@@ -86,7 +91,11 @@ HRESULT SkipWhiteSpace(LCID locale, _In_ LPCWSTR pwszBuffer, DWORD_PTR dwBufLen,
 
 HRESULT FindChar(WCHAR wch, _In_ LPCWSTR pwszBuffer, DWORD_PTR dwBufLen, _Out_ DWORD_PTR *pdwIndex)
 {
+    if (g_n_log_less % 1000 == 0)
+    {
     Global::LogInfo(TEXT("FindChar"));
+    }
+    g_n_log_less++;
     DWORD_PTR index = 0;
 
     *pdwIndex = 0;
@@ -114,7 +123,11 @@ HRESULT FindChar(WCHAR wch, _In_ LPCWSTR pwszBuffer, DWORD_PTR dwBufLen, _Out_ D
 
 BOOL IsSpace(LCID locale, WCHAR wch)
 {
+    if (g_n_log_less % 1000 == 0)
+    {
     Global::LogInfo(TEXT("IsSpace"));
+    }
+    g_n_log_less++;
     WORD wCharType = 0;
 
     GetStringTypeEx(locale, CT_CTYPE1, &wch, 1, &wCharType);

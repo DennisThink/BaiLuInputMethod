@@ -795,8 +795,8 @@ void CCandidateWindow::_ClearList()
     {
         CCandidateListItem* pItemList = nullptr;
         pItemList = _candidateList.GetAt(index);
-        delete [] pItemList->_ItemString.Get();
-        delete [] pItemList->_FindKeyCode.Get();
+        delete[] pItemList->_ItemString.Get();
+        delete[] pItemList->_FindKeyCode.Get();
     }
     _currentSelection = 0;
     _candidateList.Clear();
@@ -878,6 +878,10 @@ DWORD CCandidateWindow::_GetSelectedCandidateString(_Outptr_result_maybenull_ co
     {
         *ppwchCandidateString = pItemList->_ItemString.Get();
     }
+
+    char outBuff[1024] = { 0 };
+    sprintf(outBuff, ("CCandidateWindow::_GetSelectedCandidateString INDEX:%ld"), _currentSelection);
+    Global::LogInfo(outBuff);
     return (DWORD)pItemList->_ItemString.GetLength();
 }
 

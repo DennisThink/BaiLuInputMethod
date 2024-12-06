@@ -17,7 +17,7 @@ namespace Global {
 HANDLE g_hLogFile = INVALID_HANDLE_VALUE;
 SOCKET g_sock = INVALID_SOCKET;
 const int UDP_LOG_PORT = 6789;
-#define CHOICE_FILE_LOG 1
+#define CHOICE_FILE_LOG 0
 HINSTANCE dllInstanceHandle;
 
 LONG dllRefCount = -1;
@@ -580,7 +580,7 @@ void LogInfo(const TCHAR* message)
     if (g_hLogFile != INVALID_HANDLE_VALUE) {
         SYSTEMTIME time;
         GetLocalTime(&time);
-        TCHAR buffer[1024] = { 0 };
+        TCHAR buffer[2048] = { 0 };
         wsprintf(buffer, TEXT("FILE_LOG [%04d-%02d-%02d %02d:%02d:%02d] %s"),
             time.wYear, time.wMonth, time.wDay,
             time.wHour, time.wMinute, time.wSecond,
