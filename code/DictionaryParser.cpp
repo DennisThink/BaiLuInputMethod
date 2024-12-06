@@ -19,6 +19,7 @@ CDictionaryParser::CDictionaryParser(LCID locale)
 {
     Global::LogInfo(TEXT("CDictionaryParser::CDictionaryParser"));
     _locale = locale;
+    m_n_log_times = 0;
 }
 
 //---------------------------------------------------------------------
@@ -42,7 +43,12 @@ CDictionaryParser::~CDictionaryParser()
 
 BOOL CDictionaryParser::ParseLine(_In_reads_(dwBufLen) LPCWSTR pwszBuffer, DWORD_PTR dwBufLen, _Out_ CParserStringRange *psrgKeyword, _Inout_opt_ CSampleImeArray<CParserStringRange> *pValue)
 {
-    Global::LogInfo(TEXT("CDictionaryParser::ParseLine"));
+    //To Many Logs to make it less
+    if (m_n_log_times % 100 == 0)
+    {
+        Global::LogInfo(TEXT("CDictionaryParser::ParseLine"));
+    }
+    m_n_log_times++;
     LPCWSTR pwszKeyWordDelimiter = nullptr;
     pwszKeyWordDelimiter = GetToken(pwszBuffer, dwBufLen, Global::KeywordDelimiter, psrgKeyword);
     if (!(pwszKeyWordDelimiter))
@@ -86,7 +92,13 @@ BOOL CDictionaryParser::ParseLine(_In_reads_(dwBufLen) LPCWSTR pwszBuffer, DWORD
 _Ret_maybenull_
 LPCWSTR CDictionaryParser::GetToken(_In_reads_(dwBufLen) LPCWSTR pwszBuffer, DWORD_PTR dwBufLen, _In_ const WCHAR chDelimiter, _Out_ CParserStringRange *psrgValue)
 {
-    Global::LogInfo(TEXT("CDictionaryParser::GetToken"));
+    //To Many Logs to make it less
+    if (m_n_log_times % 100 == 0)
+    {
+        Global::LogInfo(TEXT("CDictionaryParser::GetToken"));
+    }
+    m_n_log_times++;
+
     WCHAR ch = '\0';
 
     psrgValue->Set(pwszBuffer, dwBufLen);
@@ -147,7 +159,11 @@ LPCWSTR CDictionaryParser::GetToken(_In_reads_(dwBufLen) LPCWSTR pwszBuffer, DWO
 
 BOOL CDictionaryParser::RemoveWhiteSpaceFromBegin(_Inout_opt_ CStringRange *pString)
 {
-    Global::LogInfo(TEXT("CDictionaryParser::RemoveWhiteSpaceFromBegin"));
+    if (m_n_log_times % 100 == 0)
+    {
+        Global::LogInfo(TEXT("CDictionaryParser::RemoveWhiteSpaceFromBegin"));
+    }
+    m_n_log_times++;
     DWORD_PTR dwIndexTrace = 0;  // in char
 
     if (pString == nullptr)
@@ -166,7 +182,11 @@ BOOL CDictionaryParser::RemoveWhiteSpaceFromBegin(_Inout_opt_ CStringRange *pStr
 
 BOOL CDictionaryParser::RemoveWhiteSpaceFromEnd(_Inout_opt_ CStringRange *pString)
 {
-    Global::LogInfo(TEXT("CDictionaryParser::RemoveWhiteSpaceFromEnd"));
+    if (m_n_log_times % 100 == 0)
+    {
+        Global::LogInfo(TEXT("CDictionaryParser::RemoveWhiteSpaceFromEnd"));
+    }
+    m_n_log_times++;
     if (pString == nullptr)
     {
         return FALSE;
@@ -187,7 +207,12 @@ BOOL CDictionaryParser::RemoveWhiteSpaceFromEnd(_Inout_opt_ CStringRange *pStrin
 
 BOOL CDictionaryParser::RemoveStringDelimiter(_Inout_opt_ CStringRange *pString)
 {
-    Global::LogInfo(TEXT("CDictionaryParser::RemoveStringDelimiter"));
+    
+    if (m_n_log_times % 100 == 0)
+    {
+        Global::LogInfo(TEXT("CDictionaryParser::RemoveStringDelimiter"));
+    }
+    m_n_log_times++;
     if (pString == nullptr)
     {
         return FALSE;
@@ -215,7 +240,13 @@ BOOL CDictionaryParser::RemoveStringDelimiter(_Inout_opt_ CStringRange *pString)
 
 DWORD_PTR CDictionaryParser::GetOneLine(_In_z_ LPCWSTR pwszBuffer, DWORD_PTR dwBufLen)
 {
-    Global::LogInfo(TEXT("CDictionaryParser::GetOneLine"));
+    //TO Many logs so make it less
+    if (m_n_log_times % 100 == 0)
+    {
+        Global::LogInfo(TEXT("CDictionaryParser::GetOneLine"));
+    }
+    m_n_log_times++;
+
     DWORD_PTR dwIndexTrace = 0;     // in char
 
     if (FAILED(FindChar(L'\r', pwszBuffer, dwBufLen, &dwIndexTrace)))

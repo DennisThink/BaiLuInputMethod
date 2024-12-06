@@ -55,4 +55,5 @@ protected:
     DWORD_PTR GetOneLine(_In_z_ LPCWSTR pwszBuffer, DWORD_PTR dwBufLen);
 
     LCID _locale;   // used for CompareString
+    int m_n_log_times;
 };

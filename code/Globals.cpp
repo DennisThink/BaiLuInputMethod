@@ -213,6 +213,14 @@ BOOL RegisterWindowClass()
     return TRUE;
 }
 
+BOOL UnRegisterWindowClass()
+{
+    CBaseWindow::_UninitWindowClass(AtomCandidateWindow);
+    CBaseWindow::_UninitWindowClass(AtomShadowWindow);
+    CBaseWindow::_UninitWindowClass(AtomScrollBarWindow);
+    return TRUE;
+}
+
 //---------------------------------------------------------------------
 // defined full width characters for Double/Single byte conversion
 //---------------------------------------------------------------------
@@ -544,19 +552,16 @@ void LogInfo(const std::string strMsg)
 
         SYSTEMTIME time;
         GetLocalTime(&time);
-        char buffer[1024] = { 0 };
+        char buffer[2048] = { 0 };
         sprintf(buffer, ("UDP_LOG [%04d-%02d-%02d %02d:%02d:%02d] %s"),
             time.wYear, time.wMonth, time.wDay,
             time.wHour, time.wMinute, time.wSecond,
-            message);
+            strMsg.c_str());
         {
             DWORD bytesWritten;
             // 写入文件
             //WriteFile(g_hLogFile, buffer, lstrlen(buffer) * sizeof(TCHAR), &bytesWritten, NULL);
-            USES_CONVERSION;
-            char multiBuf[2048] = { 0 };
-            sprintf(multiBuf, "%s\n", W2A(buffer));
-            sendto(g_sock, (const char*)(multiBuf), strlen(multiBuf), 0, (sockaddr*)&dest, sizeof(dest));
+            sendto(g_sock, (const char*)(buffer), strlen(buffer), 0, (sockaddr*)&dest, sizeof(dest));
             // 写入换行符（需要考虑字符集）
 #ifdef _UNICODE
             const TCHAR* newline = L"\r\n";

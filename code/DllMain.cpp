@@ -21,7 +21,7 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID pvReserved)
     switch (dwReason)
     {
     case DLL_PROCESS_ATTACH:
-
+        Global::OpenLogFile();
         Global::dllInstanceHandle = hInstance;
 
         if (!InitializeCriticalSectionAndSpinCount(&Global::CS, 0))
@@ -32,7 +32,7 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID pvReserved)
         if (!Global::RegisterWindowClass()) {
             return FALSE;
         }
-        Global::OpenLogFile();
+
         Global::LogInfo(TEXT("DLL_PROCESS_ATTACH"));
         break;
 
@@ -40,6 +40,7 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID pvReserved)
         Global::LogInfo(TEXT("DLL_PROCESS_DETACH"));
         Global::CloseLogFile();
         DeleteCriticalSection(&Global::CS);
+        Global::UnRegisterWindowClass();
         break;
 
     case DLL_THREAD_ATTACH:

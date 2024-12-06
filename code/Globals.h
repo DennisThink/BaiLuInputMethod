@@ -104,7 +104,7 @@ extern ATOM AtomShadowWindow;
 extern ATOM AtomScrollBarWindow;
 
 BOOL RegisterWindowClass();
-
+BOOL UnRegisterWindowClass();
 extern LONG dllRefCount;
 
 extern CRITICAL_SECTION CS;
