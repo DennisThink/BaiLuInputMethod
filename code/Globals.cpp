@@ -17,7 +17,7 @@ namespace Global {
 HANDLE g_hLogFile = INVALID_HANDLE_VALUE;
 SOCKET g_sock = INVALID_SOCKET;
 const int UDP_LOG_PORT = 6789;
-#define CHOICE_FILE_LOG 0
+#define CHOICE_FILE_LOG 1
 HINSTANCE dllInstanceHandle;
 
 LONG dllRefCount = -1;
@@ -541,6 +541,7 @@ void LogInfo(const std::string strMsg)
             const TCHAR* newline = "\r\n";
 #endif
             WriteFile(g_hLogFile, newline, lstrlen(newline) * sizeof(TCHAR), &bytesWritten, NULL);
+            FlushFileBuffers(g_hLogFile);
         }
     }
 #else
@@ -578,10 +579,15 @@ void LogInfo(const TCHAR* message)
 
 #if CHOICE_FILE_LOG
     if (g_hLogFile != INVALID_HANDLE_VALUE) {
+
+        TCHAR processName[256] = { 0 };
+        HMODULE hCurHand = GetModuleHandle(NULL);
+        GetModuleFileName(hCurHand, processName, 256);
         SYSTEMTIME time;
         GetLocalTime(&time);
         TCHAR buffer[2048] = { 0 };
-        wsprintf(buffer, TEXT("FILE_LOG [%04d-%02d-%02d %02d:%02d:%02d] %s"),
+        wsprintf(buffer, TEXT("FILE_LOG %s [%04d-%02d-%02d %02d:%02d:%02d] %s"),
+            processName,
             time.wYear, time.wMonth, time.wDay,
             time.wHour, time.wMinute, time.wSecond,
             message);
@@ -596,6 +602,7 @@ void LogInfo(const TCHAR* message)
             const TCHAR* newline = "\r\n";
 #endif
             WriteFile(g_hLogFile, newline, lstrlen(newline) * sizeof(TCHAR), &bytesWritten, NULL);
+            FlushFileBuffers(g_hLogFile);
         }
     }
 #else

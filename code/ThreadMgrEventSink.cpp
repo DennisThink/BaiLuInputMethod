@@ -20,7 +20,7 @@
 
 STDAPI CSampleIME::OnInitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr)
 {
-    Global::LogInfo(TEXT("CSampleIME::OnInitDocumentMgr"));
+    Global::LogInfo(TEXT("CSampleIME::OnInitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr)"));
     pDocMgr;
     return E_NOTIMPL;
 }
@@ -35,7 +35,7 @@ STDAPI CSampleIME::OnInitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr)
 
 STDAPI CSampleIME::OnUninitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr)
 {
-    Global::LogInfo(TEXT("CSampleIME::OnUninitDocumentMgr"));
+    Global::LogInfo(TEXT("CSampleIME::OnUninitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr)"));
     pDocMgr;
     return E_NOTIMPL;
 }
@@ -51,7 +51,7 @@ STDAPI CSampleIME::OnUninitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr)
 
 STDAPI CSampleIME::OnSetFocus(_In_ ITfDocumentMgr *pDocMgrFocus, _In_ ITfDocumentMgr *pDocMgrPrevFocus)
 {
-    Global::LogInfo(TEXT("CSampleIME::OnSetFocus"));
+    Global::LogInfo(TEXT("CSampleIME::OnSetFocus(_In_ ITfDocumentMgr *pDocMgrFocus, _In_ ITfDocumentMgr *pDocMgrPrevFocus)"));
     pDocMgrPrevFocus;
 
     _InitTextEditSink(pDocMgrFocus);
@@ -106,7 +106,7 @@ STDAPI CSampleIME::OnSetFocus(_In_ ITfDocumentMgr *pDocMgrFocus, _In_ ITfDocumen
 
 STDAPI CSampleIME::OnPushContext(_In_ ITfContext *pContext)
 {
-    Global::LogInfo(TEXT("CSampleIME::OnPushContext"));
+    Global::LogInfo(TEXT("CSampleIME::OnPushContext(_In_ ITfContext *pContext)"));
     pContext;
 
     return E_NOTIMPL;
@@ -121,7 +121,7 @@ STDAPI CSampleIME::OnPushContext(_In_ ITfContext *pContext)
 
 STDAPI CSampleIME::OnPopContext(_In_ ITfContext *pContext)
 {
-    Global::LogInfo(TEXT("CSampleIME::OnPopContext"));
+    Global::LogInfo(TEXT("CSampleIME::OnPopContext(_In_ ITfContext *pContext)"));
     pContext;
 
     return E_NOTIMPL;

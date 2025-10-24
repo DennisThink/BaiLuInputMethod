@@ -33,60 +33,60 @@ public:
     ~CSampleIME();
 
     // IUnknown
-    STDMETHODIMP QueryInterface(REFIID riid, _Outptr_ void **ppvObj);
-    STDMETHODIMP_(ULONG) AddRef(void);
-    STDMETHODIMP_(ULONG) Release(void);
+    STDMETHODIMP QueryInterface(REFIID riid, _Outptr_ void **ppvObj) override;
+    STDMETHODIMP_(ULONG) AddRef(void) override;
+    STDMETHODIMP_(ULONG) Release(void) override;
 
     // ITfTextInputProcessor
-    STDMETHODIMP Activate(ITfThreadMgr *pThreadMgr, TfClientId tfClientId) {
+    STDMETHODIMP Activate(ITfThreadMgr *pThreadMgr, TfClientId tfClientId) override {
         return ActivateEx(pThreadMgr, tfClientId, 0);
     }
     // ITfTextInputProcessorEx
-    STDMETHODIMP ActivateEx(ITfThreadMgr *pThreadMgr, TfClientId tfClientId, DWORD dwFlags);
-    STDMETHODIMP Deactivate();
+    STDMETHODIMP ActivateEx(ITfThreadMgr *pThreadMgr, TfClientId tfClientId, DWORD dwFlags) override;
+    STDMETHODIMP Deactivate() override;
 
     // ITfThreadMgrEventSink
-    STDMETHODIMP OnInitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr);
-    STDMETHODIMP OnUninitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr);
-    STDMETHODIMP OnSetFocus(_In_ ITfDocumentMgr *pDocMgrFocus, _In_ ITfDocumentMgr *pDocMgrPrevFocus);
-    STDMETHODIMP OnPushContext(_In_ ITfContext *pContext);
-    STDMETHODIMP OnPopContext(_In_ ITfContext *pContext);
+    STDMETHODIMP OnInitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr) override;
+    STDMETHODIMP OnUninitDocumentMgr(_In_ ITfDocumentMgr *pDocMgr) override;
+    STDMETHODIMP OnSetFocus(_In_ ITfDocumentMgr *pDocMgrFocus, _In_ ITfDocumentMgr *pDocMgrPrevFocus) override;
+    STDMETHODIMP OnPushContext(_In_ ITfContext *pContext) override;
+    STDMETHODIMP OnPopContext(_In_ ITfContext *pContext) override;
 
     // ITfTextEditSink
-    STDMETHODIMP OnEndEdit(__RPC__in_opt ITfContext *pContext, TfEditCookie ecReadOnly, __RPC__in_opt ITfEditRecord *pEditRecord);
+    STDMETHODIMP OnEndEdit(__RPC__in_opt ITfContext *pContext, TfEditCookie ecReadOnly, __RPC__in_opt ITfEditRecord *pEditRecord) override;
 
     // ITfKeyEventSink
-    STDMETHODIMP OnSetFocus(BOOL fForeground);
-    STDMETHODIMP OnTestKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten);
-    STDMETHODIMP OnKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten);
-    STDMETHODIMP OnTestKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten);
-    STDMETHODIMP OnKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten);
-    STDMETHODIMP OnPreservedKey(ITfContext *pContext, REFGUID rguid, BOOL *pIsEaten);
+    STDMETHODIMP OnSetFocus(BOOL fForeground) override;
+    STDMETHODIMP OnTestKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten) override;
+    STDMETHODIMP OnKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten) override;
+    STDMETHODIMP OnTestKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten) override;
+    STDMETHODIMP OnKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pIsEaten) override;
+    STDMETHODIMP OnPreservedKey(ITfContext *pContext, REFGUID rguid, BOOL *pIsEaten) override;
 
     // ITfCompositionSink
-    STDMETHODIMP OnCompositionTerminated(TfEditCookie ecWrite, _In_ ITfComposition *pComposition);
+    STDMETHODIMP OnCompositionTerminated(TfEditCookie ecWrite, _In_ ITfComposition *pComposition) override;
 
     // ITfDisplayAttributeProvider
-    STDMETHODIMP EnumDisplayAttributeInfo(__RPC__deref_out_opt IEnumTfDisplayAttributeInfo **ppEnum);
-    STDMETHODIMP GetDisplayAttributeInfo(__RPC__in REFGUID guidInfo, __RPC__deref_out_opt ITfDisplayAttributeInfo **ppInfo);
+    STDMETHODIMP EnumDisplayAttributeInfo(__RPC__deref_out_opt IEnumTfDisplayAttributeInfo **ppEnum) override;
+    STDMETHODIMP GetDisplayAttributeInfo(__RPC__in REFGUID guidInfo, __RPC__deref_out_opt ITfDisplayAttributeInfo **ppInfo) override;
 
     // ITfActiveLanguageProfileNotifySink
-    STDMETHODIMP OnActivated(_In_ REFCLSID clsid, _In_ REFGUID guidProfile, _In_ BOOL isActivated);
+    STDMETHODIMP OnActivated(_In_ REFCLSID clsid, _In_ REFGUID guidProfile, _In_ BOOL isActivated) override;
 
     // ITfThreadFocusSink
-    STDMETHODIMP OnSetThreadFocus();
-    STDMETHODIMP OnKillThreadFocus();
+    STDMETHODIMP OnSetThreadFocus() override;
+    STDMETHODIMP OnKillThreadFocus() override;
 
     // ITfFunctionProvider
-    STDMETHODIMP GetType(__RPC__out GUID *pguid);
-    STDMETHODIMP GetDescription(__RPC__deref_out_opt BSTR *pbstrDesc);
-    STDMETHODIMP GetFunction(__RPC__in REFGUID rguid, __RPC__in REFIID riid, __RPC__deref_out_opt IUnknown **ppunk);
+    STDMETHODIMP GetType(__RPC__out GUID *pguid) override;
+    STDMETHODIMP GetDescription(__RPC__deref_out_opt BSTR *pbstrDesc) override;
+    STDMETHODIMP GetFunction(__RPC__in REFGUID rguid, __RPC__in REFIID riid, __RPC__deref_out_opt IUnknown **ppunk) override;
 
     // ITfFunction
-    STDMETHODIMP GetDisplayName(_Out_ BSTR *pbstrDisplayName);
+    STDMETHODIMP GetDisplayName(_Out_ BSTR *pbstrDisplayName) override;
 
     // ITfFnGetPreferredTouchKeyboardLayout, it is the Optimized layout feature.
-    STDMETHODIMP GetLayout(_Out_ TKBLayoutType *ptkblayoutType, _Out_ WORD *pwPreferredLayoutId);
+    STDMETHODIMP GetLayout(_Out_ TKBLayoutType *ptkblayoutType, _Out_ WORD *pwPreferredLayoutId) override;
 
     // CClassFactory factory callback
     static HRESULT CreateInstance(_In_ IUnknown *pUnkOuter, REFIID riid, _Outptr_ void **ppvObj);

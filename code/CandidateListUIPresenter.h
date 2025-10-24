@@ -28,7 +28,8 @@ class CReadingLine;
 
 class CCandidateListUIPresenter : public CTfTextLayoutSink,
     public ITfCandidateListUIElementBehavior,
-    public ITfIntegratableCandidateListUIElement
+    public ITfIntegratableCandidateListUIElement,
+    public ITfThreadFocusSink
 {
 public:
     CCandidateListUIPresenter(_In_ CSampleIME *pTextService, ATOM atom,

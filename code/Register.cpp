@@ -210,6 +210,7 @@ LONG RecurseDeleteKey(_In_ HKEY hParentKey, _In_ LPCTSTR lpszKey)
 //
 //  RegisterServer
 //
+//  写注册表
 //----------------------------------------------------------------------------
 
 BOOL RegisterServer()
@@ -272,6 +273,7 @@ Exit:
 //
 //  UnregisterServer
 //
+//  删除注册表相关的值
 //----------------------------------------------------------------------------
 
 void UnregisterServer()

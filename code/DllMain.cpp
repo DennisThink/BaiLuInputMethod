@@ -39,8 +39,9 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID pvReserved)
     case DLL_PROCESS_DETACH:
         Global::LogInfo(TEXT("DLL_PROCESS_DETACH"));
         Global::CloseLogFile();
-        DeleteCriticalSection(&Global::CS);
         Global::UnRegisterWindowClass();
+        DeleteCriticalSection(&Global::CS);
+
         break;
 
     case DLL_THREAD_ATTACH:
